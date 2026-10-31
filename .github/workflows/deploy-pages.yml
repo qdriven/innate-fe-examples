@@ -1,0 +1,82 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 避免 Pages 构建互相覆盖
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout examples repo
+        uses: actions/checkout@v4
+        with:
+          path: apps/innate-fe-examples
+
+      # web-showcase 的构建依赖 innate-fe 框架仓提供的 @innate/* 包与 CLI。
+      # 两仓以 apps/innate-fe-examples 与 framework/innate-fe 的相对布局 checkout，
+      # 使 examples 仓 pnpm-workspace.yaml 的 ../../framework/innate-fe/packages/* 能命中，
+      # 并让 next.config.js 的 turbopack.root(../../../../ = 公共父目录) 覆盖两仓。
+      - name: Checkout framework repo
+        uses: actions/checkout@v4
+        with:
+          repository: variableway/innate-fe
+          ref: main
+          path: framework/innate-fe
+
+      - name: Setup Bun
+        uses: oven/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.15.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # 先装框架仓：CLI（innate-fe-cli）运行时要从 framework/innate-fe/node_modules
+      # 解析 @innate/*（examples 仓的 prepare 钩子会跑 `bun run cli prepare`）。
+      - name: Install framework packages
+        working-directory: framework/innate-fe
+        run: pnpm install --frozen-lockfile
+
+      - name: Install examples dependencies
+        working-directory: apps/innate-fe-examples
+        run: pnpm install --frozen-lockfile
+
+      # GITHUB_PAGES=true → next.config.js 走静态导出，basePath=/innate-fe-templates，产物入 dist/。
+      - name: Build web-showcase
+        working-directory: apps/innate-fe-examples
+        run: GITHUB_PAGES=true pnpm --filter @innate/web-showcase build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/innate-fe-examples/examples/web-showcase/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
