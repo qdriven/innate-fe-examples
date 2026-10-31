@@ -7,7 +7,7 @@
 # `all` / `preview` 需要框架的壳与 CLI，见 README「构建方式」。
 #
 # 约定：
-# - domain：源码在 `from` 指定的目录，gen 时 copy 进 `domains/<id>`（打包面）；
+# - domain：源码在 `from` 指定的目录，gen 时链接到 `domains/<id>`（打包面）；
 # - iframe：清单来自 `from` 指定目录下的 plugin.json（innate.plugin.v1）。
 protocol: innate.web-plugin.packaging.v1
 version: 1

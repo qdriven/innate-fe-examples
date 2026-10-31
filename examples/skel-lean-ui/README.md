@@ -28,7 +28,7 @@
 ```bash
 # 前置：skel-lean-demo 已运行过 ./run-demo.sh（生成 bin/ 与 .lake 构建产物）
 pnpm --filter @innate/skel-lean-ui collect     # 刷新基线数据 → src/data/demo-snapshot.json
-pnpm --filter @innate/skel-lean-ui dev         # http://localhost:4010
+pnpm --filter @innate/skel-lean-ui dev         # http://localhost:4011
 ```
 
 ### Playground 的两种生成引擎

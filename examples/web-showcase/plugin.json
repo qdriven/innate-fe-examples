@@ -6,8 +6,8 @@
   "version": "0.1.0",
   "name": "UI Showcase",
   "runtime": "iframe",
-  "iframeSrc": "http://localhost:4003/",
-  "origins": ["http://localhost:4003"],
+  "iframeSrc": "/plugins/web-showcase/index.html",
+  "origins": ["self"],
   "ui": {
     "nav": {
       "label": "UI Showcase",

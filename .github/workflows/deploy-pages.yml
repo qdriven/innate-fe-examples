@@ -78,6 +78,31 @@ jobs:
           }
           patch("web-showcase", `${base}/plugins/web-showcase/index.html`)
           patch("wandesk-ui", `${base}/plugins/wandesk-ui/index.html`)
+          const workspaceFile = "innate-fe/pnpm-workspace.yaml"
+          const workspace = readFileSync(workspaceFile, "utf8")
+          const members = [
+            "examples/admin-tanstack",
+            "examples/order-admin",
+            "examples/feed",
+            "examples/making",
+            "examples/cheatsheets",
+            "examples/awesome",
+            "examples/web-showcase",
+            "examples/wandesk-ui",
+          ]
+          const missing = members.filter((m) => !workspace.includes(`"${m}"`))
+          if (missing.length > 0) {
+            const block = missing.map((m) => `  - "${m}"`).join("\n")
+            const next = workspace.replace(
+              /packages:\n/,
+              `packages:\n${block}\n`
+            )
+            if (next === workspace) {
+              throw new Error("pnpm-workspace.yaml 没有 packages: 段，无法加入示例")
+            }
+            writeFileSync(workspaceFile, next)
+            console.log(`workspace members added: ${missing.join(", ")}`)
+          }
           const routerFile = "innate-fe/shells/webshell/src/router.tsx"
           const router = readFileSync(routerFile, "utf8")
           if (!router.includes("basepath:")) {
@@ -100,8 +125,8 @@ jobs:
           PLUGIN_BASE_PATH: /${{ github.event.repository.name }}/plugins/web-showcase
         run: |
           pnpm install --no-frozen-lockfile
-          # gen 把 domain 拷进 domains/ 时会丢掉 node_modules。壳从 domains/<id>
-          # 解析依赖，所以拷完后改成指向已经装好依赖的 examples/<id>。
+          # 当前 CLI 按 profile 的 from 直接链接 domains/<id>。
+          # 旧版 CLI 会整份复制并丢掉 node_modules，下面只对那种拷贝改成链接。
           bun innate-fe-cli/src/index.ts gen --profile pages
           for dir in domains/*; do
             [ -e "$dir/.innate-packaging.json" ] || continue

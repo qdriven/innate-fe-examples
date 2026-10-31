@@ -6,8 +6,8 @@
   "version": "0.1.0",
   "name": "Skel Lean UI",
   "runtime": "iframe",
-  "iframeSrc": "http://localhost:4010/",
-  "origins": ["http://localhost:4010"],
+  "iframeSrc": "http://localhost:4011/",
+  "origins": ["http://localhost:4011"],
   "ui": {
     "nav": {
       "label": "Skel Lean UI",

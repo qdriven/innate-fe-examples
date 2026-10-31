@@ -2,9 +2,9 @@
   "name": "@innate/skel-lean-ui",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 4010",
+    "dev": "next dev --port 4011",
     "build": "next build",
-    "start": "next start --port 4010",
+    "start": "next start --port 4011",
     "lint": "oxlint .",
     "typecheck": "tsc --noEmit",
     "collect": "node scripts/collect-demo-data.mjs"

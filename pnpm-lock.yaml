@@ -394,10 +394,10 @@ importers:
         specifier: ^19
         version: 19.3.1(react@19.3.1)
       react-hook-form:
-        specifier: ^7.90.0
+        specifier: ^7.91.0
         version: 7.91.0(@types/react@19.2.17)(react@19.3.1)
       react-resizable-panels:
-        specifier: ^4.10.0
+        specifier: ^4.15.0
         version: 4.15.3(@types/react@19.2.17)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       recharts:
         specifier: 3.10.1
@@ -446,7 +446,7 @@ importers:
   ../../base/innate-fe/packages/web-domain:
     devDependencies:
       '@tanstack/react-router':
-        specifier: ^1.132.0
+        specifier: ^1.170.46
         version: 1.170.46(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@types/react':
         specifier: 19.2.17
@@ -956,6 +956,9 @@ importers:
         specifier: ^4.3.6
         version: 4.6.7
     devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.3.3
+        version: 4.3.3(vite@7.3.7(@types/node@22.20.5)(jiti@2.7.0)(lightningcss@1.32.0)(tsx@4.23.15))
       '@testing-library/dom':
         specifier: ^10.4.0
         version: 10.4.2
@@ -980,9 +983,15 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.3.1(react@19.3.1)
+      tailwindcss:
+        specifier: ^4.0.6
+        version: 4.3.3
       typescript:
         specifier: ^5.7.2
         version: 5.9.3
+      vite:
+        specifier: ^7.3.5
+        version: 7.3.7(@types/node@22.20.5)(jiti@2.7.0)(lightningcss@1.32.0)(tsx@4.23.15)
       vitest:
         specifier: ^3.2.6
         version: 3.2.7(@types/debug@4.1.13)(@types/node@22.20.5)(jiti@2.7.0)(jsdom@27.4.0(@noble/hashes@2.4.0))(lightningcss@1.32.0)(tsx@4.23.15)

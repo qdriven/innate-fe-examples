@@ -15,7 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@innate/ui"
-import { SceneIntro, TableCard } from "@innate/scene-catalog/scene-blocks"
+import { TableCard } from "@innate/scene-catalog/scene-blocks"
 const prioritySceneIds = [
   "portal-home",
   "todo-center",
@@ -114,120 +114,41 @@ export function SceneAtlasView() {
 
   return (
     <>
-      <SceneIntro
-        title="ToB 场景地图 V1"
-        description="第一版先把企业级复杂系统的通用场景梳理全，再围绕高频场景逐步补齐专用 demo。左侧导航以“总览 + 基准 Demo + 场景分类”组织，右侧内容区默认支持全宽承载具体场景界面。"
-        chips={[
-          `${specificSceneSectionMeta.length} 个一级类目`,
-          `${specificSceneSamples.length} 个场景家族`,
-          `${sceneSamples.length} 个基准 Demo`,
-          "Scene 页默认全宽",
-        ]}
-      />
+      <header className="flex flex-col gap-4">
+        <p className="text-muted-foreground max-w-3xl text-sm leading-relaxed">
+          先把企业系统里的通用场景收成一张地图。左侧是总览、基准 Demo
+          和分类，右侧按类目打开具体场景。
+        </p>
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border @min-[40rem]/main:grid-cols-4">
+          {[
+            ["场景家族", specificSceneSamples.length],
+            ["一级类目", specificSceneSectionMeta.length],
+            ["Ready", readyCount],
+            ["Extend / Reference", `${extendCount} / ${referenceCount}`],
+          ].map(([label, value]) => (
+            <div key={label} className="bg-card px-4 py-3">
+              <dt className="text-muted-foreground text-xs">{label}</dt>
+              <dd className="mt-1 text-2xl font-semibold tracking-tight">
+                {value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </header>
 
-      <div className="grid grid-cols-1 gap-[var(--spacing-section)] xl:grid-cols-[1.2fr_0.8fr]">
-        <Card>
-          <CardHeader>
-            <CardTitle>导航重构建议</CardTitle>
-            <CardDescription>
-              左侧不要再按零散页面或行业案例堆叠，而应固定成三层信息架构。
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-3">
-            <div className="flex flex-col gap-2 rounded-xl border border-border/70 bg-muted/20 p-4">
-              <span className="text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground">
-                第一层
-              </span>
-              <p className="text-sm font-medium">场景地图总览</p>
-              <p className="text-sm text-muted-foreground">
-                说明这套系统要覆盖哪些 ToB 场景，以及优先级和组织方式。
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 rounded-xl border border-border/70 bg-muted/20 p-4">
-              <span className="text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground">
-                第二层
-              </span>
-              <p className="text-sm font-medium">基准 Demo</p>
-              <p className="text-sm text-muted-foreground">
-                先沉淀 7 个通用骨架 Demo，作为后续所有场景的可复用基线。
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 rounded-xl border border-border/70 bg-muted/20 p-4">
-              <span className="text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground">
-                第三层
-              </span>
-              <p className="text-sm font-medium">场景分类树</p>
-              <p className="text-sm text-muted-foreground">
-                再按一级类目和二级分组挂载场景家族，避免行业词汇污染导航结构。
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>内容区策略</CardTitle>
-            <CardDescription>
-              场景页应默认支持全宽展示，文档页再回到标准宽度约束。
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-3">
-            <div className="flex items-center justify-between gap-3 rounded-xl border border-border/70 px-4 py-3">
-              <span className="text-sm text-muted-foreground">基准 Demo</span>
-              <span className="text-sm font-medium">全宽工作区</span>
-            </div>
-            <div className="flex items-center justify-between gap-3 rounded-xl border border-border/70 px-4 py-3">
-              <span className="text-sm text-muted-foreground">
-                场景家族说明页
-              </span>
-              <span className="text-sm font-medium">全宽 + 结构说明</span>
-            </div>
-            <div className="flex items-center justify-between gap-3 rounded-xl border border-border/70 px-4 py-3">
-              <span className="text-sm text-muted-foreground">
-                Core / Governance
-              </span>
-              <span className="text-sm font-medium">标准宽度</span>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid grid-cols-1 gap-[var(--spacing-section)] md:grid-cols-3 xl:grid-cols-5">
-        <Card size="sm">
-          <CardHeader>
-            <CardDescription>场景家族</CardDescription>
-            <CardTitle className="text-2xl">
-              {specificSceneSamples.length}
-            </CardTitle>
-          </CardHeader>
-        </Card>
-        <Card size="sm">
-          <CardHeader>
-            <CardDescription>一级类目</CardDescription>
-            <CardTitle className="text-2xl">
-              {specificSceneSectionMeta.length}
-            </CardTitle>
-          </CardHeader>
-        </Card>
-        <Card size="sm">
-          <CardHeader>
-            <CardDescription>Ready</CardDescription>
-            <CardTitle className="text-2xl">{readyCount}</CardTitle>
-          </CardHeader>
-        </Card>
-        <Card size="sm">
-          <CardHeader>
-            <CardDescription>Extend</CardDescription>
-            <CardTitle className="text-2xl">{extendCount}</CardTitle>
-          </CardHeader>
-        </Card>
-        <Card size="sm">
-          <CardHeader>
-            <CardDescription>Reference</CardDescription>
-            <CardTitle className="text-2xl">{referenceCount}</CardTitle>
-          </CardHeader>
-        </Card>
-      </div>
+      <section className="grid grid-cols-1 gap-3 @min-[40rem]/main:grid-cols-3">
+        {[
+          ["01", "场景地图", "说明要覆盖哪些场景，以及优先级。"],
+          ["02", "基准 Demo", "7 个通用骨架，后面的场景都从这里长出来。"],
+          ["03", "分类树", "按类目和分组挂场景，不按行业词堆页面。"],
+        ].map(([index, title, body]) => (
+          <div key={index} className="rounded-xl border bg-card px-4 py-3">
+            <p className="text-muted-foreground text-xs font-medium">{index}</p>
+            <p className="mt-1 text-sm font-medium">{title}</p>
+            <p className="text-muted-foreground mt-1 text-sm">{body}</p>
+          </div>
+        ))}
+      </section>
 
       <Card>
         <CardHeader>

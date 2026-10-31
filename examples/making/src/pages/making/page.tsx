@@ -28,6 +28,14 @@ import {
 } from "@innate/ui"
 import { getLatestWeeklies, getIssuesForWeekly, projects, isBilingualText, projectAnalyses } from "../../lib/making/data"
 
+function plainSummary(text: string) {
+  return text
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/[*_`#>\[\]()]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+}
+
 export default function MakingPage() {
   const recentWeeklies = getLatestWeeklies(4)
 
@@ -207,7 +215,7 @@ function ProjectCard({ project }: { project: typeof projectAnalyses[0] }) {
         <CardContent className="pt-0 space-y-3">
           {/* Summary */}
           <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-            {project.summary}
+            {plainSummary(project.summary)}
           </p>
 
           {/* Quick Stats */}

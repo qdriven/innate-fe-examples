@@ -14,7 +14,7 @@ export function AdminLayout() {
     <FacilityScopeProvider>
       <div
         data-admin-layout
-        className="relative flex h-full min-h-svh min-w-0 flex-1 flex-col overflow-hidden"
+        className="relative flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
       >
         <SpecPageShell
           className="h-full min-h-0!"

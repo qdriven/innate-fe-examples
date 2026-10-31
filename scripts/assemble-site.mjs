@@ -1,0 +1,105 @@
+/**
+ * 用 innate-fe-cli 把 pages profile 装进框架壳，产出本仓 deploy/。
+ * 静态 domain 编进壳，web-showcase 和 wandesk-ui 打成同源 iframe。
+ * 预览只有一个端口：pnpm preview → http://127.0.0.1:4173
+ *
+ * 壳在框架仓，不在本仓。运行期间临时把 registry 的 shell 指过去，
+ * 结束时还原清单，以及框架仓里被 gen 改过的接缝文件。
+ * plugin.json 不改：iframeSrc 以 / 开头才会被打进壳。
+ */
+import { spawnSync } from "node:child_process"
+import {
+  cpSync,
+  existsSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs"
+import { tmpdir } from "node:os"
+import { dirname, join, resolve } from "node:path"
+import { fileURLToPath } from "node:url"
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
+const wantPreview = process.argv.includes("preview")
+
+function findFramework() {
+  for (const rel of ["../../base/innate-fe", "../../framework/innate-fe"]) {
+    const dir = resolve(root, rel)
+    const cli = join(dir, "innate-fe-cli/src/index.ts")
+    const shell = join(dir, "shells/webshell")
+    if (existsSync(cli) && existsSync(join(shell, "vite.config.ts"))) {
+      return { cli, shell }
+    }
+  }
+  console.error(
+    "找不到框架壳。请把 innate-fe 放在 ../../base/innate-fe 或 ../../framework/innate-fe。"
+  )
+  process.exit(1)
+}
+
+const { cli, shell } = findFramework()
+const yamlPath = join(root, "plugins.registry.yaml")
+const onDiskYaml = readFileSync(yamlPath, "utf8")
+const shellKey = "shell: shells/webshell"
+const absoluteShellKey = `shell: ${shell}`
+const originalYaml = onDiskYaml.includes(absoluteShellKey)
+  ? onDiskYaml.replace(absoluteShellKey, shellKey)
+  : onDiskYaml
+if (!originalYaml.includes(shellKey)) {
+  console.error(`plugins.registry.yaml 里没有 \`${shellKey}\``)
+  process.exit(1)
+}
+
+const genDir = join(shell, "src/gen")
+const genBackup = join(tmpdir(), `innate-fe-gen-${process.pid}`)
+cpSync(genDir, genBackup, { recursive: true })
+
+function restore() {
+  writeFileSync(yamlPath, originalYaml)
+  rmSync(genDir, { recursive: true, force: true })
+  cpSync(genBackup, genDir, { recursive: true })
+  rmSync(genBackup, { recursive: true, force: true })
+}
+
+function run(args, env) {
+  const result = spawnSync("bun", [cli, ...args], {
+    cwd: root,
+    stdio: "inherit",
+    env: { ...process.env, ...env },
+  })
+  if ((result.status ?? 1) !== 0) {
+    throw new Error(`innate-fe-cli ${args.join(" ")} 退出 ${result.status ?? 1}`)
+  }
+}
+
+const buildEnv = {
+  PUBLIC_PATH: "/",
+  PLUGIN_BASE_PATH: "/plugins/web-showcase",
+}
+
+let failed = false
+try {
+  writeFileSync(
+    yamlPath,
+    originalYaml.replace(shellKey, `shell: ${shell}`)
+  )
+
+  run(["gen", "--profile", "pages", "--refresh"], buildEnv)
+  run(["prepare", "--profile", "pages"], buildEnv)
+  run(["build", "--profile", "pages"], buildEnv)
+  run(["assemble", "--profile", "pages"], buildEnv)
+  console.log("\n整站已组装到 deploy/")
+  if (wantPreview) {
+    console.log("预览 http://127.0.0.1:4173")
+    run(["preview", "--profile", "pages"], buildEnv)
+  } else {
+    console.log("一个端口查看：pnpm preview  →  http://127.0.0.1:4173")
+  }
+} catch (err) {
+  failed = true
+  console.error(err instanceof Error ? err.message : err)
+  process.exitCode = 1
+} finally {
+  restore()
+  if (failed) process.exit(process.exitCode ?? 1)
+}
