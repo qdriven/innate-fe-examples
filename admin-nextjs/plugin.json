@@ -1,0 +1,18 @@
+{
+  "protocol": "innate.plugin.v1",
+  "id": "admin-nextjs",
+  "kind": "iframe",
+  "category": "apps",
+  "version": "0.1.0",
+  "name": "Admin Next",
+  "runtime": "iframe",
+  "iframeSrc": "http://localhost:4012/",
+  "origins": ["http://localhost:4012"],
+  "ui": {
+    "nav": {
+      "label": "Admin Next",
+      "icon": "LayoutDashboard",
+      "order": 35
+    }
+  }
+}
