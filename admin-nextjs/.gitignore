@@ -1,0 +1,75 @@
+# Environment variables — keep .env.example, never commit real secrets
+.env
+.env.*
+!.env.example
+
+# Local databases / SQLite (dev artifacts)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+/hidden.json
+
+# Build caches
+*.tsbuildinfo
+node_modules/
+.next/
+dist/
+build/
+out/
+.turbo/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+# Editor / IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.cursor/
+.trae/
+*.swp
+*.swo
+*~
+
+# Coverage & test
+coverage/
+.nyc_output/
+.playwright-cli/
+
+# Secrets / keys
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+secrets/
+
+# Local config
+*.local
+.npmrc
+pnpm-lock.yaml
+bun.lockb
+bunfig.toml
+
+# Innate CLI generated
+.innate-fe-cli.json
