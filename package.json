@@ -1,0 +1,27 @@
+{
+  "name": "innate-fe-examples",
+  "version": "0.1.0",
+  "private": true,
+  "description": "innate-fe 示例应用集合：domain（TanStack）与 iframe（Next.js / Vite）两套对照实现。构建依赖 innate-fe 框架仓提供 @innate/* 包与 innate-fe-cli。",
+  "packageManager": "pnpm@12.15.0",
+  "scripts": {
+    "cli": "bun ../../framework/innate-fe/innate-fe-cli/src/index.ts",
+    "scan": "bun run cli scan",
+    "gen": "bun run cli gen",
+    "gen:check": "bun run cli gen --check",
+    "verify-flags": "bun run cli verify-flags",
+    "dev": "bun run cli dev",
+    "prepare": "bun run cli prepare",
+    "all": "bun run cli all",
+    "preview": "bun run cli preview",
+    "build:examples": "pnpm -r --filter \"./examples/**\" build",
+    "build:standalone": "pnpm -r --filter \"./examples/**\" build:standalone",
+    "typecheck": "pnpm -r --filter \"./examples/**\" typecheck",
+    "lint": "pnpm -r --filter \"./examples/**\" lint",
+    "test": "pnpm -r --filter \"./examples/**\" test"
+  },
+  "devDependencies": {
+    "oxlint": "^1.90.0",
+    "typescript": "^7.0.2"
+  }
+}

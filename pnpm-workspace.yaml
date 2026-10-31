@@ -1,0 +1,42 @@
+# innate-fe-examples workspace
+#
+# examples/* 是本仓的示例应用（源码为事实源）。
+# @innate/* 包不在本仓：它们由 innate-fe 框架仓提供。为了让 `pnpm install`
+# 在本机把 @innate/* 解析到框架源码（workspace:*），这里用相对 glob 把框架
+# packages/ 拉进 workspace。该路径假定框架检出与本仓是同一棵工作树里的兄弟
+# （innate-workspace/framework/innate-fe 与 innate-workspace/apps/innate-fe-examples）。
+# 在 GitHub 上构建请见 README「构建方式」。
+packages:
+  - "examples/*"
+  - "../../framework/innate-fe/packages/*"
+
+# 与框架保持一致的依赖钉版（避免同一依赖多版本漂移）
+overrides:
+  kysely: "0.28.17"
+  "@types/react": "19.2.17"
+  "@types/react-dom": "19.2.3"
+  hono: "4.12.34"
+  "@hono/node-server": "1.19.15"
+  body-parser: "2.3.0"
+  esbuild: "0.28.1"
+  fast-uri: "3.1.5"
+  ip-address: "10.3.1"
+  js-yaml: "4.3.1"
+  nanoid: "3.3.18"
+  postcss: "8.5.23"
+  valibot: "1.4.2"
+  "brace-expansion@^1.0.0": "1.1.18"
+  "brace-expansion@^5.0.0": "5.0.9"
+
+allowBuilds:
+  "@docmd/engine-rust": true
+  "@prisma/engines": true
+  "@sentry/cli": false
+  better-sqlite3: true
+  esbuild: true
+  msw: true
+  prisma: true
+  sharp: true
+  unrs-resolver: true
+
+minimumReleaseAge: 0

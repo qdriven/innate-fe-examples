@@ -1,0 +1,18 @@
+{
+  "protocol": "innate.plugin.v1",
+  "id": "skel-lean-ui",
+  "kind": "iframe",
+  "category": "examples",
+  "version": "0.1.0",
+  "name": "Skel Lean UI",
+  "runtime": "iframe",
+  "iframeSrc": "http://localhost:4010/",
+  "origins": ["http://localhost:4010"],
+  "ui": {
+    "nav": {
+      "label": "Skel Lean UI",
+      "icon": "Box",
+      "order": 90
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "protocol": "innate.plugin.v1",
+  "id": "admin-tanstack",
+  "kind": "domain",
+  "category": "admin",
+  "version": "0.1.0",
+  "name": "Admin (TanStack)",
+  "entry": "src/index.ts",
+  "styles": "src/globals.css",
+  "order": 20,
+  "ui": {
+    "nav": {
+      "label": "Admin",
+      "path": "/admin-tanstack",
+      "icon": "LayoutDashboard",
+      "order": 20
+    },
+    "homeTile": {
+      "title": "Admin",
+      "description": "场景规范后台，作为 domain 挂进壳。场景页在 domain 内部导航，不进壳的侧栏。",
+      "path": "/admin-tanstack"
+    }
+  }
+}

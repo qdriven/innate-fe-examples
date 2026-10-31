@@ -1,0 +1,41 @@
+{
+  "name": "@innate/web-showcase",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 4003",
+    "build": "next build",
+    "lint": "oxlint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "@hookform/resolvers": "^5.2.2",
+    "@innate/admin-composites": "workspace:*",
+    "@innate/scene-catalog": "workspace:*",
+    "@innate/ui": "workspace:*",
+    "cmdk": "^1.1.1",
+    "date-fns": "^4.4.0",
+    "embla-carousel-react": "^8.6.0",
+    "input-otp": "^1.5.0",
+    "lucide-react": "^0.577.0",
+    "next": "^16.2.11",
+    "next-themes": "^0.4.6",
+    "react": "^19.2.0",
+    "react-day-picker": "10.0.2",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.90.0",
+    "react-resizable-panels": "^4.10.0",
+    "recharts": "3.10.1",
+    "sonner": "^2.0.7",
+    "tailwindcss": "^4.2.4",
+    "vaul": "^1.1.2",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "postcss": "^8.5.30",
+    "typescript": "^5.7.2"
+  }
+}

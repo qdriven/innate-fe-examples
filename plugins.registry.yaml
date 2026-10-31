@@ -1,0 +1,88 @@
+# innate.web-plugin.packaging.v1
+# 选包事实源：profile 决定这次 build 带哪些 domain / iframe。
+#
+# 本仓的示例应用都在 examples/ 下，profile 里的 `from` 一律指向 examples/。
+# @innate/* 包与宿主壳 shells/webshell 由 innate-fe 框架仓提供——
+# `scan` / `gen` / `verify-flags` 在本仓可跑；`dev` / `build` / `assemble` /
+# `all` / `preview` 需要框架的壳与 CLI，见 README「构建方式」。
+#
+# 约定：
+# - domain：源码在 `from` 指定的目录，gen 时 copy 进 `domains/<id>`（打包面）；
+# - iframe：清单来自 `from` 指定目录下的 plugin.json（innate.plugin.v1）。
+protocol: innate.web-plugin.packaging.v1
+version: 1
+defaultProfile: empty
+shell: shells/webshell
+
+profiles:
+  # ── UC1 空壳 ───────────────────────────────────────────────
+  empty:
+    domains: []
+    iframes: []
+
+  # ── UC2 集成 iframe app（轨道 B）────────────────────────────
+  iframe-one:
+    domains: []
+    iframes:
+      - id: web-showcase
+        from: examples/web-showcase
+
+  iframe-two:
+    domains: []
+    iframes:
+      - id: web-showcase
+        from: examples/web-showcase
+      - id: wandesk-ui
+        from: examples/wandesk-ui
+
+  # ── UC3 集成 domain（轨道 A）────────────────────────────────
+  domain-one:
+    domains:
+      - id: admin-tanstack
+        from: examples/admin-tanstack
+    iframes: []
+
+  domain-two:
+    domains:
+      - id: admin-tanstack
+        from: examples/admin-tanstack
+      - id: feed
+        from: examples/feed
+    iframes: []
+
+  # ── UC4 domain + iframe 混合 ───────────────────────────────
+  mixed:
+    domains:
+      - id: admin-tanstack
+        from: examples/admin-tanstack
+    iframes:
+      - id: web-showcase
+        from: examples/web-showcase
+
+  # ── 其它 ───────────────────────────────────────────────────
+  admin:
+    domains:
+      - id: admin-tanstack
+        from: examples/admin-tanstack
+    iframes: []
+
+  e2e:
+    domains:
+      - id: admin-tanstack
+        from: examples/admin-tanstack
+      - id: order-admin
+        from: examples/order-admin
+    iframes:
+      - id: example-external
+
+  orders:
+    domains:
+      - id: order-admin
+        from: examples/order-admin
+    iframes: []
+
+  examples:
+    domains: []
+    iframes:
+      - id: skel-lean-ui
+        from: examples/skel-lean-ui

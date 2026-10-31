@@ -1,0 +1,18 @@
+{
+  "protocol": "innate.plugin.v1",
+  "id": "wandesk-ui",
+  "kind": "iframe",
+  "category": "apps",
+  "version": "0.1.0",
+  "name": "Wandesktop",
+  "runtime": "iframe",
+  "iframeSrc": "/plugins/wandesk-ui/index.html",
+  "origins": ["self"],
+  "ui": {
+    "nav": {
+      "label": "Wandesktop",
+      "icon": "Monitor",
+      "order": 45
+    }
+  }
+}

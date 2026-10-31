@@ -1,0 +1,19 @@
+@import "@innate/ui/globals.css";
+
+@source "../src/**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --primary: oklch(0.511 0.096 186.391);
+  --primary-foreground: oklch(0.984 0.014 180.72);
+  --chart-1: oklch(0.855 0.138 181.071);
+  --chart-2: oklch(0.704 0.14 182.503);
+  --chart-3: oklch(0.6 0.118 184.704);
+  --chart-4: oklch(0.511 0.096 186.391);
+  --chart-5: oklch(0.437 0.078 188.216);
+  --radius: 0.45rem;
+  --spacing-page: 1.5rem;
+  --spacing-section: 1.5rem;
+  --spacing-block: 0.75rem;
+}

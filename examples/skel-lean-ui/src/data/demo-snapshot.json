@@ -1,0 +1,317 @@
+{
+  "generatedAt": "2026-08-27T05:38:53.285Z",
+  "demoPath": "/Users/patrick/workspace/yorun-ai/skel-lean-demo",
+  "domains": [
+    {
+      "name": "identity.user",
+      "description": "User identity contracts for the commerce example",
+      "formatVersion": 1,
+      "declarations": [
+        {
+          "name": "UserSummary",
+          "kind": "data",
+          "skelName": "identity.user.UserSummary",
+          "pub": true,
+          "description": ""
+        },
+        {
+          "name": "UserStatus",
+          "kind": "enum",
+          "skelName": "identity.user.UserStatus",
+          "pub": true,
+          "description": "Current account status"
+        },
+        {
+          "name": "User",
+          "kind": "resource",
+          "skelName": "identity.user.User",
+          "pub": true,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "commerce.order",
+      "description": "Commerce order lifecycle contracts",
+      "formatVersion": 1,
+      "declarations": [
+        {
+          "name": "CustomerActor",
+          "kind": "actor",
+          "skelName": "commerce.order.CustomerActor",
+          "pub": true,
+          "description": "Customer entering through generated clients or OpenAPI"
+        },
+        {
+          "name": "CheckoutConfig",
+          "kind": "config",
+          "skelName": "commerce.order.CheckoutConfig",
+          "pub": false,
+          "description": ""
+        },
+        {
+          "name": "Order",
+          "kind": "data",
+          "skelName": "commerce.order.Order",
+          "pub": true,
+          "description": ""
+        },
+        {
+          "name": "OrderLine",
+          "kind": "data",
+          "skelName": "commerce.order.OrderLine",
+          "pub": true,
+          "description": ""
+        },
+        {
+          "name": "OrderPage",
+          "kind": "data",
+          "skelName": "commerce.order.OrderPage",
+          "pub": true,
+          "description": ""
+        },
+        {
+          "name": "Page",
+          "kind": "data",
+          "skelName": "commerce.order.Page",
+          "pub": true,
+          "description": ""
+        },
+        {
+          "name": "OrderStatus",
+          "kind": "enum",
+          "skelName": "commerce.order.OrderStatus",
+          "pub": true,
+          "description": "Current order lifecycle status"
+        },
+        {
+          "name": "OrderPlacedEvent",
+          "kind": "event",
+          "skelName": "commerce.order.OrderPlacedEvent",
+          "pub": true,
+          "description": "Published after an order is accepted"
+        },
+        {
+          "name": "Order",
+          "kind": "resource",
+          "skelName": "commerce.order.Order",
+          "pub": true,
+          "description": "Permissions available for orders"
+        },
+        {
+          "name": "OrderService",
+          "kind": "service",
+          "skelName": "commerce.order.OrderService",
+          "pub": true,
+          "description": "Queries and commands for customer orders"
+        },
+        {
+          "name": "RebuildOrderIndexTask",
+          "kind": "task",
+          "skelName": "commerce.order.RebuildOrderIndexTask",
+          "pub": false,
+          "description": "Rebuilds the searchable order index"
+        },
+        {
+          "name": "CustomerPortalWeb",
+          "kind": "web",
+          "skelName": "commerce.order.CustomerPortalWeb",
+          "pub": false,
+          "description": "Customer-facing web capability"
+        }
+      ]
+    }
+  ],
+  "pipeline": [
+    {
+      "id": "check",
+      "title": "① 契约校验（skelc check）",
+      "status": "passed",
+      "detail": "2 个限界上下文、15 个声明通过校验",
+      "command": "skelc check --skel-in ./skel/order/skel"
+    },
+    {
+      "id": "generate",
+      "title": "② 多目标生成（Go / TS / 公开契约 / Lean）",
+      "status": "passed",
+      "detail": "Go 服务端、TypeScript 客户端、公开 Skel、Lean 类型共享同一语义模型",
+      "command": "skelc gen go-module | gen ts | gen skel | skel2lean"
+    },
+    {
+      "id": "prove",
+      "title": "Lean 定理 kernel 验证",
+      "status": "passed",
+      "detail": "Build completed successfully (6 jobs)",
+      "command": "lake build"
+    },
+    {
+      "id": "bad-proof",
+      "title": "④ 假定理被 kernel 拒绝",
+      "status": "expected-failure",
+      "detail": "⊢ False",
+      "command": "lake env lean Bad/CancelledCanPay.lean"
+    },
+    {
+      "id": "property-tests",
+      "title": "⑤ 定理 → Go 性质测试回流",
+      "status": "passed",
+      "detail": "8 条性质测试全部通过",
+      "command": "go test ./core-go/ -v"
+    },
+    {
+      "id": "evolution",
+      "title": "⑥ 演进守护",
+      "status": "passed",
+      "detail": "重命名方法检出 1 处 BREAKING；字段改型后证明立即失效",
+      "command": "skelc schema diff | skel2lean + lean"
+    }
+  ],
+  "theorems": [
+    {
+      "name": "cancel_keeps_lines",
+      "ruleZh": "取消不改动行项目",
+      "statement": "取消不改动行项目：`cancel` 只影响 `status`。",
+      "goTest": "TestCancelKeepsLines",
+      "verified": true
+    },
+    {
+      "name": "cancel_preserves_total",
+      "ruleZh": "取消保持总额",
+      "statement": "取消保持总额：由 `cancel_keeps_lines` 直接得到。",
+      "goTest": "TestCancelPreservesTotal",
+      "verified": true
+    },
+    {
+      "name": "cancelled_is_terminal",
+      "ruleZh": "CANCELLED 是终态",
+      "statement": "CANCELLED 是终态：已取消的订单再执行 `pay` 不会离开 CANCELLED。",
+      "goTest": "TestCancelledIsTerminal",
+      "verified": true
+    },
+    {
+      "name": "pay_paid_is_noop",
+      "ruleZh": "已支付订单重复支付是幂等 no-op",
+      "statement": "已支付订单重复支付是幂等 no-op。",
+      "goTest": "TestPayPaidIsNoop",
+      "verified": true
+    },
+    {
+      "name": "step_only_from_pending",
+      "ruleZh": "任何合法单步转移都只能从 PENDING 出发",
+      "statement": "任何合法单步转移都只能从 PENDING 出发。",
+      "goTest": "TestStepOnlyFromPending",
+      "verified": true
+    },
+    {
+      "name": "no_exit_from_cancelled",
+      "ruleZh": "CANCELLED 没有任何出边",
+      "statement": "CANCELLED 没有任何出边。",
+      "goTest": "TestNoExitFromCancelled",
+      "verified": true
+    }
+  ],
+  "propertyTests": [
+    "TestCancelKeepsLines",
+    "TestCancelPreservesTotal",
+    "TestCancelledIsTerminal",
+    "TestPayPaidIsNoop",
+    "TestStepOnlyFromPending",
+    "TestNoExitFromCancelled",
+    "TestGeneratedValidateAcceptsConstructedOrder",
+    "TestJSONRoundTrip"
+  ],
+  "diff": {
+    "summary": {
+      "breaking": 1,
+      "dangerous": 0,
+      "compatible": 1
+    },
+    "changes": [
+      {
+        "code": "service.method.removed",
+        "impact": "BREAKING",
+        "path": "",
+        "message": "service method cancel was removed"
+      },
+      {
+        "code": "service.method.added",
+        "impact": "COMPATIBLE",
+        "path": "",
+        "message": "service method cancelOrder was added"
+      }
+    ]
+  },
+  "badProof": {
+    "rejected": true,
+    "firstError": "Bad/CancelledCanPay.lean:16:30: error: unsolved goals",
+    "falseGoal": "⊢ False"
+  },
+  "momentB": {
+    "mutated": "unitPrice: decimal → string",
+    "proofError": "/Users/patrick/workspace/yorun-ai/skel-lean-demo/lean/Proofs/OrderCore.lean:24:39: error: Type mismatch",
+    "executed": true
+  },
+  "sources": [
+    {
+      "key": "skel-types",
+      "label": "Skel 契约",
+      "path": "skel/order/skel/types.skel",
+      "language": "skel",
+      "demoPath": "skel/order/skel/types.skel",
+      "content": "domain commerce.order\n\nimport identity.user\n\n@desc(\"Current order lifecycle status\")\npub enum OrderStatus {\n    PENDING\n    PAID\n    CANCELLED\n}\n\npub data Page<TItem> {\n    items: list<TItem>\n    nextToken: string?\n}\n\npub data OrderLine {\n    productId: uuid\n    quantity: int\n    unitPrice: decimal\n}\n\npub data Order {\n    id: uuid\n    customer: user.UserSummary\n    status: OrderStatus\n    lines: list<OrderLine>\n    attributes: map<string, string>\n    receipt: binary?\n}\n\npub data OrderPage {\n    page: Page<Order>\n}\n\nconfig CheckoutConfig eternal {\n    timeout: duration\n    supportedCurrencies: list<string>\n    retryLimitByRegion: map<string, int>\n}\n",
+      "truncated": false,
+      "totalLines": 41
+    },
+    {
+      "key": "skel-service",
+      "label": "Skel 服务与权限",
+      "path": "skel/order/skel/service.skel",
+      "language": "skel",
+      "demoPath": "skel/order/skel/service.skel",
+      "content": "domain commerce.order\n\n@desc(\"Queries and commands for customer orders\")\npub service OrderService {\n    for CustomerActor via client\n    auth\n    require any(Order:read, user.User:read)\n\n    method list {\n        input {\n            pageSize: int\n            nextToken: string?\n        }\n        output OrderPage\n    }\n\n    method cancel {\n        require all(\n            Order:cancel,\n            Order:cancel:ownedByCaller(orderId),\n            Order:read:exists(orderId)\n        )\n\n        input {\n            orderId: uuid\n        }\n        output Order\n    }\n}\n",
+      "truncated": false,
+      "totalLines": 30
+    },
+    {
+      "key": "lean-types",
+      "label": "生成的 Lean 类型",
+      "path": "lean/Gen/Commerce/Order/SkelTypes.lean",
+      "language": "lean",
+      "demoPath": "lean/Gen/Commerce/Order/SkelTypes.lean",
+      "content": "-- Code generated by skel2lean (Skel → Lean demo generator). DO NOT EDIT.\n-- Source domain: commerce.order (compatibility hash 9563632f)\n-- Skel declarations: 1 enum, 4 data, 1 config, 1 event\n\nimport Skel.Prelude\nimport Gen.Identity.User.SkelTypes\n\nset_option autoImplicit false\n\nnamespace Commerce.Order\n\n/-- Current order lifecycle status -/\ninductive OrderStatus where\n  | UNSPECIFIED\n  | PENDING\n  | PAID\n  | CANCELLED\nderiving DecidableEq, Repr\n\nstructure OrderLine where\n  productId : UUID\n  quantity : Int\n  unitPrice : Decimal\n\nstructure Page (TItem : Type) where\n  items : List TItem\n  nextToken : Option String\n\n/-- Skel config declaration (eternal lifecycle). -/\nstructure CheckoutConfig where\n  timeout : Duration\n  supportedCurrencies : List String\n  retryLimitByRegion : SkelMap String Int\n\n/-- Published after an order is accepted -/\nstructure OrderPlacedEvent where\n  orderId : UUID\n  customerId : UUID\n  placedAt : Timestamp\n\nstructure Order where\n  id : UUID\n  customer : Identity.User.UserSummary\n  status : OrderStatus\n  lines : List OrderLine\n  attributes : SkelMap String String\n  receipt : Option Binary\n\nstructure OrderPage where\n  page : Page Order\n\nend Commerce.Order\n",
+      "truncated": false,
+      "totalLines": 53
+    },
+    {
+      "key": "lean-proofs",
+      "label": "Lean 定理（手写）",
+      "path": "lean/Proofs/OrderCore.lean",
+      "language": "lean",
+      "demoPath": "lean/Proofs/OrderCore.lean",
+      "content": "/-\n# Order 聚合核心：已验证参考实现 (verified reference implementation)\n\n本文件演示 DDD 战术层与 Skel 契约的结合方式：\n\n- 类型（`Order`、`OrderLine`、`OrderStatus`、`UserSummary`）全部来自\n  `Gen/Commerce/Order/SkelTypes.lean`，即由 `.skel` 契约生成的 Lean 声明，\n  与 Go 服务端、TypeScript 客户端共享同一个语义模型；\n- 行为（`pay` / `cancel` / `step`）与聚合不变式的**证明**由人编写，\n  定义在与生成类型相同的命名空间下，因此可用点记号 `o.total`。\n\n被证明的性质随后转译为 Go 侧的性质测试（见 core-go/order_test.go），\n形成「契约 → 类型 → 定理 → 可执行性质」的验证回流。\n-/\n\nimport Gen.Commerce.Order.SkelTypes\n\nnamespace Commerce.Order\n\n/-! ## 核心域行为（参考实现） -/\n\n/-- 订单总额 = Σ 行小计（unitPrice × quantity）。 -/\ndef Order.total (o : Order) : Decimal :=\n  o.lines.foldl (fun acc line => acc + line.unitPrice * (line.quantity : Decimal)) 0\n\n/-- 支付命令：只有 PENDING 订单可被支付。 -/\ndef pay (o : Order) : Order :=\n  match o.status with\n  | .PENDING => { o with status := .PAID }\n  | _ => o\n\n/-- 取消命令：只有 PENDING 订单可被取消。 -/\ndef cancel (o : Order) : Order :=\n  match o.status with\n  | .PENDING => { o with status := .CANCELLED }\n  | _ => o\n\n/-- 状态机单步转移表：PENDING → PAID / CANCELLED，其余无出边。 -/\ndef step (src dst : OrderStatus) : Bool :=\n  match src, dst with\n  | .PENDING, .PAID => true\n  | .PENDING, .CANCELLED => true\n  | _, _ => false\n\n/-! ## 聚合不变式与状态机定理 -/\n\n/-- 取消不改动行项目：`cancel` 只影响 `status`。 -/\ntheorem cancel_keeps_lines (o : Order) : (cancel o).lines = o.lines := by\n  cases e : o.status <;> simp_all [cancel]\n\n/-- 取消保持总额：由 `cancel_keeps_lines` 直接得到。 -/\ntheorem cancel_preserves_total (o : Order) : (cancel o).total = o.total := by\n  cases e : o.status <;> simp_all [Order.total, cancel_keeps_lines]\n\n/-- CANCELLED 是终态：已取消的订单再执行 `pay` 不会离开 CANCELLED。 -/\ntheorem cancelled_is_terminal (o : Order) (h : o.status = .CANCELLED) :\n    (pay o).status = .CANCELLED := by\n  cases e : o.status <;> simp_all [pay]\n\n/-- 已支付订单重复支付是幂等 no-op。 -/\ntheorem pay_paid_is_noop (o : Order) (h : o.status = .PAID) : pay o = o := by\n  cases e : o.status <;> simp_all [pay]\n\n/-- 任何合法单步转移都只能从 PENDING 出发。 -/\ntheorem step_only_from_pending (src dst : OrderStatus) (h : step src dst = true) :\n    src = .PENDING := by\n  cases src <;> cases dst <;> simp_all [step]\n\n/-- CANCELLED 没有任何出边。 -/\ntheorem no_exit_from_cancelled (dst : OrderStatus) :\n    step .CANCELLED dst = false := by\n  cases dst <;> rfl\n\n/-! ## 具体示例：契约生成的类型可以直接构造、直接判定 -/\n\nprivate def demoOrder : Order where\n  id := ⟨⟩\n  customer := { id := ⟨⟩, displayName := \"Ada\", status := .ACTIVE }\n  status := .PENDING\n  lines := [{ productId := ⟨⟩, quantity := 2, unitPrice := 3 }]\n  attributes := []\n  receipt := none\n\n/-- 示例订单总额（2 × 3）：用编译求值判定为 6。`native_decide` 信任编译器\n求值（不同于 `decide`/kernel），这里只用于可展示的数值示例。 -/\nexample : demoOrder.total = 6 := by native_decide\n\n/-- 取消示例订单恰好只改变状态、不改变总额。 -/\nexample : (cancel demoOrder).status = .CANCELLED ∧\n    (cancel demoOrder).total = demoOrder.total :=\n  ⟨rfl, cancel_preserves_total demoOrder⟩\n\nend Commerce.Order\n",
+      "truncated": false,
+      "totalLines": 94
+    },
+    {
+      "key": "go-data",
+      "label": "生成的 Go 类型",
+      "path": "generated-go/order/data.go",
+      "language": "go",
+      "maxLines": 90,
+      "demoPath": "generated-go/order/data.go",
+      "content": "// Code generated by skelc. DO NOT EDIT.\n\npackage order\n\nimport (\n\t\"maps\"\n\n\t\"example.com/yorun/demo/identitypub\"\n\t\"go.yorun.ai/vine/core/rpc\"\n\t\"go.yorun.ai/vine/core/skel\"\n\t\"go.yorun.ai/vine/util/vcode\"\n)\n\ntype Order struct {\n\tId         skel.UUID           `json:\"id\"`\n\tCustomer   userpub.UserSummary `json:\"customer\"`\n\tStatus     OrderStatus         `json:\"status\"`\n\tLines      []OrderLine         `json:\"lines\"`\n\tAttributes map[string]string   `json:\"attributes\"`\n\tReceipt    *skel.Binary        `json:\"receipt\"`\n}\n\nfunc (v *Order) Validate(path string) error {\n\tif err := rpc.CheckValueNotNil(v, path); err != nil {\n\t\treturn err\n\t}\n\tif err := rpc.CheckValueNotNil(v.Lines, rpc.JoinPath(path, \"Lines\")); err != nil {\n\t\treturn err\n\t}\n\tif err := rpc.CheckValueNotNil(v.Attributes, rpc.JoinPath(path, \"Attributes\")); err != nil {\n\t\treturn err\n\t}\n\treturn nil\n}\n\n// Clone returns a value-isolated copy of the generated data.\nfunc (v Order) Clone() Order {\n\tcloned := v\n\tcloned.Customer = func(value userpub.UserSummary) userpub.UserSummary {\n\t\tif cloner0, clonerOK1 := any(value).(interface{ Clone() userpub.UserSummary }); clonerOK1 {\n\t\t\treturn cloner0.Clone()\n\t\t}\n\t\treturn vcode.MustUnmarshalJson[userpub.UserSummary](vcode.MustMarshalJson(value))\n\t}(v.Customer)\n\tif v.Lines == nil {\n\t\tcloned.Lines = nil\n\t} else {\n\t\tcloned.Lines = make([]OrderLine, len(v.Lines))\n\t\tfor index2 := range v.Lines {\n\t\t\tcloned.Lines[index2] = v.Lines[index2].Clone()\n\t\t}\n\t}\n\tcloned.Attributes = maps.Clone(v.Attributes)\n\tif v.Receipt != nil {\n\t\tclonedValue6 := *v.Receipt\n\t\tif (*v.Receipt) == nil {\n\t\t\tclonedValue6 = nil\n\t\t} else {\n\t\t\tclonedValue6 = make(skel.Binary, len((*v.Receipt)))\n\t\t\tcopy(clonedValue6, (*v.Receipt))\n\t\t}\n\t\tcloned.Receipt = &clonedValue6\n\t}\n\treturn cloned\n}\n\ntype OrderLine struct {\n\tProductId skel.UUID    `json:\"productId\"`\n\tQuantity  int          `json:\"quantity\"`\n\tUnitPrice skel.Decimal `json:\"unitPrice\"`\n}\n\n// Clone returns a value-isolated copy of the generated data.\nfunc (v OrderLine) Clone() OrderLine {\n\tcloned := v\n\treturn cloned\n}\n\ntype OrderPage struct {\n\tPage Page[Order] `json:\"page\"`\n}\n\nfunc (v *OrderPage) Validate(path string) error {\n\tif err := rpc.CheckValueNotNil(v, path); err != nil {\n\t\treturn err\n\t}\n\tif err := (&v.Page).Validate(rpc.JoinPath(path, \"Page\")); err != nil {\n\t\treturn err\n\t}\n\treturn nil",
+      "truncated": true,
+      "totalLines": 135
+    },
+    {
+      "key": "go-tests",
+      "label": "Go 性质测试",
+      "path": "core-go/order_test.go",
+      "language": "go",
+      "demoPath": "core-go/order_test.go",
+      "content": "package core\n\nimport (\n\t\"encoding/json\"\n\t\"math/rand\"\n\t\"reflect\"\n\t\"testing\"\n\n\t\"github.com/google/uuid\"\n\t\"github.com/shopspring/decimal\"\n\n\torder \"example.com/yorun/demo/order\"\n\tidentitypub \"example.com/yorun/demo/identitypub\"\n\t\"go.yorun.ai/vine/core/skel\"\n)\n\n// 这些性质测试是 Lean 证明的「验证回流」：lean/Proofs/OrderCore.lean 中\n// 已经被 kernel 证明的性质，在这里以固定种子随机化 + 穷举的方式在\n// Go 参考实现上执行。证明保证规范自洽；测试守护实现不漂移。\n//\n// 随机生成器显式构造每个字段（skel.Decimal 内嵌非导出字段，无法用\n// testing/quick 反射生成）；种子固定，失败可复现。\n\nconst iterations = 300\n\n// seed 返回每个性质独立的可复现种子。\nfunc seed(t *testing.T) int64 {\n\treturn int64(20260827<<8) | int64(len(t.Name())&0xff)\n}\n\nfunc randomUUID(rng *rand.Rand) skel.UUID {\n\tvar bytes [16]byte\n\tfor i := range bytes {\n\t\tbytes[i] = byte(rng.Intn(256))\n\t}\n\treturn skel.UUID{UUID: uuid.UUID(bytes)}\n}\n\nfunc randomDecimal(rng *rand.Rand) skel.Decimal {\n\treturn skel.NewDecimal(decimal.NewFromInt(int64(rng.Intn(10_000)) - 500))\n}\n\nvar allStatuses = []order.OrderStatus{\n\torder.OrderStatusUnspecified,\n\torder.OrderStatusPending,\n\torder.OrderStatusPaid,\n\torder.OrderStatusCancelled,\n}\n\nfunc randomStatus(rng *rand.Rand) order.OrderStatus {\n\treturn allStatuses[rng.Intn(len(allStatuses))]\n}\n\nfunc randomOrder(rng *rand.Rand) *order.Order {\n\tlineCount := rng.Intn(4)\n\tlines := make([]order.OrderLine, lineCount)\n\tfor i := range lines {\n\t\tlines[i] = order.OrderLine{\n\t\t\tProductId: randomUUID(rng),\n\t\t\tQuantity:  rng.Intn(20) + 1,\n\t\t\tUnitPrice: randomDecimal(rng),\n\t\t}\n\t}\n\treturn &order.Order{\n\t\tId: randomUUID(rng),\n\t\tCustomer: identitypub.UserSummary{\n\t\t\tId:          randomUUID(rng),\n\t\t\tDisplayName: \"customer\",\n\t\t\tStatus:      identitypub.UserStatusActive,\n\t\t},\n\t\tStatus: randomStatus(rng),\n\t\tLines:  lines,\n\t\t// attributes 是契约中的必填成员：生成的 Validate 会拒绝 nil，\n\t\t// 所以随机构造器必须始终给出非 nil map。\n\t\tAttributes: map[string]string{},\n\t\tReceipt:    nil,\n\t}\n}\n\n// Lean: cancel_keeps_lines —— 取消不改动行项目。\nfunc TestCancelKeepsLines(t *testing.T) {\n\trng := rand.New(rand.NewSource(seed(t)))\n\tfor i := 0; i < iterations; i++ {\n\t\to := randomOrder(rng)\n\t\tif got := Cancel(o).Lines; !reflect.DeepEqual(got, o.Lines) {\n\t\t\tt.Fatalf(\"iter %d: cancel changed lines\\n got %+v\\nwant %+v\", i, got, o.Lines)\n\t\t}\n\t}\n}\n\n// Lean: cancel_preserves_total —— 取消保持总额。\nfunc TestCancelPreservesTotal(t *testing.T) {\n\trng := rand.New(rand.NewSource(seed(t)))\n\tfor i := 0; i < iterations; i++ {\n\t\to := randomOrder(rng)\n\t\tif !Total(Cancel(o)).Equal(Total(o)) {\n\t\t\tt.Fatalf(\"iter %d: cancel changed total: got %s want %s\", i, Total(Cancel(o)), Total(o))\n\t\t}\n\t}\n}\n\n// Lean: cancelled_is_terminal —— 已取消的订单再支付不会离开 CANCELLED。\nfunc TestCancelledIsTerminal(t *testing.T) {\n\trng := rand.New(rand.NewSource(seed(t)))\n\tfor i := 0; i < iterations; i++ {\n\t\to := randomOrder(rng)\n\t\to.Status = order.OrderStatusCancelled\n\t\tif got := Pay(o).Status; got != order.OrderStatusCancelled {\n\t\t\tt.Fatalf(\"iter %d: pay escaped CANCELLED, status = %s\", i, got)\n\t\t}\n\t}\n}\n\n// Lean: pay_paid_is_noop —— 已支付订单重复支付是幂等 no-op。\nfunc TestPayPaidIsNoop(t *testing.T) {\n\trng := rand.New(rand.NewSource(seed(t)))\n\tfor i := 0; i < iterations; i++ {\n\t\to := randomOrder(rng)\n\t\to.Status = order.OrderStatusPaid\n\t\tif got := Pay(o); !reflect.DeepEqual(got, o) {\n\t\t\tt.Fatalf(\"iter %d: pay on PAID changed the order\", i)\n\t\t}\n\t}\n}\n\n// Lean: step_only_from_pending —— 任何合法单步转移只能从 PENDING 出发。\n// 状态空间有限（4×4），直接穷举，与 Lean 的有限分情况证明同构。\nfunc TestStepOnlyFromPending(t *testing.T) {\n\tfor _, from := range allStatuses {\n\t\tfor _, to := range allStatuses {\n\t\t\tif CanStep(from, to) && from != order.OrderStatusPending {\n\t\t\t\tt.Fatalf(\"step %s -> %s allowed from non-PENDING state\", from, to)\n\t\t\t}\n\t\t}\n\t}\n}\n\n// Lean: no_exit_from_cancelled —— CANCELLED 没有任何出边。\nfunc TestNoExitFromCancelled(t *testing.T) {\n\tfor _, to := range allStatuses {\n\t\tif CanStep(order.OrderStatusCancelled, to) {\n\t\t\tt.Fatalf(\"step CANCELLED -> %s must not be allowed\", to)\n\t\t}\n\t}\n}\n\n// 契约的机器检查（第一层）：生成的 Validate 把「必填」约束变成运行时检查。\nfunc TestGeneratedValidateAcceptsConstructedOrder(t *testing.T) {\n\trng := rand.New(rand.NewSource(seed(t)))\n\tfor i := 0; i < iterations; i++ {\n\t\to := randomOrder(rng)\n\t\tif err := o.Validate(\"\"); err != nil {\n\t\t\tt.Fatalf(\"iter %d: generated Validate rejected a constructed order: %v\", i, err)\n\t\t}\n\t}\n}\n\n// 契约的机器检查（第二层）：JSON 编解码 round-trip 保持相等，\n// 即生成的 wire format 与生成的类型一致（含枚举字符串编码）。\nfunc TestJSONRoundTrip(t *testing.T) {\n\trng := rand.New(rand.NewSource(seed(t)))\n\tfor i := 0; i < iterations; i++ {\n\t\to := randomOrder(rng)\n\t\tencoded, err := json.Marshal(o)\n\t\tif err != nil {\n\t\t\tt.Fatalf(\"iter %d: marshal: %v\", i, err)\n\t\t}\n\t\tvar decoded order.Order\n\t\tif err := json.Unmarshal(encoded, &decoded); err != nil {\n\t\t\tt.Fatalf(\"iter %d: unmarshal: %v\\npayload: %s\", i, err, encoded)\n\t\t}\n\t\tif !reflect.DeepEqual(&decoded, o) {\n\t\t\tt.Fatalf(\"iter %d: JSON round-trip changed the order\\npayload: %s\", i, encoded)\n\t\t}\n\t}\n}\n",
+      "truncated": false,
+      "totalLines": 177
+    }
+  ]
+}

@@ -98,10 +98,13 @@ secrets/
 config.local.*
 local.*
 .npmrc
-pnpm-lock.yaml
-pnpm-workspace.yaml
 bun.lockb
 bunfig.toml
 
-# Innate CLI generated
+# Innate CLI generated / build surfaces
+# （gen 的打包面、assemble 的 deploy/、import 的 public/plugins/、domain 独立产物）
 .innate-fe-cli.json
+domains/
+deploy/
+dist-standalone/
+public/plugins/

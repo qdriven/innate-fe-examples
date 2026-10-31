@@ -1,0 +1,18 @@
+{
+  "protocol": "innate.plugin.v1",
+  "id": "web-showcase",
+  "kind": "iframe",
+  "category": "apps",
+  "version": "0.1.0",
+  "name": "UI Showcase",
+  "runtime": "iframe",
+  "iframeSrc": "http://localhost:4003/",
+  "origins": ["http://localhost:4003"],
+  "ui": {
+    "nav": {
+      "label": "UI Showcase",
+      "icon": "LayoutGrid",
+      "order": 40
+    }
+  }
+}
