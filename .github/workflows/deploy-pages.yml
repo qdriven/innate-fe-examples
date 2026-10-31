@@ -1,8 +1,18 @@
 name: Deploy to GitHub Pages
 
+# 用 innate-fe-cli 把静态示例组装进 webshell，再发到 GitHub Pages。
+# 框架仓从 GitHub checkout（默认 variableway/innate-fe，可用仓库变量 FE_REPO 覆盖）。
+# 需要服务端的示例不进这次构建：admin-nextjs、skel-lean-ui、sqlite-admin。
 on:
   push:
-    branches: [main]
+    branches: [main, master]
+    paths:
+      - "examples/**"
+      - "plugins.registry.yaml"
+      - "package.json"
+      - "pnpm-workspace.yaml"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -10,73 +20,114 @@ permissions:
   pages: write
   id-token: write
 
-# 避免 Pages 构建互相覆盖
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - name: Checkout examples repo
-        uses: actions/checkout@v4
+      - name: Checkout examples
+        uses: actions/checkout@v5
         with:
-          path: apps/innate-fe-examples
+          path: examples-src
 
-      # web-showcase 的构建依赖 innate-fe 框架仓提供的 @innate/* 包与 CLI。
-      # 两仓以 apps/innate-fe-examples 与 framework/innate-fe 的相对布局 checkout，
-      # 使 examples 仓 pnpm-workspace.yaml 的 ../../framework/innate-fe/packages/* 能命中，
-      # 并让 next.config.js 的 turbopack.root(../../../../ = 公共父目录) 覆盖两仓。
-      - name: Checkout framework repo
-        uses: actions/checkout@v4
+      - name: Checkout innate-fe
+        uses: actions/checkout@v5
         with:
-          repository: variableway/innate-fe
-          ref: main
-          path: framework/innate-fe
+          repository: ${{ vars.FE_REPO || 'variableway/innate-fe' }}
+          token: ${{ secrets.FE_TEMPLATES_TOKEN || secrets.INNATE_FE_TOKEN || github.token }}
+          ref: ${{ vars.FE_REF || 'main' }}
+          path: innate-fe
 
-      - name: Setup Bun
-        uses: oven/setup-bun@v2
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 12
+
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.4.3
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 12.15.0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
+          cache: pnpm
+          cache-dependency-path: innate-fe/pnpm-lock.yaml
 
-      # 先装框架仓：CLI（innate-fe-cli）运行时要从 framework/innate-fe/node_modules
-      # 解析 @innate/*（examples 仓的 prepare 钩子会跑 `bun run cli prepare`）。
-      - name: Install framework packages
-        working-directory: framework/innate-fe
-        run: pnpm install --frozen-lockfile
+      # CLI 的仓库根是带 plugins.registry.yaml 和 shells/webshell 的框架仓。
+      # 把本仓 examples 与选包清单盖上去，再按 pages profile 组装。
+      - name: Overlay examples into the framework workspace
+        env:
+          PAGES_BASE: /${{ github.event.repository.name }}
+        run: |
+          rm -rf innate-fe/examples
+          mkdir -p innate-fe/examples
+          cp -a examples-src/examples/. innate-fe/examples/
+          cp examples-src/plugins.registry.yaml innate-fe/plugins.registry.yaml
+          node --input-type=module <<'JS'
+          import { readFileSync, writeFileSync } from "node:fs"
+          const base = process.env.PAGES_BASE.replace(/\/$/, "")
+          function patch(rel, iframeSrc) {
+            const file = `innate-fe/examples/${rel}/plugin.json`
+            const data = JSON.parse(readFileSync(file, "utf8"))
+            data.iframeSrc = iframeSrc
+            data.origins = ["self"]
+            writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`)
+            console.log(`${rel} iframeSrc ${iframeSrc}`)
+          }
+          patch("web-showcase", `${base}/plugins/web-showcase/index.html`)
+          patch("wandesk-ui", `${base}/plugins/wandesk-ui/index.html`)
+          const routerFile = "innate-fe/shells/webshell/src/router.tsx"
+          const router = readFileSync(routerFile, "utf8")
+          if (!router.includes("basepath:")) {
+            const next = router.replace(
+              "return createRouter({\n    routeTree,\n    history: options.history,\n  })",
+              "return createRouter({\n    routeTree,\n    history: options.history,\n    basepath: import.meta.env.BASE_URL.replace(/\\/$/, \"\") || \"/\",\n  })"
+            )
+            if (next === router) {
+              throw new Error("webshell router.tsx 没有预期的 createRouter 调用，无法注入 basepath")
+            }
+            writeFileSync(routerFile, next)
+            console.log("injected router basepath from import.meta.env.BASE_URL")
+          }
+          JS
 
-      - name: Install examples dependencies
-        working-directory: apps/innate-fe-examples
-        run: pnpm install --frozen-lockfile
-
-      # GITHUB_PAGES=true → next.config.js 走静态导出，basePath=/innate-fe-templates，产物入 dist/。
-      - name: Build web-showcase
-        working-directory: apps/innate-fe-examples
-        run: GITHUB_PAGES=true pnpm --filter @innate/web-showcase build
+      - name: Install and assemble with innate-fe-cli
+        working-directory: innate-fe
+        env:
+          PUBLIC_PATH: /${{ github.event.repository.name }}/
+          PLUGIN_BASE_PATH: /${{ github.event.repository.name }}/plugins/web-showcase
+        run: |
+          pnpm install --no-frozen-lockfile
+          # gen 把 domain 拷进 domains/ 时会丢掉 node_modules。壳从 domains/<id>
+          # 解析依赖，所以拷完后改成指向已经装好依赖的 examples/<id>。
+          bun innate-fe-cli/src/index.ts gen --profile pages
+          for dir in domains/*; do
+            [ -e "$dir/.innate-packaging.json" ] || continue
+            id=$(basename "$dir")
+            [ -d "examples/$id" ] || continue
+            rm -rf "$dir"
+            ln -s "../examples/$id" "domains/$id"
+            echo "linked domains/$id -> examples/$id"
+          done
+          bun innate-fe-cli/src/index.ts prepare --profile pages
+          bun innate-fe-cli/src/index.ts build --profile pages
+          bun innate-fe-cli/src/index.ts assemble --profile pages
+          cp deploy/index.html deploy/404.html
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: apps/innate-fe-examples/examples/web-showcase/dist
+          path: innate-fe/deploy
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

@@ -86,3 +86,34 @@ profiles:
     iframes:
       - id: skel-lean-ui
         from: examples/skel-lean-ui
+
+  # GitHub Pages：壳内编译全部静态 domain，并准备同源静态 iframe。
+  # 不进这个 profile 的是需要服务端的应用：
+  #   admin-nextjs  — Next API + Prisma + better-auth
+  #   skel-lean-ui  — Playground 依赖 API 路由
+  #   sqlite-admin  — 查询本机 SQLite，Pages 上没有数据库
+  pages:
+    domains:
+      - id: admin-tanstack
+        from: examples/admin-tanstack
+      - id: order-admin
+        from: examples/order-admin
+      - id: feed
+        from: examples/feed
+      - id: making
+        from: examples/making
+      - id: cheatsheets
+        from: examples/cheatsheets
+      - id: awesome
+        from: examples/awesome
+    iframes:
+      - id: web-showcase
+        from: examples/web-showcase
+      - id: wandesk-ui
+        from: examples/wandesk-ui
+
+  sqlite-admin:
+    domains:
+      - id: sqlite-admin
+        from: examples/sqlite-admin
+    iframes: []

@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "description": "innate-fe 示例应用集合：domain（TanStack）与 iframe（Next.js / Vite）两套对照实现。构建依赖 innate-fe 框架仓提供 @innate/* 包与 innate-fe-cli。",
-  "packageManager": "pnpm@12.15.0",
+  "packageManager": "pnpm@12.16.1",
   "scripts": {
-    "cli": "bun ../../framework/innate-fe/innate-fe-cli/src/index.ts",
+    "cli": "bun scripts/cli.mjs",
     "scan": "bun run cli scan",
     "gen": "bun run cli gen",
     "gen:check": "bun run cli gen --check",
