@@ -21,6 +21,9 @@ import { fileURLToPath } from "node:url"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const wantPreview = process.argv.includes("preview")
+/** GitHub Pages 项目站点。本地 `pnpm all` 仍用 PUBLIC_PATH=/。不要设 GITHUB_PAGES。 */
+const wantPages = process.argv.includes("pages")
+const pagesBase = "/innate-fe-examples"
 
 function findFramework() {
   for (const rel of ["../../base/innate-fe", "../../framework/innate-fe"]) {
@@ -54,11 +57,35 @@ const genDir = join(shell, "src/gen")
 const genBackup = join(tmpdir(), `innate-fe-gen-${process.pid}`)
 cpSync(genDir, genBackup, { recursive: true })
 
+// Pages 构建会把 PUBLIC_PATH 写进框架仓里被 git 跟踪的 static-manifests.json。
+// 产物已经拷进本仓 deploy/ 之后再还原，避免把本机 Pages 路径留在框架仓。
+const manifestsPath = join(shell, "src/plugins/static-manifests.json")
+const pluginsPublic = join(shell, "public/plugins")
+const manifestsBackup = join(tmpdir(), `innate-fe-manifests-${process.pid}.json`)
+const pluginsBackup = join(tmpdir(), `innate-fe-plugins-${process.pid}`)
+if (wantPages) {
+  if (existsSync(manifestsPath)) cpSync(manifestsPath, manifestsBackup)
+  if (existsSync(pluginsPublic)) {
+    cpSync(pluginsPublic, pluginsBackup, { recursive: true })
+  }
+}
+
 function restore() {
   writeFileSync(yamlPath, originalYaml)
   rmSync(genDir, { recursive: true, force: true })
   cpSync(genBackup, genDir, { recursive: true })
   rmSync(genBackup, { recursive: true, force: true })
+  if (wantPages) {
+    if (existsSync(manifestsBackup)) {
+      cpSync(manifestsBackup, manifestsPath)
+      rmSync(manifestsBackup, { force: true })
+    }
+    rmSync(pluginsPublic, { recursive: true, force: true })
+    if (existsSync(pluginsBackup)) {
+      cpSync(pluginsBackup, pluginsPublic, { recursive: true })
+      rmSync(pluginsBackup, { recursive: true, force: true })
+    }
+  }
 }
 
 function run(args, env) {
@@ -72,10 +99,16 @@ function run(args, env) {
   }
 }
 
-const buildEnv = {
-  PUBLIC_PATH: "/",
-  PLUGIN_BASE_PATH: "/plugins/web-showcase",
-}
+const buildEnv = wantPages
+  ? {
+      PUBLIC_PATH: `${pagesBase}/`,
+      PLUGIN_BASE_PATH: `${pagesBase}/plugins/web-showcase`,
+      GITHUB_PAGES: "",
+    }
+  : {
+      PUBLIC_PATH: "/",
+      PLUGIN_BASE_PATH: "/plugins/web-showcase",
+    }
 
 let failed = false
 try {
@@ -85,14 +118,26 @@ try {
   )
 
   run(["gen", "--profile", "pages", "--refresh"], buildEnv)
-  run(["prepare", "--profile", "pages"], buildEnv)
+  run(
+    ["prepare", "--profile", "pages", ...(wantPages ? ["--force"] : [])],
+    buildEnv
+  )
   run(["build", "--profile", "pages"], buildEnv)
   run(["assemble", "--profile", "pages"], buildEnv)
-  console.log("\n整站已组装到 deploy/")
+  if (wantPages) {
+    const deploy = join(root, "deploy")
+    cpSync(join(deploy, "index.html"), join(deploy, "404.html"))
+    writeFileSync(join(deploy, ".nojekyll"), "")
+    console.log(
+      `\nPages 包已组装到 deploy/（PUBLIC_PATH=${buildEnv.PUBLIC_PATH}，含 404.html 与 .nojekyll）`
+    )
+  } else {
+    console.log("\n整站已组装到 deploy/")
+  }
   if (wantPreview) {
     console.log("预览 http://127.0.0.1:4173")
     run(["preview", "--profile", "pages"], buildEnv)
-  } else {
+  } else if (!wantPages) {
     console.log("一个端口查看：pnpm preview  →  http://127.0.0.1:4173")
   }
 } catch (err) {

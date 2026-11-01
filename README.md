@@ -15,4 +15,4 @@ pnpm all
 
 线上站点：https://qdriven.github.io/innate-fe-examples/
 
-[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) 会在推到 `main` 时用同一套组装发布。框架仓是私有的，Actions 需要能读取 `variableway/innate-fe` 的 secret `INNATE_FE_TOKEN`（或 `FE_TEMPLATES_TOKEN`）。当前线上页发在 `gh-pages` 分支。
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) 会在推到 `main` 时用同一套组装发布。框架仓是私有的，Actions 需要能读取 `variableway/innate-fe` 的 secret `INNATE_FE_TOKEN`（或 `FE_TEMPLATES_TOKEN`）。当前线上页发在 `gh-pages` 分支。本地打这个 Pages 包（`PUBLIC_PATH=/innate-fe-examples/`，并写入 `404.html` 与 `.nojekyll`）：`bun scripts/assemble-site.mjs pages`。不要设 `GITHUB_PAGES=true`。
