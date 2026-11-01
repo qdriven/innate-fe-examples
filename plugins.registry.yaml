@@ -46,8 +46,8 @@ profiles:
     domains:
       - id: admin-tanstack
         from: examples/admin-tanstack
-      - id: feed
-        from: examples/feed
+      - id: order-admin
+        from: examples/order-admin
     iframes: []
 
   # ── UC4 domain + iframe 混合 ───────────────────────────────
@@ -98,12 +98,8 @@ profiles:
         from: examples/admin-tanstack
       - id: order-admin
         from: examples/order-admin
-      - id: feed
-        from: examples/feed
       - id: making
         from: examples/making
-      - id: cheatsheets
-        from: examples/cheatsheets
       - id: awesome
         from: examples/awesome
     iframes:

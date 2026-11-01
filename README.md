@@ -11,7 +11,7 @@ pnpm all
 
 产物在 `deploy/`。本地查看：`pnpm preview` → http://127.0.0.1:4173
 
-打进这个包的是 `admin-tanstack`、`order-admin`、`feed`、`making`、`cheatsheets`、`awesome`，以及同源 iframe `web-showcase`、`wandesk-ui`。`admin-nextjs`、`skel-lean-ui`、`sqlite-admin` 需要服务端，不在这个包里。
+打进这个包的是 `admin-tanstack`、`order-admin`、`making`、`awesome`，以及同源 iframe `web-showcase`、`wandesk-ui`。`admin-nextjs`、`skel-lean-ui`、`sqlite-admin` 需要服务端，不在这个包里。
 
 线上站点：https://qdriven.github.io/innate-fe-examples/
 

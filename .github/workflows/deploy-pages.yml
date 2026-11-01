@@ -83,9 +83,7 @@ jobs:
           const members = [
             "examples/admin-tanstack",
             "examples/order-admin",
-            "examples/feed",
             "examples/making",
-            "examples/cheatsheets",
             "examples/awesome",
             "examples/web-showcase",
             "examples/wandesk-ui",
