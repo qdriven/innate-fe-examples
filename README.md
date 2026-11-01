@@ -13,4 +13,6 @@ pnpm all
 
 打进这个包的是 `admin-tanstack`、`order-admin`、`feed`、`making`、`cheatsheets`、`awesome`，以及同源 iframe `web-showcase`、`wandesk-ui`。`admin-nextjs`、`skel-lean-ui`、`sqlite-admin` 需要服务端，不在这个包里。
 
-推到 `main` 时 [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) 用同一套组装发到 GitHub Pages。
+线上站点：https://qdriven.github.io/innate-fe-examples/
+
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) 会在推到 `main` 时用同一套组装发布。框架仓是私有的，Actions 需要能读取 `variableway/innate-fe` 的 secret `INNATE_FE_TOKEN`（或 `FE_TEMPLATES_TOKEN`）。当前线上页发在 `gh-pages` 分支。
