@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-11-01T02:04:43.654Z",
+  "gitHead": "e3bb8e17657f4b1173e5034868e126dde45c7897",
+  "domains": [
+    {
+      "id": "admin-tanstack",
+      "package": "@innate/domain-admin-tanstack"
+    },
+    {
+      "id": "making",
+      "package": "@innate/domain-making"
+    },
+    {
+      "id": "awesome",
+      "package": "@innate/domain-awesome"
+    },
+    {
+      "id": "order-admin",
+      "package": "@innate/domain-order-admin"
+    }
+  ],
+  "staticPlugins": [
+    "wandesk-ui",
+    "web-showcase"
+  ]
+}

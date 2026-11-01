@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fblocks\u002F[slug]","\u002Fcomponents\u002F[slug]","\u002Fpages\u002F[slug]","\u002Fscenes\u002F[slug]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

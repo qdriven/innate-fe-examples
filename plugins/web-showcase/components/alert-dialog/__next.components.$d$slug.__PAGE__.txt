@@ -1,0 +1,151 @@
+1:"$Sreact.fragment"
+2:"static/chunks/347-7c925fcfa29c6351.js"
+3:"static/chunks/730-c06378a114c19055.js"
+4:"static/chunks/409-d1b46f6ada0fdab2.js"
+5:"static/chunks/760-22699e56d54ac65b.js"
+6:"static/chunks/app/layout-497b17714816f782.js"
+7:I[55763,["347","$2","730","$3","409","$4","760","$5","177","$6"],"ThemeProvider"]
+8:I[33400,["347","$2","730","$3","409","$4","760","$5","177","$6"],"TooltipProvider"]
+9:"ThreeColumnShell"
+a:I[89924,["347","$2","730","$3","409","$4","760","$5","177","$6"],"$9"]
+b:I[39667,[],""]
+c:I[18031,[],""]
+d:I[20500,["347","$2","730","$3","409","$4","760","$5","177","$6"],"Toaster"]
+16:"static/chunks/372-55e32c3c72db9f52.js"
+17:"static/chunks/561-e67cae33e75ef6f7.js"
+18:"static/chunks/app/components/%5Bslug%5D/page-73de333c40de9f8f.js"
+19:"ShowcaseDetailTabs"
+1a:I[88790,["347","$2","730","$3","372","$16","561","$17","760","$5","449","$18"],"$19"]
+1b:I[93748,["347","$2","730","$3","372","$16","561","$17","760","$5","449","$18"],"AlertDialogDemo"]
+1f:"ViewportBoundary"
+20:I[82522,[],"$1f"]
+21:"MetadataBoundary"
+22:I[82522,[],"$21"]
+23:"$Sreact.suspense"
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","style"]
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","style"]
+f:X
+12:X
+12:C
+1c:Tc50,"use client"
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@innate/ui"
+
+function Section({
+  title,
+  description,
+  children,
+}: {
+  title: string
+  description: string
+  children: React.ReactNode
+}) {
+  return (
+    <Card className="rounded-xl border bg-card p-4">
+      <CardHeader className="p-0">
+        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <CardDescription className="text-muted-foreground text-xs">
+          {description}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="p-0 pt-3">{children}</CardContent>
+    </Card>
+  )
+}
+
+export function AlertDialogDemo() {
+  return (
+    <div className="space-y-6">
+      <Section
+        title="Destructive confirmation"
+        description="Force the user to confirm an irreversible action."
+      >
+        <AlertDialog>
+          <AlertDialogTrigger render={<Button variant="destructive" />}>
+            Delete account
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Continue</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </Section>
+
+      <Section
+        title="Informational"
+        description="Use a neutral action button to acknowledge a notice."
+      >
+        <AlertDialog>
+          <AlertDialogTrigger render={<Button variant="outline" />}>
+            Show version info
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Innate UI v1.0.0</AlertDialogTitle>
+              <AlertDialogDescription>
+                Released on June 30, 2026. Includes 54 components.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogAction>Got it</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </Section>
+
+      <p className="text-muted-foreground text-xs">
+        Slot contract:{" "}
+        <code className="font-mono">
+          data-slot=&quot;alert-dialog | alert-dialog-trigger |
+          alert-dialog-content | alert-dialog-header | alert-dialog-footer |
+          alert-dialog-title | alert-dialog-description | alert-dialog-action |
+          alert-dialog-cancel&quot;
+        </code>
+        ; built on top of Dialog with stricter roles.
+      </p>
+    </div>
+  )
+}
+
+export default AlertDialogDemo
+15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","main",null,{"className":"w-full px-3 py-8 sm:px-4 lg:px-5","children":[["$","header",null,{"className":"mb-8","children":[["$","p",null,{"className":"text-muted-foreground text-xs font-medium uppercase tracking-wider","children":"overlay"}],["$","h1",null,{"className":"mt-1 text-3xl font-semibold tracking-tight","children":"AlertDialog"}],["$","p",null,{"className":"text-muted-foreground mt-2 text-sm","children":"Modal confirmation — destructive action with cancel and continue."}]]}],["$","$L1a",null,{"preview":["$","$L1b",null,{}],"importLine":"import { AlertDialog } from \"@innate/ui\"","sourceCode":"$1c","sourcePath":"src/components/blocks/alert-dialog-demo.tsx"}]]}],null,"$L1d"]}],"p":"$@1e","v":null,"s":"$f"}}]]
+13:[["children",{"s":{"n":"slug","t":"d","k":"alert-dialog","s":[]},"h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}]}]]}],"p":"$@14","v":"$12","s":"$f"},"c":"$Q15"}]]
+10:[["children",{"s":"components","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}]}]]}],"p":"$@11","v":"$12","s":"$f"},"c":"$Q13"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","precedence":"next"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":["$","body",null,{"children":["$","$L7",null,{"children":[["$","$L8",null,{"children":["$","$La",null,{"children":["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}],["$","$Ld",null,{}]]}]}]}]]}],"p":"$@e","v":null,"s":"$f"},"c":"$Q10"},"h":{"r":["$","$1","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"AlertDialog — Innate UI"}],["$","meta","1",{"name":"description","content":"Preview surface for every component exported by @innate/ui — variants, sizes, and slot contracts."}]]}]}],null]}],null]}],"p":"$@24","v":null,"s":"$f"}},"a":"$@25","u":"$@26","b":"B--35WYMl9Rub1YRN8noQ"}
+27:I[82522,[],"OutletBoundary"]
+1d:["$","$L27",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@28"}]}]
+f:300
+28:null
+26:true
+f:C
+25:0
+14:"$undefined"
+11:"$undefined"
+e:"$undefined"
+24:"$undefined"
+1e:"$undefined"

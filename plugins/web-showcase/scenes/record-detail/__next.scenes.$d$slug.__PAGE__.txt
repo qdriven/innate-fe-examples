@@ -1,0 +1,94 @@
+1:"$Sreact.fragment"
+2:"static/chunks/347-7c925fcfa29c6351.js"
+3:"static/chunks/730-c06378a114c19055.js"
+4:"static/chunks/409-d1b46f6ada0fdab2.js"
+5:"static/chunks/760-22699e56d54ac65b.js"
+6:"static/chunks/app/layout-497b17714816f782.js"
+7:I[55763,["347","$2","730","$3","409","$4","760","$5","177","$6"],"ThemeProvider"]
+8:I[33400,["347","$2","730","$3","409","$4","760","$5","177","$6"],"TooltipProvider"]
+9:"ThreeColumnShell"
+a:I[89924,["347","$2","730","$3","409","$4","760","$5","177","$6"],"$9"]
+b:I[39667,[],""]
+c:I[18031,[],""]
+d:I[20500,["347","$2","730","$3","409","$4","760","$5","177","$6"],"Toaster"]
+16:"static/chunks/app/scenes/%5Bslug%5D/page-9aa6c5957dc93a8a.js"
+17:"ShowcaseDetailTabs"
+18:I[88790,["347","$2","760","$5","838","$16"],"$17"]
+19:"RecordDetailScene"
+1a:I[90856,["347","$2","760","$5","838","$16"],"$19"]
+1e:"ViewportBoundary"
+1f:I[82522,[],"$1e"]
+20:"MetadataBoundary"
+21:I[82522,[],"$20"]
+22:"$Sreact.suspense"
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","style"]
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","style"]
+f:X
+12:X
+12:C
+1b:T77e,"use client"
+
+import {
+  InfoListCard,
+  SceneIntro,
+  TableCard,
+} from "@innate/scene-catalog/scene-blocks"
+
+export function RecordDetailScene() {
+  return (
+    <div className="space-y-[var(--spacing-section)]">
+      <SceneIntro
+        title="Record Detail 详情样板"
+        description="适合单条业务记录的全景阅读，包括摘要、风险、审计线索和关联对象。"
+        chips={["Detail", "Summary", "Risk", "Audit"]}
+      />
+      <div className="grid grid-cols-1 gap-[var(--spacing-section)] xl:grid-cols-[1.3fr_0.9fr]">
+        <InfoListCard
+          title="记录摘要"
+          description="详情页第一屏优先回答「这是什么、当前处于什么状态、是否需要动作」。"
+          items={[
+            { label: "记录名称", value: "华东制造中心 2026-02 月能耗记录" },
+            { label: "当前状态", value: "审计只读期" },
+            { label: "归属设施", value: "华东制造中心" },
+            { label: "数据边界", value: "电力 / 天然气 / 蒸汽" },
+          ]}
+        />
+        <InfoListCard
+          title="风险与提醒"
+          items={[
+            { label: "异常值", value: "2 项待复核" },
+            { label: "只读策略", value: "允许变更申请 / 备注 / 附件" },
+            { label: "最后同步", value: "今天 07:40" },
+            { label: "审计批次", value: "2026-Q1-AUD-08" },
+          ]}
+        />
+      </div>
+      <TableCard
+        title="审计时间线"
+        headers={["时间", "事件", "操作人", "结果"]}
+        rows={[
+          ["03-11 09:10", "提交复核意见", "刘敏", "待审批"],
+          ["03-11 08:22", "追加备注", "王晨", "已记录"],
+          ["03-10 18:05", "进入审计只读期", "系统", "已锁定写操作"],
+          ["03-10 10:12", "同步表计数据", "系统", "成功"],
+        ]}
+      />
+    </div>
+  )
+}
+15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","main",null,{"className":"w-full px-3 py-8 sm:px-4 lg:px-5","children":[["$","header",null,{"className":"mb-8","children":[["$","p",null,{"className":"text-muted-foreground text-xs font-medium uppercase tracking-wider","children":"Scene · L3"}],["$","h1",null,{"className":"mt-1 text-3xl font-semibold tracking-tight","children":"Record Detail"}],["$","p",null,{"className":"text-muted-foreground mt-2 text-sm","children":"Summary cards, risk panel, and audit timeline for single-record reading flows."}]]}],["$","$L18",null,{"preview":["$","$L1a",null,{}],"importLine":"// Scene composition — see admin-nextjs dashboard pages for production wiring","sourceCode":"$1b","sourcePath":"src/components/scenes/record-detail-scene.tsx"}]]}],null,"$L1c"]}],"p":"$@1d","v":null,"s":"$f"}}]]
+13:[["children",{"s":{"n":"slug","t":"d","k":"record-detail","s":[]},"h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}]}]]}],"p":"$@14","v":"$12","s":"$f"},"c":"$Q15"}]]
+10:[["children",{"s":"scenes","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}]}]]}],"p":"$@11","v":"$12","s":"$f"},"c":"$Q13"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","precedence":"next"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":["$","body",null,{"children":["$","$L7",null,{"children":[["$","$L8",null,{"children":["$","$La",null,{"children":["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}],["$","$Ld",null,{}]]}]}]}]]}],"p":"$@e","v":null,"s":"$f"},"c":"$Q10"},"h":{"r":["$","$1","h",{"children":[null,["$","$L1f",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L21",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$22",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Record Detail — Innate UI"}],["$","meta","1",{"name":"description","content":"Preview surface for every component exported by @innate/ui — variants, sizes, and slot contracts."}]]}]}],null]}],null]}],"p":"$@23","v":null,"s":"$f"}},"a":"$@24","u":"$@25","b":"B--35WYMl9Rub1YRN8noQ"}
+26:I[82522,[],"OutletBoundary"]
+1c:["$","$L26",null,{"children":["$","$22",null,{"name":"Next.MetadataOutlet","children":"$@27"}]}]
+f:300
+27:null
+25:true
+f:C
+24:0
+14:"$undefined"
+11:"$undefined"
+e:"$undefined"
+23:"$undefined"
+1d:"$undefined"

@@ -1,0 +1,118 @@
+1:"$Sreact.fragment"
+2:"static/chunks/347-7c925fcfa29c6351.js"
+3:"static/chunks/730-c06378a114c19055.js"
+4:"static/chunks/409-d1b46f6ada0fdab2.js"
+5:"static/chunks/760-22699e56d54ac65b.js"
+6:"static/chunks/app/layout-497b17714816f782.js"
+7:I[55763,["347","$2","730","$3","409","$4","760","$5","177","$6"],"ThemeProvider"]
+8:I[33400,["347","$2","730","$3","409","$4","760","$5","177","$6"],"TooltipProvider"]
+9:"ThreeColumnShell"
+a:I[89924,["347","$2","730","$3","409","$4","760","$5","177","$6"],"$9"]
+b:I[39667,[],""]
+c:I[18031,[],""]
+d:I[20500,["347","$2","730","$3","409","$4","760","$5","177","$6"],"Toaster"]
+13:I[82522,[],"OutletBoundary"]
+14:"$Sreact.suspense"
+16:"ViewportBoundary"
+17:I[82522,[],"$16"]
+19:"MetadataBoundary"
+1a:I[82522,[],"$19"]
+1c:I[86617,[],"default",1]
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","style"]
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","style"]
+f:X
+11:[["children",{"s":"__PAGE__","h":512,"d":{"r":["$","$1","c",{"children":["$L12",null,["$","$L13",null,{"children":["$","$14",null,{"name":"Next.MetadataOutlet","children":"$@15"}]}]]}],"p":false,"v":null}}]]
+10:[["children",{"s":{"n":"slug","t":"d","k":"dashboard","s":[]},"h":512,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],"p":false,"v":"$f"},"c":"$Q11"}]]
+e:[["children",{"s":"scenes","h":512,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],"p":false,"v":"$f"},"c":"$Q10"}]]
+0:{"P":null,"c":["","scenes","dashboard"],"q":"","i":false,"t":{"t":{"s":"","h":528,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":["$","body",null,{"children":["$","$L7",null,{"children":[["$","$L8",null,{"children":["$","$La",null,{"children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}],["$","$Ld",null,{}]]}]}]}]]}],"p":false,"v":null},"c":"$Qe"},"h":{"r":["$","$1","h",{"children":[null,["$","$L17",null,{"children":"$L18"}],["$","$L1a",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$14",null,{"name":"Next.Metadata","children":"$L1b"}]}],null]}],null]}],"p":false,"v":null}},"m":"$undefined","G":["$1c",[]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"B--35WYMl9Rub1YRN8noQ"}
+1d:"static/chunks/app/scenes/%5Bslug%5D/page-9aa6c5957dc93a8a.js"
+1e:"ShowcaseDetailTabs"
+1f:I[88790,["347","$2","760","$5","838","$1d"],"$1e"]
+20:I[62019,["347","$2","760","$5","838","$1d"],"DashboardScene"]
+f:C
+21:T9d2,"use client"
+
+import { SectionCards } from "@innate/admin-composites/section-cards"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@innate/ui"
+
+export function DashboardScene() {
+  return (
+    <div className="space-y-6">
+      <SectionCards />
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>收入趋势</CardTitle>
+            <CardDescription>过去 12 个月的收入变化</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex h-[200px] items-end gap-2">
+              {[65, 78, 52, 89, 95, 72, 88, 91, 67, 82, 75, 96].map((h, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-t bg-primary/80 transition-colors hover:bg-primary"
+                  style={{ height: `${h}%` }}
+                />
+              ))}
+            </div>
+            <div className="text-muted-foreground mt-2 flex justify-between text-xs">
+              <span>1月</span>
+              <span>6月</span>
+              <span>12月</span>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>最近交易</CardTitle>
+            <CardDescription>实时交易流水</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>交易</TableHead>
+                  <TableHead>金额</TableHead>
+                  <TableHead>状态</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>订阅续费</TableCell>
+                  <TableCell>¥299.00</TableCell>
+                  <TableCell>成功</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>企业版升级</TableCell>
+                  <TableCell>¥2,999.00</TableCell>
+                  <TableCell>处理中</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>API 调用包</TableCell>
+                  <TableCell>¥199.00</TableCell>
+                  <TableCell>成功</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}
+12:["$","main",null,{"className":"w-full px-3 py-8 sm:px-4 lg:px-5","children":[["$","header",null,{"className":"mb-8","children":[["$","p",null,{"className":"text-muted-foreground text-xs font-medium uppercase tracking-wider","children":"Scene · L3"}],["$","h1",null,{"className":"mt-1 text-3xl font-semibold tracking-tight","children":"Dashboard"}],["$","p",null,{"className":"text-muted-foreground mt-2 text-sm","children":"SectionCards KPI row plus chart and recent transactions — admin home pattern."}]]}],["$","$L1f",null,{"preview":["$","$L20",null,{}],"importLine":"// Scene composition — see admin-nextjs dashboard pages for production wiring","sourceCode":"$21","sourcePath":"src/components/scenes/dashboard-scene.tsx"}]]}]
+18:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+15:null
+1b:[["$","title","0",{"children":"Dashboard — Innate UI"}],["$","meta","1",{"name":"description","content":"Preview surface for every component exported by @innate/ui — variants, sizes, and slot contracts."}]]

@@ -1,0 +1,135 @@
+1:"$Sreact.fragment"
+2:"static/chunks/347-7c925fcfa29c6351.js"
+3:"static/chunks/730-c06378a114c19055.js"
+4:"static/chunks/409-d1b46f6ada0fdab2.js"
+5:"static/chunks/760-22699e56d54ac65b.js"
+6:"static/chunks/app/layout-497b17714816f782.js"
+7:I[55763,["347","$2","730","$3","409","$4","760","$5","177","$6"],"ThemeProvider"]
+8:I[33400,["347","$2","730","$3","409","$4","760","$5","177","$6"],"TooltipProvider"]
+9:"ThreeColumnShell"
+a:I[89924,["347","$2","730","$3","409","$4","760","$5","177","$6"],"$9"]
+b:I[39667,[],""]
+c:I[18031,[],""]
+d:I[20500,["347","$2","730","$3","409","$4","760","$5","177","$6"],"Toaster"]
+16:"static/chunks/app/scenes/%5Bslug%5D/page-9aa6c5957dc93a8a.js"
+17:"ShowcaseDetailTabs"
+18:I[88790,["347","$2","760","$5","838","$16"],"$17"]
+19:"WorkspaceListScene"
+1a:I[81404,["347","$2","760","$5","838","$16"],"$19"]
+1e:"ViewportBoundary"
+1f:I[82522,[],"$1e"]
+20:"MetadataBoundary"
+21:I[82522,[],"$20"]
+22:"$Sreact.suspense"
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","style"]
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","style"]
+f:X
+12:X
+12:C
+1b:Tc60,"use client"
+
+import { SearchIcon, SlidersHorizontalIcon, UploadIcon } from "lucide-react"
+import {
+  MetricCards,
+  SceneIntro,
+  TableCard,
+} from "@innate/scene-catalog/scene-blocks"
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@innate/ui"
+
+export function WorkspaceListScene() {
+  return (
+    <div className="space-y-[var(--spacing-section)]">
+      <SceneIntro
+        title="Workspace 列表样板"
+        description="适合台账、订单、资产、工单等以筛选、批量处理、列表浏览为核心的页面。"
+        chips={["List", "Filterbar", "Batch Action", "Table"]}
+      />
+      <Card>
+        <CardHeader>
+          <CardTitle>筛选与操作区</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-3 lg:flex-row lg:items-center">
+          <div className="flex flex-1 items-center gap-2">
+            <div className="relative flex-1">
+              <SearchIcon
+                className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground"
+                data-icon
+              />
+              <Input
+                className="pl-8"
+                placeholder="搜索记录名称、编码或负责人"
+              />
+            </div>
+            <Select defaultValue="month">
+              <SelectTrigger className="min-w-28">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="month">近 30 天</SelectItem>
+                <SelectItem value="quarter">近 90 天</SelectItem>
+                <SelectItem value="year">近 12 个月</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button variant="outline">
+              <SlidersHorizontalIcon data-icon />
+              高级筛选
+            </Button>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="outline">批量分配</Button>
+            <Button>
+              <UploadIcon data-icon />
+              导入数据
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+      <MetricCards
+        items={[
+          { label: "待处理记录", value: "128", hint: "较昨日新增 14 条" },
+          { label: "异常记录", value: "9", hint: "需优先处理高风险项" },
+          { label: "自动归档率", value: "82%", hint: "本月比上月提升 6%" },
+        ]}
+      />
+      <TableCard
+        title="记录列表"
+        description="表格承载排序、批量操作、状态识别和进入详情的主入口。"
+        headers={["记录名称", "负责人", "状态", "更新时间", "来源"]}
+        rows={[
+          ["华东工厂能耗台账", "王晨", "待复核", "今天 09:24", "ERP 同步"],
+          ["采购订单 PO-2026-0311", "李新", "进行中", "今天 08:16", "手工创建"],
+          ["设备资产 A-00918", "赵明", "异常", "昨天 18:42", "IoT 上报"],
+          ["ESG 指标草稿 Q1", "陈雪", "已归档", "昨天 10:05", "报表导入"],
+        ]}
+      />
+    </div>
+  )
+}
+15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","main",null,{"className":"w-full px-3 py-8 sm:px-4 lg:px-5","children":[["$","header",null,{"className":"mb-8","children":[["$","p",null,{"className":"text-muted-foreground text-xs font-medium uppercase tracking-wider","children":"Scene · L3"}],["$","h1",null,{"className":"mt-1 text-3xl font-semibold tracking-tight","children":"Workspace List"}],["$","p",null,{"className":"text-muted-foreground mt-2 text-sm","children":"Filter bar, batch actions, KPI row, and data table — list-centric ToB workspace."}]]}],["$","$L18",null,{"preview":["$","$L1a",null,{}],"importLine":"// Scene composition — see admin-nextjs dashboard pages for production wiring","sourceCode":"$1b","sourcePath":"src/components/scenes/workspace-list-scene.tsx"}]]}],null,"$L1c"]}],"p":"$@1d","v":null,"s":"$f"}}]]
+13:[["children",{"s":{"n":"slug","t":"d","k":"workspace-list","s":[]},"h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}]}]]}],"p":"$@14","v":"$12","s":"$f"},"c":"$Q15"}]]
+10:[["children",{"s":"scenes","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}]}]]}],"p":"$@11","v":"$12","s":"$f"},"c":"$Q13"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","precedence":"next"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":["$","body",null,{"children":["$","$L7",null,{"children":[["$","$L8",null,{"children":["$","$La",null,{"children":["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}],["$","$Ld",null,{}]]}]}]}]]}],"p":"$@e","v":null,"s":"$f"},"c":"$Q10"},"h":{"r":["$","$1","h",{"children":[null,["$","$L1f",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L21",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$22",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Workspace List — Innate UI"}],["$","meta","1",{"name":"description","content":"Preview surface for every component exported by @innate/ui — variants, sizes, and slot contracts."}]]}]}],null]}],null]}],"p":"$@23","v":null,"s":"$f"}},"a":"$@24","u":"$@25","b":"B--35WYMl9Rub1YRN8noQ"}
+26:I[82522,[],"OutletBoundary"]
+1c:["$","$L26",null,{"children":["$","$22",null,{"name":"Next.MetadataOutlet","children":"$@27"}]}]
+f:300
+27:null
+25:true
+f:C
+24:0
+14:"$undefined"
+11:"$undefined"
+e:"$undefined"
+23:"$undefined"
+1d:"$undefined"

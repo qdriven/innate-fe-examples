@@ -1,0 +1,141 @@
+1:"$Sreact.fragment"
+2:"static/chunks/347-7c925fcfa29c6351.js"
+3:"static/chunks/730-c06378a114c19055.js"
+4:"static/chunks/409-d1b46f6ada0fdab2.js"
+5:"static/chunks/760-22699e56d54ac65b.js"
+6:"static/chunks/app/layout-497b17714816f782.js"
+7:I[55763,["347","$2","730","$3","409","$4","760","$5","177","$6"],"ThemeProvider"]
+8:I[33400,["347","$2","730","$3","409","$4","760","$5","177","$6"],"TooltipProvider"]
+9:"ThreeColumnShell"
+a:I[89924,["347","$2","730","$3","409","$4","760","$5","177","$6"],"$9"]
+b:I[39667,[],""]
+c:I[18031,[],""]
+d:I[20500,["347","$2","730","$3","409","$4","760","$5","177","$6"],"Toaster"]
+13:I[82522,[],"OutletBoundary"]
+14:"$Sreact.suspense"
+16:"ViewportBoundary"
+17:I[82522,[],"$16"]
+19:"MetadataBoundary"
+1a:I[82522,[],"$19"]
+1c:I[86617,[],"default",1]
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","style"]
+:HL["/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","style"]
+f:X
+11:[["children",{"s":"__PAGE__","h":512,"d":{"r":["$","$1","c",{"children":["$L12",null,["$","$L13",null,{"children":["$","$14",null,{"name":"Next.MetadataOutlet","children":"$@15"}]}]]}],"p":false,"v":null}}]]
+10:[["children",{"s":{"n":"slug","t":"d","k":"carousel","s":[]},"h":512,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],"p":false,"v":"$f"},"c":"$Q11"}]]
+e:[["children",{"s":"components","h":512,"d":{"r":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],"p":false,"v":"$f"},"c":"$Q10"}]]
+0:{"P":null,"c":["","components","carousel"],"q":"","i":false,"t":{"t":{"s":"","h":528,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/3f6e80acd7fa9cbd.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/innate-fe-examples/plugins/web-showcase/_next/static/css/660417ca32e26f3d.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":["$","body",null,{"children":["$","$L7",null,{"children":[["$","$L8",null,{"children":["$","$La",null,{"children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}],["$","$Ld",null,{}]]}]}]}]]}],"p":false,"v":null},"c":"$Qe"},"h":{"r":["$","$1","h",{"children":[null,["$","$L17",null,{"children":"$L18"}],["$","$L1a",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$14",null,{"name":"Next.Metadata","children":"$L1b"}]}],null]}],null]}],"p":false,"v":null}},"m":"$undefined","G":["$1c",[]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"B--35WYMl9Rub1YRN8noQ"}
+1d:"static/chunks/372-55e32c3c72db9f52.js"
+1e:"static/chunks/561-e67cae33e75ef6f7.js"
+1f:"static/chunks/app/components/%5Bslug%5D/page-73de333c40de9f8f.js"
+20:"ShowcaseDetailTabs"
+21:I[88790,["347","$2","730","$3","372","$1d","561","$1e","760","$5","449","$1f"],"$20"]
+22:I[16059,["347","$2","730","$3","372","$1d","561","$1e","760","$5","449","$1f"],"CarouselDemo"]
+f:C
+23:Tb84,"use client"
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@innate/ui"
+
+function Section({
+  title,
+  description,
+  children,
+}: {
+  title: string
+  description: string
+  children: React.ReactNode
+}) {
+  return (
+    <Card className="rounded-xl border bg-card p-4">
+      <CardHeader className="p-0">
+        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <CardDescription className="text-muted-foreground text-xs">
+          {description}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="p-0 pt-3">{children}</CardContent>
+    </Card>
+  )
+}
+
+const SLIDES = [
+  { label: "Slide 1", color: "bg-blue-500/15 text-blue-700" },
+  { label: "Slide 2", color: "bg-purple-500/15 text-purple-700" },
+  { label: "Slide 3", color: "bg-pink-500/15 text-pink-700" },
+  { label: "Slide 4", color: "bg-orange-500/15 text-orange-700" },
+  { label: "Slide 5", color: "bg-green-500/15 text-green-700" },
+]
+
+export function CarouselDemo() {
+  return (
+    <div className="space-y-6">
+      <Section
+        title="Basic loop"
+        description="Five slides with prev/next buttons — loop is enabled by default."
+      >
+        <Carousel className="w-full max-w-xs">
+          <CarouselContent>
+            {SLIDES.map((slide, i) => (
+              <CarouselItem key={slide.label}>
+                <div
+                  className={`flex aspect-video items-center justify-center rounded-md border text-sm font-medium ${slide.color}`}
+                >
+                  {slide.label} (#{i + 1})
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </Section>
+
+      <Section
+        title="Multiple per view"
+        description="Use basis classes on CarouselItem to show more than one slide."
+      >
+        <Carousel className="w-full max-w-sm">
+          <CarouselContent className="-ml-2">
+            {SLIDES.map((slide) => (
+              <CarouselItem key={slide.label} className="pl-2 md:basis-1/2">
+                <div
+                  className={`flex aspect-square items-center justify-center rounded-md border text-sm font-medium ${slide.color}`}
+                >
+                  {slide.label}
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </Section>
+
+      <p className="text-muted-foreground text-xs">
+        Slot contract:{" "}
+        <code className="font-mono">
+          data-slot=&quot;carousel | carousel-content | carousel-item |
+          carousel-previous | carousel-next&quot;
+        </code>
+        ; built on embla-carousel-react.
+      </p>
+    </div>
+  )
+}
+
+export default CarouselDemo
+12:["$","main",null,{"className":"w-full px-3 py-8 sm:px-4 lg:px-5","children":[["$","header",null,{"className":"mb-8","children":[["$","p",null,{"className":"text-muted-foreground text-xs font-medium uppercase tracking-wider","children":"navigation"}],["$","h1",null,{"className":"mt-1 text-3xl font-semibold tracking-tight","children":"Carousel"}],["$","p",null,{"className":"text-muted-foreground mt-2 text-sm","children":"Slideshow — embla-based loop with previous/next and dot indicators."}]]}],["$","$L21",null,{"preview":["$","$L22",null,{}],"importLine":"import { Carousel } from \"@innate/ui\"","sourceCode":"$23","sourcePath":"src/components/blocks/carousel-demo.tsx"}]]}]
+18:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+15:null
+1b:[["$","title","0",{"children":"Carousel — Innate UI"}],["$","meta","1",{"name":"description","content":"Preview surface for every component exported by @innate/ui — variants, sizes, and slot contracts."}]]
