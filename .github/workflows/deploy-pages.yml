@@ -116,6 +116,15 @@ jobs:
           }
           JS
 
+      # examples 的三个 Next 应用用 ../../scripts/next-allowed-dev-origins 引用框架仓脚本；
+      # 框架仓若按“本仓无引用”误删，这里提前给出明确错误，而不是等到 next build 才炸。
+      - name: Check framework overlay scripts
+        run: |
+          test -f innate-fe/scripts/next-allowed-dev-origins.js || {
+            echo "框架仓缺少 scripts/next-allowed-dev-origins.js（examples 的 Next 配置会引用）"
+            exit 1
+          }
+
       - name: Install and assemble with innate-fe-cli
         working-directory: innate-fe
         env:
