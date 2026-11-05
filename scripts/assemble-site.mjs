@@ -57,17 +57,17 @@ const genDir = join(shell, "src/gen")
 const genBackup = join(tmpdir(), `innate-fe-gen-${process.pid}`)
 cpSync(genDir, genBackup, { recursive: true })
 
-// Pages 构建会把 PUBLIC_PATH 写进框架仓里被 git 跟踪的 static-manifests.json。
-// 产物已经拷进本仓 deploy/ 之后再还原，避免把本机 Pages 路径留在框架仓。
+// 构建会把 examples 的插件清单（以及 Pages 的 PUBLIC_PATH）写进框架仓里被 git
+// 跟踪的 static-manifests.json 和 public/plugins/。产物拷进本仓 deploy/ 之后
+// 统一还原，避免把示例 profile 留在框架检出里——普通 `pnpm all` 同样需要还原。
 const manifestsPath = join(shell, "src/plugins/static-manifests.json")
 const pluginsPublic = join(shell, "public/plugins")
 const manifestsBackup = join(tmpdir(), `innate-fe-manifests-${process.pid}.json`)
 const pluginsBackup = join(tmpdir(), `innate-fe-plugins-${process.pid}`)
-if (wantPages) {
-  if (existsSync(manifestsPath)) cpSync(manifestsPath, manifestsBackup)
-  if (existsSync(pluginsPublic)) {
-    cpSync(pluginsPublic, pluginsBackup, { recursive: true })
-  }
+const hadPluginsPublic = existsSync(pluginsPublic)
+if (existsSync(manifestsPath)) cpSync(manifestsPath, manifestsBackup)
+if (hadPluginsPublic) {
+  cpSync(pluginsPublic, pluginsBackup, { recursive: true })
 }
 
 function restore() {
@@ -75,16 +75,14 @@ function restore() {
   rmSync(genDir, { recursive: true, force: true })
   cpSync(genBackup, genDir, { recursive: true })
   rmSync(genBackup, { recursive: true, force: true })
-  if (wantPages) {
-    if (existsSync(manifestsBackup)) {
-      cpSync(manifestsBackup, manifestsPath)
-      rmSync(manifestsBackup, { force: true })
-    }
-    rmSync(pluginsPublic, { recursive: true, force: true })
-    if (existsSync(pluginsBackup)) {
-      cpSync(pluginsBackup, pluginsPublic, { recursive: true })
-      rmSync(pluginsBackup, { recursive: true, force: true })
-    }
+  if (existsSync(manifestsBackup)) {
+    cpSync(manifestsBackup, manifestsPath)
+    rmSync(manifestsBackup, { force: true })
+  }
+  rmSync(pluginsPublic, { recursive: true, force: true })
+  if (hadPluginsPublic) {
+    cpSync(pluginsBackup, pluginsPublic, { recursive: true })
+    rmSync(pluginsBackup, { recursive: true, force: true })
   }
 }
 
