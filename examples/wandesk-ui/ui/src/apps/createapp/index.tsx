@@ -27,7 +27,7 @@ import {
   Wrench,
   Zap,
 } from "lucide-react"
-import type { ComponentType } from "react"
+import type { LucideIcon } from "lucide-react"
 import type { CSSProperties } from "react"
 import { useMemo, useState } from "react"
 import ChatApp from "../chat"
@@ -35,7 +35,7 @@ import { windowManager } from "../../system/windows"
 
 type Template = {
   cat: string
-  icon: ComponentType<{ className?: string; strokeWidth?: number }>
+  icon: LucideIcon
   name: string
   desc: string
 }
