@@ -17,6 +17,8 @@ function makeOrder(overrides: Partial<Order> = {}): Order {
     id: "ORD-2026-0001",
     customer: "华东智造有限公司",
     status: "paid",
+    category: "standard",
+    reviewState: "approved",
     note: "",
     lines: [
       {
@@ -50,6 +52,23 @@ const ORDERS: readonly Order[] = [
     ],
   }),
 ]
+
+/** 覆盖四种种类的 fixture（种类筛选 / Badge 列用）。 */
+const CATEGORY_ORDERS: readonly Order[] = [
+  makeOrder({ id: "ORD-2026-0001", category: "standard" }),
+  makeOrder({ id: "ORD-2026-0002", category: "urgent" }),
+  makeOrder({ id: "ORD-2026-0003", category: "subscription" }),
+  makeOrder({ id: "ORD-2026-0004", category: "framework" }),
+]
+
+/** 打开 Base UI Select 并选中指定 option（需 pointerDown 才受理 click）。 */
+async function selectOption(triggerName: string, optionName: string) {
+  fireEvent.click(screen.getByRole("combobox", { name: triggerName }))
+  const option = await screen.findByRole("option", { name: optionName })
+  fireEvent.pointerDown(option)
+  fireEvent.pointerUp(option)
+  fireEvent.click(option)
+}
 
 /** 终态订单：不可勾选，也不能进入批量选择。 */
 const TERMINAL_ORDER = makeOrder({
@@ -115,6 +134,95 @@ describe("OrdersTable", () => {
         expect.objectContaining({ id: "ORD-2026-0002" })
       )
     })
+  })
+
+  it("传入 onPeek 后行菜单出现「抽屉查看」，回调携带对应 id", async () => {
+    const onPeek = vi.fn()
+    render(<OrdersTable orders={ORDERS} onCancel={vi.fn()} onPeek={onPeek} />)
+
+    fireEvent.click(screen.getAllByRole("button", { name: "订单操作" })[0]!)
+    const peekItem = await screen.findByText("抽屉查看")
+    fireEvent.click(peekItem)
+    await waitFor(() => {
+      expect(onPeek).toHaveBeenCalledWith(
+        expect.objectContaining({ id: "ORD-2026-0001" })
+      )
+    })
+  })
+
+  it("未传 onPeek 时行菜单不出现「抽屉查看」", async () => {
+    render(<OrdersTable orders={ORDERS} onCancel={vi.fn()} />)
+    fireEvent.click(screen.getAllByRole("button", { name: "订单操作" })[0]!)
+    await screen.findByText("查看详情")
+    expect(screen.queryByText("抽屉查看")).toBeNull()
+  })
+})
+
+describe("OrdersTable 种类筛选", () => {
+  it("种类筛选框显示中文标签而不是原始值", () => {
+    render(<OrdersTable orders={CATEGORY_ORDERS} onCancel={vi.fn()} />)
+    expect(screen.getByText("全部种类")).toBeTruthy()
+    expect(screen.queryByText("all")).not.toBeTruthy()
+    // Badge 列渲染中文种类标签
+    expect(screen.getByText("加急单")).toBeTruthy()
+    expect(screen.getByText("框架协议单")).toBeTruthy()
+    expect(screen.queryByText("urgent")).not.toBeTruthy()
+  })
+
+  it("选「加急单」后只渲染匹配行，清回「全部种类」恢复", async () => {
+    render(<OrdersTable orders={CATEGORY_ORDERS} onCancel={vi.fn()} />)
+
+    await selectOption("按种类筛选", "加急单")
+    await waitFor(() => {
+      expect(screen.queryByText("ORD-2026-0001")).not.toBeTruthy()
+    })
+    expect(screen.getByText("ORD-2026-0002")).toBeTruthy()
+    expect(screen.queryByText("ORD-2026-0003")).not.toBeTruthy()
+    expect(screen.queryByText("ORD-2026-0004")).not.toBeTruthy()
+    // 触发器显示中文标签（Badge 列也有「加急单」，按 combobox 定位）
+    expect(
+      screen.getByRole("combobox", { name: "按种类筛选" }).textContent
+    ).toContain("加急单")
+
+    await selectOption("按种类筛选", "全部种类")
+    await waitFor(() => {
+      expect(screen.getByText("ORD-2026-0001")).toBeTruthy()
+    })
+    expect(screen.getByText("ORD-2026-0003")).toBeTruthy()
+    expect(screen.getByText("ORD-2026-0004")).toBeTruthy()
+  })
+
+  it("种类与状态筛选 AND 组合", async () => {
+    render(
+      <OrdersTable
+        orders={[
+          makeOrder({
+            id: "ORD-2026-0001",
+            category: "urgent",
+            status: "paid",
+          }),
+          makeOrder({
+            id: "ORD-2026-0002",
+            category: "urgent",
+            status: "draft",
+          }),
+          makeOrder({
+            id: "ORD-2026-0003",
+            category: "standard",
+            status: "draft",
+          }),
+        ]}
+        onCancel={vi.fn()}
+      />
+    )
+
+    await selectOption("按种类筛选", "加急单")
+    await selectOption("按状态筛选", "草稿")
+    await waitFor(() => {
+      expect(screen.getByText("ORD-2026-0002")).toBeTruthy()
+    })
+    expect(screen.queryByText("ORD-2026-0001")).not.toBeTruthy()
+    expect(screen.queryByText("ORD-2026-0003")).not.toBeTruthy()
   })
 })
 

@@ -7,6 +7,14 @@ const EXISTING: Order = {
   id: "ORD-2026-0003",
   customer: "南州传动科技",
   status: "shipped",
+  category: "urgent",
+  categoryMeta: {
+    kind: "urgent",
+    slaHours: 24,
+    rushRate: 1.2,
+    escalationContact: "值班经理 138-0000-0000",
+  },
+  reviewState: "approved",
   note: "指定物流",
   lines: [
     {
@@ -70,6 +78,7 @@ describe("OrderForm", () => {
     })
     expect(onSubmit).toHaveBeenCalledWith({
       customer: "华东智造",
+      category: "standard",
       note: "加急",
       lines: [{ sku: "SKU-T1", name: "测试物料", quantity: 3, unitPrice: 120 }],
     })
@@ -91,11 +100,42 @@ describe("OrderForm", () => {
     expect(
       (screen.getByPlaceholderText("客户 / 采购方") as HTMLInputElement).value
     ).toBe("南州传动科技")
+    // 种类随既有订单回填（items 映射渲染中文标签）
+    expect(screen.getByText("加急单")).toBeTruthy()
     expect(
       (screen.getAllByPlaceholderText("SKU")[0] as HTMLInputElement).value
     ).toBe("SKU-3001")
     expect(
       (screen.getAllByPlaceholderText("数量")[0] as HTMLInputElement).value
     ).toBe("4")
+  })
+
+  it("新建时种类默认「标准单」，切换后提交值带上 category", async () => {
+    const onSubmit = vi.fn().mockResolvedValue(undefined)
+    render(<OrderForm submitLabel="保存订单" onSubmit={onSubmit} />)
+
+    // 默认值以中文标签呈现，不露原始 value
+    expect(screen.getByText("标准单")).toBeTruthy()
+    expect(screen.queryByText("standard")).not.toBeTruthy()
+
+    // 打开 Select 切到「加急单」（Base UI 的 option 要先有 pointerdown 才受理 click）
+    fireEvent.click(screen.getByRole("combobox"))
+    const urgentOption = await screen.findByRole("option", { name: "加急单" })
+    fireEvent.pointerDown(urgentOption)
+    fireEvent.pointerUp(urgentOption)
+    fireEvent.click(urgentOption)
+
+    fireEvent.change(screen.getByPlaceholderText("客户 / 采购方"), {
+      target: { value: "华东智造" },
+    })
+    fillLine(0, "SKU-T1", "测试物料", "1", "10")
+    fireEvent.click(screen.getByRole("button", { name: "保存订单" }))
+
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledTimes(1)
+    })
+    expect(onSubmit).toHaveBeenCalledWith(
+      expect.objectContaining({ category: "urgent" })
+    )
   })
 })

@@ -3,17 +3,23 @@ import { resetOrders } from "../lib/orders/mock-data"
 import {
   bulkCancelOrders,
   createOrder,
+  decideReview,
   getOrder,
+  getOrderStats,
+  InvalidReviewDecisionError,
   InvalidStatusTransitionError,
   listOrders,
+  listReviewQueue,
   OrderNotFoundError,
+  submitForReview,
   transitionOrderStatus,
   updateOrder,
 } from "../lib/orders/service"
-import { orderTotal } from "../lib/orders/types"
+import { orderTotal, type OrderInput } from "../lib/orders/types"
 
-const INPUT = {
+const INPUT: OrderInput = {
   customer: "测试客户",
+  category: "standard",
   note: "",
   lines: [{ sku: "SKU-T1", name: "测试物料", quantity: 2, unitPrice: 100 }],
 }
@@ -41,6 +47,45 @@ describe("listOrders", () => {
       true
     )
   })
+
+  it("filters by category and combines with status/search（AND）", async () => {
+    const urgent = await listOrders({ category: "urgent" })
+    expect(urgent.length).toBeGreaterThan(0)
+    expect(urgent.every((order) => order.category === "urgent")).toBe(true)
+
+    // category × status：种子里 0003 是 urgent + shipped
+    const urgentShipped = await listOrders({
+      category: "urgent",
+      status: "shipped",
+    })
+    expect(urgentShipped.map((order) => order.id)).toEqual(["ORD-2026-0003"])
+
+    // category × search：种子里 0002 是 standard + 临港
+    const byCustomer = await listOrders({
+      category: "standard",
+      search: "临港",
+    })
+    expect(byCustomer.map((order) => order.id)).toEqual(["ORD-2026-0002"])
+
+    // 四种种类各自都有种子
+    for (const category of [
+      "standard",
+      "urgent",
+      "subscription",
+      "framework",
+    ] as const) {
+      const matched = await listOrders({ category })
+      expect(matched.length).toBeGreaterThan(0)
+      expect(matched.every((order) => order.category === category)).toBe(true)
+    }
+
+    // 无交集时返回空
+    const none = await listOrders({
+      category: "framework",
+      search: "不存在的客户",
+    })
+    expect(none).toHaveLength(0)
+  })
 })
 
 describe("getOrder", () => {
@@ -62,6 +107,9 @@ describe("createOrder / updateOrder", () => {
     const order = await createOrder(INPUT)
     expect(order.id).toMatch(/^ORD-2026-\d{4}$/)
     expect(order.status).toBe("draft")
+    expect(order.category).toBe("standard")
+    // 新建草稿即进入待审队列
+    expect(order.reviewState).toBe("pending")
     expect(order.lines).toHaveLength(1)
     expect(order.lines[0]?.id).toBe(`${order.id}-L1`)
     expect(orderTotal(order)).toBe(200)
@@ -75,12 +123,38 @@ describe("createOrder / updateOrder", () => {
     const updated = await updateOrder(created.id, {
       ...INPUT,
       customer: "改名客户",
+      category: "urgent",
       note: "加急",
     })
     expect(updated.customer).toBe("改名客户")
+    expect(updated.category).toBe("urgent")
     expect(updated.note).toBe("加急")
     expect(updated.status).toBe("draft")
     expect(updated.createdAt).toBe(created.createdAt)
+  })
+
+  it("编辑换种类时保留不了旧种类的 categoryMeta，种类不变则保留", async () => {
+    const created = await createOrder({
+      ...INPUT,
+      categoryMeta: {
+        kind: "standard",
+        dueDate: "2026-12-01",
+        logisticsMethod: "德邦物流",
+      },
+    })
+    const sameCategory = await updateOrder(created.id, INPUT)
+    expect(sameCategory.categoryMeta).toEqual({
+      kind: "standard",
+      dueDate: "2026-12-01",
+      logisticsMethod: "德邦物流",
+    })
+
+    const switched = await updateOrder(created.id, {
+      ...INPUT,
+      category: "urgent",
+    })
+    expect(switched.category).toBe("urgent")
+    expect(switched.categoryMeta).toBeUndefined()
   })
 })
 
@@ -169,5 +243,147 @@ describe("bulkCancelOrders（批量取消）", () => {
     const result = await bulkCancelOrders(["ORD-2026-0001", "ORD-2026-0001"])
     expect(result.cancelled).toHaveLength(1)
     expect(result.skipped).toHaveLength(0)
+  })
+})
+
+describe("审核队列与决策", () => {
+  it("listReviewQueue 只返回 pending 订单", async () => {
+    const queue = await listReviewQueue()
+    expect(queue.length).toBeGreaterThan(0)
+    expect(queue.every((order) => order.reviewState === "pending")).toBe(true)
+    expect(queue.map((order) => order.id)).toContain("ORD-2026-0002")
+    // 0001 已批准、0005 已拒绝，都不在队列
+    expect(queue.map((order) => order.id)).not.toContain("ORD-2026-0001")
+    expect(queue.map((order) => order.id)).not.toContain("ORD-2026-0005")
+    // 按提交时间（updatedAt）升序
+    const times = queue.map((order) => order.updatedAt)
+    expect([...times].sort()).toEqual(times)
+  })
+
+  it("decideReview(approved) 写入 store 并出队", async () => {
+    const decided = await decideReview("ORD-2026-0002", "approved")
+    expect(decided.reviewState).toBe("approved")
+    expect(decided.reviewDecidedAt).toBeTruthy()
+
+    const stored = await getOrder("ORD-2026-0002")
+    expect(stored.reviewState).toBe("approved")
+
+    const queue = await listReviewQueue()
+    expect(queue.map((order) => order.id)).not.toContain("ORD-2026-0002")
+  })
+
+  it("rejected 必填 reason：缺省抛错且不写入，填写后落库", async () => {
+    await expect(
+      decideReview("ORD-2026-0002", "rejected")
+    ).rejects.toBeInstanceOf(InvalidReviewDecisionError)
+    await expect(
+      decideReview("ORD-2026-0002", "rejected", "   ")
+    ).rejects.toBeInstanceOf(InvalidReviewDecisionError)
+    // 两次失败都没动 store
+    expect((await getOrder("ORD-2026-0002")).reviewState).toBe("pending")
+
+    const rejected = await decideReview(
+      "ORD-2026-0002",
+      "rejected",
+      "  预算不足  "
+    )
+    expect(rejected.reviewState).toBe("rejected")
+    expect(rejected.reviewReason).toBe("预算不足")
+    expect(rejected.reviewDecidedAt).toBeTruthy()
+  })
+
+  it("已决策的订单不可再次决策（终态）", async () => {
+    await decideReview("ORD-2026-0002", "approved")
+    await expect(
+      decideReview("ORD-2026-0002", "rejected", "补一刀")
+    ).rejects.toBeInstanceOf(InvalidReviewDecisionError)
+    await expect(
+      decideReview("ORD-2026-0002", "approved")
+    ).rejects.toBeInstanceOf(InvalidReviewDecisionError)
+  })
+
+  it("submitForReview：pending 可提交并刷新提交时间，已决策抛错", async () => {
+    const submitted = await submitForReview("ORD-2026-0002")
+    expect(submitted.reviewState).toBe("pending")
+
+    await expect(submitForReview("ORD-2026-0001")).rejects.toBeInstanceOf(
+      InvalidReviewDecisionError
+    )
+    await expect(submitForReview("ORD-9999")).rejects.toBeInstanceOf(
+      OrderNotFoundError
+    )
+  })
+})
+
+describe("审核与状态机耦合（rejected 拦截确认）", () => {
+  it("rejected 的草稿不可 draft→confirmed，但可取消", async () => {
+    const created = await createOrder(INPUT)
+    await decideReview(created.id, "rejected", "定价超出授权")
+
+    await expect(
+      transitionOrderStatus(created.id, "confirmed")
+    ).rejects.toBeInstanceOf(InvalidReviewDecisionError)
+    // 状态没有被推进
+    expect((await getOrder(created.id)).status).toBe("draft")
+
+    const cancelled = await transitionOrderStatus(created.id, "cancelled")
+    expect(cancelled.status).toBe("cancelled")
+  })
+
+  it("pending / approved 的草稿确认不受影响", async () => {
+    const created = await createOrder(INPUT)
+    const confirmed = await transitionOrderStatus(created.id, "confirmed")
+    expect(confirmed.status).toBe("confirmed")
+
+    const another = await createOrder(INPUT)
+    await decideReview(another.id, "approved")
+    const confirmedAgain = await transitionOrderStatus(another.id, "confirmed")
+    expect(confirmedAgain.status).toBe("confirmed")
+  })
+})
+
+describe("getOrderStats（dashboard 聚合）", () => {
+  it("总数 / 待审 / 成交额 / 取消率 / 状态分布与种子一致", async () => {
+    const stats = await getOrderStats()
+    const all = await listOrders()
+
+    expect(stats.total).toBe(all.length)
+    expect(stats.total).toBeGreaterThanOrEqual(9)
+    expect(stats.pendingReview).toBe(
+      all.filter((order) => order.reviewState === "pending").length
+    )
+    expect(stats.pendingReview).toBeGreaterThanOrEqual(1)
+
+    const expectedRevenue = all
+      .filter((order) =>
+        ["paid", "shipped", "completed"].includes(order.status)
+      )
+      .reduce((sum, order) => sum + orderTotal(order), 0)
+    expect(stats.revenue).toBe(expectedRevenue)
+    expect(stats.revenue).toBeGreaterThan(0)
+
+    const cancelled = all.filter((order) => order.status === "cancelled").length
+    expect(stats.cancelRate).toBeCloseTo(cancelled / all.length)
+
+    expect(stats.byStatus).toHaveLength(6)
+    expect(stats.byStatus.reduce((sum, item) => sum + item.count, 0)).toBe(
+      stats.total
+    )
+  })
+
+  it("按周金额趋势：周一升序、空周补 0、金额非负", async () => {
+    const stats = await getOrderStats()
+    expect(stats.weeklyAmount.length).toBeGreaterThan(1)
+
+    const keys = stats.weeklyAmount.map((point) => point.weekStart)
+    expect([...keys].sort()).toEqual(keys)
+    for (const point of stats.weeklyAmount) {
+      expect(point.weekStart).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+      // weekStart 必须是周一（UTC）
+      expect(new Date(`${point.weekStart}T00:00:00.000Z`).getUTCDay()).toBe(1)
+      expect(point.amount).toBeGreaterThanOrEqual(0)
+    }
+    // 有成交的周金额 > 0（至少一周）
+    expect(stats.weeklyAmount.some((point) => point.amount > 0)).toBe(true)
   })
 })

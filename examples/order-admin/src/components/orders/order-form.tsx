@@ -15,11 +15,30 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@innate/ui"
-import type { Order, OrderInput } from "../../lib/orders/types"
+import {
+  ORDER_CATEGORIES,
+  ORDER_CATEGORY_LABELS,
+  type Order,
+  type OrderInput,
+} from "../../lib/orders/types"
+
+/**
+ * 种类 Select 的「值 → 标签」映射：Base UI 的 SelectValue 不给 items 时
+ * 会直接渲染原始 value（界面上露出 "standard"），与 STATUS_FILTER_ITEMS 同因。
+ */
+const CATEGORY_ITEMS: Record<string, string> = Object.fromEntries(
+  ORDER_CATEGORIES.map((value) => [value, ORDER_CATEGORY_LABELS[value]])
+)
 
 const orderFormSchema = z.object({
   customer: z.string().min(1, "请填写客户名"),
+  category: z.enum(ORDER_CATEGORIES, "请选择订单种类"),
   note: z.string(),
   lines: z
     .array(
@@ -45,6 +64,7 @@ type OrderFormOutput = z.output<typeof orderFormSchema>
 function toFormValues(order?: Order): OrderFormInput {
   return {
     customer: order?.customer ?? "",
+    category: order?.category ?? "standard",
     note: order?.note ?? "",
     lines:
       order && order.lines.length > 0
@@ -79,6 +99,7 @@ export function OrderForm({
   const submit = form.handleSubmit(async (values) => {
     await onSubmit({
       customer: values.customer,
+      category: values.category,
       note: values.note,
       lines: values.lines.map((line) => ({
         sku: line.sku,
@@ -106,6 +127,32 @@ export function OrderForm({
                   <FormControl>
                     <Input placeholder="客户 / 采购方" {...field} />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>订单种类</FormLabel>
+                  <Select
+                    items={CATEGORY_ITEMS}
+                    value={field.value}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {ORDER_CATEGORIES.map((value) => (
+                        <SelectItem key={value} value={value}>
+                          {ORDER_CATEGORY_LABELS[value]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

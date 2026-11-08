@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react"
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react"
 import type { ReactNode } from "react"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { resetOrders } from "../lib/orders/mock-data"
@@ -71,5 +77,42 @@ describe("OrdersPage 批量取消", () => {
       name: "选择订单 ORD-2026-0004（不可取消）",
     })
     expect(terminalBox.getAttribute("aria-disabled")).toBe("true")
+  })
+})
+
+describe("OrdersPage 抽屉查看", () => {
+  it("行菜单点「抽屉查看」打开 Sheet，展示对应订单摘要", async () => {
+    render(<OrdersPage />)
+
+    const triggers = await screen.findAllByRole("button", {
+      name: "订单操作",
+    })
+    fireEvent.click(triggers[0]!)
+    fireEvent.click(await screen.findByText("抽屉查看"))
+
+    // Sheet（Base UI Dialog portal）打开后可见订单号与客户
+    const dialog = await screen.findByRole("dialog")
+    await waitFor(() => {
+      expect(dialog.textContent).toContain("ORD-2026-0001")
+    })
+    expect(dialog.textContent).toContain("华东智造有限公司")
+  })
+
+  it("关闭抽屉后 Sheet 从可访问树移除", async () => {
+    render(<OrdersPage />)
+
+    const triggers = await screen.findAllByRole("button", {
+      name: "订单操作",
+    })
+    fireEvent.click(triggers[0]!)
+    fireEvent.click(await screen.findByText("抽屉查看"))
+
+    const dialog = await screen.findByRole("dialog")
+    // SheetContent 默认 Close 按钮（sr-only 文案 "Close"）
+    const close = within(dialog).getByRole("button", { name: "Close" })
+    fireEvent.click(close)
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).toBeNull()
+    })
   })
 })

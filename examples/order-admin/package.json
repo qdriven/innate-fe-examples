@@ -20,12 +20,14 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@innate/admin-composites": "workspace:*",
+    "@innate/scene-catalog": "workspace:*",
     "@innate/ui": "workspace:*",
     "@innate/web-domain": "workspace:*",
     "@tanstack/react-router": "^1.132.0",
     "@tanstack/react-table": "^8.21.3",
     "lucide-react": "^0.577.0",
     "react-hook-form": "^7.90.0",
+    "recharts": "3.10.1",
     "sonner": "^2.0.7",
     "zod": "^4.3.6"
   },

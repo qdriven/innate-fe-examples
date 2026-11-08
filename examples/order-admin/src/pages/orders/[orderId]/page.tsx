@@ -27,6 +27,7 @@ import {
   TableRow,
 } from "@innate/ui"
 import { CancelOrderDialog } from "../../../components/orders/cancel-order-dialog"
+import { OrderDetailSections } from "../../../components/orders/order-detail-sections"
 import { OrderStatusBadge } from "../../../components/orders/order-status-badge"
 import { getOrder, transitionOrderStatus } from "../../../lib/orders/service"
 import {
@@ -162,6 +163,8 @@ export function OrderDetailPage() {
               </div>
             </CardContent>
           </Card>
+
+          <OrderDetailSections order={order} />
 
           <div className="flex flex-wrap gap-2">
             {forwardActions.map((status) => (

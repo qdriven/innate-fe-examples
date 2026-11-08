@@ -190,7 +190,7 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2
 
-  ../../framework/innate-fe/packages/admin-composites:
+  ../packages/admin-composites:
     dependencies:
       '@dnd-kit/core':
         specifier: ^6.3.1
@@ -239,7 +239,7 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
 
-  ../../framework/innate-fe/packages/agent-ui:
+  ../packages/agent-ui:
     dependencies:
       '@innate/ui':
         specifier: workspace:*
@@ -294,7 +294,7 @@ importers:
         specifier: ^3.2.6
         version: 3.2.7(@types/debug@4.1.13)(@types/node@22.20.5)(jiti@2.7.0)(jsdom@27.4.0(@noble/hashes@2.4.0))(lightningcss@1.32.0)(tsx@4.23.15)
 
-  ../../framework/innate-fe/packages/plugin-protocol:
+  ../packages/plugin-protocol:
     devDependencies:
       typescript:
         specifier: ^5.7.2
@@ -303,7 +303,7 @@ importers:
         specifier: ^3.2.6
         version: 3.2.7(@types/debug@4.1.13)(@types/node@22.20.5)(jiti@2.7.0)(jsdom@27.4.0(@noble/hashes@2.4.0))(lightningcss@1.32.0)(tsx@4.23.15)
 
-  ../../framework/innate-fe/packages/scene-catalog:
+  ../packages/scene-catalog:
     dependencies:
       '@innate/scene-specs':
         specifier: workspace:*
@@ -331,7 +331,7 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
 
-  ../../framework/innate-fe/packages/scene-mocks:
+  ../packages/scene-mocks:
     devDependencies:
       '@innate/tsconfig':
         specifier: workspace:*
@@ -340,13 +340,13 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
 
-  ../../framework/innate-fe/packages/scene-specs: {}
+  ../packages/scene-specs: {}
 
-  ../../framework/innate-fe/packages/skills-kit: {}
+  ../packages/skills-kit: {}
 
-  ../../framework/innate-fe/packages/tsconfig: {}
+  ../packages/tsconfig: {}
 
-  ../../framework/innate-fe/packages/ui:
+  ../packages/ui:
     dependencies:
       '@base-ui/react':
         specifier: ^1.4.1
@@ -443,7 +443,7 @@ importers:
         specifier: ^3.2.6
         version: 3.2.7(@types/debug@4.1.13)(@types/node@22.20.5)(jiti@2.7.0)(jsdom@27.4.0(@noble/hashes@2.4.0))(lightningcss@1.32.0)(tsx@4.23.15)
 
-  ../../framework/innate-fe/packages/web-domain:
+  ../packages/web-domain:
     devDependencies:
       '@tanstack/react-router':
         specifier: ^1.170.46
@@ -480,16 +480,16 @@ importers:
         version: 3.2.2(react@18.3.1)
       '@innate/admin-composites':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/admin-composites
+        version: link:../../../packages/admin-composites
       '@innate/scene-catalog':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/scene-catalog
+        version: link:../../../packages/scene-catalog
       '@innate/scene-mocks':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/scene-mocks
+        version: link:../../../packages/scene-mocks
       '@innate/ui':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/ui
+        version: link:../../../packages/ui
       '@next/env':
         specifier: ^16.1.6
         version: 16.4.3
@@ -580,22 +580,22 @@ importers:
         version: 5.3.0
       '@innate/admin-composites':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/admin-composites
+        version: link:../../../packages/admin-composites
       '@innate/plugin-protocol':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/plugin-protocol
+        version: link:../../../packages/plugin-protocol
       '@innate/scene-catalog':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/scene-catalog
+        version: link:../../../packages/scene-catalog
       '@innate/scene-mocks':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/scene-mocks
+        version: link:../../../packages/scene-mocks
       '@innate/ui':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/ui
+        version: link:../../../packages/ui
       '@innate/web-domain':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/web-domain
+        version: link:../../../packages/web-domain
       '@tanstack/react-router':
         specifier: ^1.132.0
         version: 1.170.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -653,10 +653,10 @@ importers:
         version: 5.3.0
       '@innate/ui':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/ui
+        version: link:../../../packages/ui
       '@innate/web-domain':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/web-domain
+        version: link:../../../packages/web-domain
       '@tanstack/react-router':
         specifier: ^1.132.0
         version: 1.170.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -711,10 +711,10 @@ importers:
         version: 5.3.0
       '@innate/ui':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/ui
+        version: link:../../../packages/ui
       '@innate/web-domain':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/web-domain
+        version: link:../../../packages/web-domain
       '@tanstack/react-router':
         specifier: ^1.132.0
         version: 1.170.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -784,13 +784,16 @@ importers:
         version: 5.9.2(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.20.0))(ajv@8.20.0)(effect@3.20.0)(react-hook-form@7.91.0(@types/react@18.3.31)(react@18.3.1))(valibot@1.4.2(typescript@5.9.3))(zod@4.6.7)
       '@innate/admin-composites':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/admin-composites
+        version: link:../../../packages/admin-composites
+      '@innate/scene-catalog':
+        specifier: workspace:*
+        version: link:../../../packages/scene-catalog
       '@innate/ui':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/ui
+        version: link:../../../packages/ui
       '@innate/web-domain':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/web-domain
+        version: link:../../../packages/web-domain
       '@tanstack/react-router':
         specifier: ^1.132.0
         version: 1.170.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -803,6 +806,9 @@ importers:
       react-hook-form:
         specifier: ^7.90.0
         version: 7.91.0(@types/react@18.3.31)(react@18.3.1)
+      recharts:
+        specifier: 3.10.1
+        version: 3.10.1(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react-is@17.0.2)(react@18.3.1)(redux@5.0.1)
       sonner:
         specifier: ^2.0.7
         version: 2.0.8(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -857,7 +863,7 @@ importers:
         version: 5.3.0
       '@innate/ui':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/ui
+        version: link:../../../packages/ui
       lucide-react:
         specifier: ^0.577.0
         version: 0.577.0(react@18.3.1)
@@ -897,10 +903,10 @@ importers:
     dependencies:
       '@innate/ui':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/ui
+        version: link:../../../packages/ui
       '@innate/web-domain':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/web-domain
+        version: link:../../../packages/web-domain
       '@tanstack/react-router':
         specifier: ^1.132.0
         version: 1.170.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1001,13 +1007,13 @@ importers:
         version: 5.9.2(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.20.0))(ajv@8.20.0)(effect@3.20.0)(react-hook-form@7.91.0(@types/react@18.3.31)(react@18.3.1))(valibot@1.4.2(typescript@5.9.3))(zod@4.6.7)
       '@innate/admin-composites':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/admin-composites
+        version: link:../../../packages/admin-composites
       '@innate/scene-catalog':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/scene-catalog
+        version: link:../../../packages/scene-catalog
       '@innate/ui':
         specifier: workspace:*
-        version: link:../../../../framework/innate-fe/packages/ui
+        version: link:../../../packages/ui
       cmdk:
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

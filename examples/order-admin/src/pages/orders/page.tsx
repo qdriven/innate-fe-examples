@@ -11,6 +11,7 @@ import {
 } from "@innate/ui"
 import { CancelOrderDialog } from "../../components/orders/cancel-order-dialog"
 import { BulkCancelOrdersDialog } from "../../components/orders/bulk-cancel-orders-dialog"
+import { OrderPeekSheet } from "../../components/orders/order-peek-sheet"
 import { OrdersTable } from "../../components/orders/orders-table"
 import {
   bulkCancelOrders,
@@ -34,7 +35,15 @@ export function OrdersPage() {
   const { data, loading, error, reload } = useAsync(() => listOrders(), [])
   const [cancelling, setCancelling] = useState<Order | null>(null)
   const [bulkTargets, setBulkTargets] = useState<readonly Order[] | null>(null)
+  // 抽屉查看：持有目标订单与 Sheet 开关（同 CancelOrderDialog 的持有模式）
+  const [peeking, setPeeking] = useState<Order | null>(null)
+  const [peekOpen, setPeekOpen] = useState(false)
   const [busy, setBusy] = useState(false)
+
+  const handlePeek = (order: Order) => {
+    setPeeking(order)
+    setPeekOpen(true)
+  }
 
   const handleCancel = async () => {
     if (!cancelling) return
@@ -99,8 +108,18 @@ export function OrdersPage() {
           orders={data ?? []}
           onCancel={setCancelling}
           onBulkCancel={setBulkTargets}
+          onPeek={handlePeek}
         />
       )}
+      <OrderPeekSheet
+        order={peeking}
+        open={peekOpen}
+        onOpenChange={(open) => {
+          setPeekOpen(open)
+          // 关闭后清空订单，避免退出动画期间内容闪走
+          if (!open) setPeeking(null)
+        }}
+      />
       <CancelOrderDialog
         order={cancelling}
         busy={busy}

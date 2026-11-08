@@ -8,6 +8,8 @@ import { OrdersPage } from "./pages/orders/page"
 import { OrderCreatePage } from "./pages/orders/new/page"
 import { OrderDetailPage } from "./pages/orders/[orderId]/page"
 import { OrderEditPage } from "./pages/orders/[orderId]/edit/page"
+import { DashboardPage } from "./pages/dashboard/page"
+import { ReviewPage } from "./pages/review/page"
 
 function pageRoute(
   parent: AnyRoute,
@@ -46,6 +48,8 @@ export const webDomain = createWebDomain(DOMAIN_ID)
       pageRoute(layout, `${BASE_PATH}/orders/new`, OrderCreatePage),
       detail,
       edit,
+      pageRoute(layout, `${BASE_PATH}/dashboard`, DashboardPage),
+      pageRoute(layout, `${BASE_PATH}/review`, ReviewPage),
     ] as never) as unknown as AnyRoute
   })
   .addCapability("nav", {

@@ -8,6 +8,8 @@ function makeOrder(overrides: Partial<Order> = {}): Order {
     id: "ORD-2026-0001",
     customer: "华东智造有限公司",
     status: "paid",
+    category: "standard",
+    reviewState: "approved",
     note: "",
     lines: [],
     createdAt: "2026-10-02T09:15:00.000Z",

@@ -20,12 +20,14 @@ import {
   ChevronRightIcon,
   EllipsisVerticalIcon,
   EyeIcon,
+  PanelRightIcon,
   PencilIcon,
   PlusIcon,
   SearchIcon,
   XCircleIcon,
 } from "lucide-react"
 import {
+  Badge,
   Button,
   Checkbox,
   DropdownMenu,
@@ -51,10 +53,13 @@ import {
 import { AppLink, useRouter } from "../../lib/routing"
 import {
   isCancellableStatus,
+  ORDER_CATEGORIES,
+  ORDER_CATEGORY_LABELS,
   ORDER_STATUSES,
   ORDER_STATUS_LABELS,
   orderTotal,
   type Order,
+  type OrderCategory,
   type OrderStatus,
 } from "../../lib/orders/types"
 import { OrderStatusBadge } from "./order-status-badge"
@@ -69,6 +74,17 @@ const STATUS_FILTER_ITEMS: Record<string, ReactNode> = {
   all: "全部状态",
   ...Object.fromEntries(
     ORDER_STATUSES.map((status) => [status, ORDER_STATUS_LABELS[status]])
+  ),
+}
+
+/** 种类筛选项的「值 → 标签」映射（同 STATUS_FILTER_ITEMS，避免露原始 value）。 */
+const CATEGORY_FILTER_ITEMS: Record<string, ReactNode> = {
+  all: "全部种类",
+  ...Object.fromEntries(
+    ORDER_CATEGORIES.map((category) => [
+      category,
+      ORDER_CATEGORY_LABELS[category],
+    ])
   ),
 }
 
@@ -115,10 +131,13 @@ export function OrdersTable({
   orders,
   onCancel,
   onBulkCancel,
+  onPeek,
 }: {
   orders: readonly Order[]
   onCancel: (order: Order) => void
   onBulkCancel?: (orders: readonly Order[]) => void
+  /** 行菜单「抽屉查看」：由页面持有 OrderPeekSheet 开关状态。 */
+  onPeek?: (order: Order) => void
 }) {
   // TanStack Table 返回可变闭包，跳过 React Compiler 记忆化（同 admin-composites DataTable）
   "use no memo"
@@ -126,6 +145,7 @@ export function OrdersTable({
   const router = useRouter()
   const [search, setSearch] = useState("")
   const [status, setStatus] = useState<OrderStatus | "all">("all")
+  const [category, setCategory] = useState<OrderCategory | "all">("all")
   const [sorting, setSorting] = useState<SortingState>([])
   const [selectedIds, setSelectedIds] = useState<ReadonlySet<string>>(
     () => new Set<string>()
@@ -151,12 +171,15 @@ export function OrdersTable({
     })
   }, [])
 
+  // 状态 / 种类在客户端与 orders 参数 AND 组合（search 走 globalFilter）
   const data = useMemo(
     () =>
-      status === "all"
-        ? [...orders]
-        : orders.filter((order) => order.status === status),
-    [orders, status]
+      orders.filter((order) => {
+        if (status !== "all" && order.status !== status) return false
+        if (category !== "all" && order.category !== category) return false
+        return true
+      }),
+    [orders, status, category]
   )
 
   // 已不可取消的订单不计入批量选择（选择后状态变化也会自动掉出）
@@ -244,6 +267,15 @@ export function OrdersTable({
         cell: ({ row }) => <OrderStatusBadge status={row.original.status} />,
       },
       {
+        accessorKey: "category",
+        header: "种类",
+        cell: ({ row }) => (
+          <Badge variant="outline">
+            {ORDER_CATEGORY_LABELS[row.original.category]}
+          </Badge>
+        ),
+      },
+      {
         id: "total",
         accessorFn: (row) => orderTotal(row),
         header: ({ column }) => <SortableHeader column={column} title="金额" />,
@@ -278,6 +310,12 @@ export function OrdersTable({
                   <EyeIcon data-icon />
                   查看详情
                 </DropdownMenuItem>
+                {onPeek ? (
+                  <DropdownMenuItem onClick={() => onPeek(order)}>
+                    <PanelRightIcon data-icon />
+                    抽屉查看
+                  </DropdownMenuItem>
+                ) : null}
                 <DropdownMenuItem
                   onClick={() => router.push(`/orders/${order.id}/edit`)}
                 >
@@ -296,7 +334,7 @@ export function OrdersTable({
         },
       },
     ],
-    [onCancel, router, selectedIds, toggleMany, toggleOne]
+    [onCancel, onPeek, router, selectedIds, toggleMany, toggleOne]
   )
 
   // TanStack Table 返回可变闭包，跳过 React Compiler 记忆化（同 admin-composites DataTable）
@@ -340,7 +378,7 @@ export function OrdersTable({
           value={status}
           onValueChange={(value) => setStatus(value as OrderStatus | "all")}
         >
-          <SelectTrigger className="w-36">
+          <SelectTrigger className="w-36" aria-label="按状态筛选">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -348,6 +386,23 @@ export function OrdersTable({
             {ORDER_STATUSES.map((value) => (
               <SelectItem key={value} value={value}>
                 {ORDER_STATUS_LABELS[value]}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select
+          items={CATEGORY_FILTER_ITEMS}
+          value={category}
+          onValueChange={(value) => setCategory(value as OrderCategory | "all")}
+        >
+          <SelectTrigger className="w-36" aria-label="按种类筛选">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">全部种类</SelectItem>
+            {ORDER_CATEGORIES.map((value) => (
+              <SelectItem key={value} value={value}>
+                {ORDER_CATEGORY_LABELS[value]}
               </SelectItem>
             ))}
           </SelectContent>
