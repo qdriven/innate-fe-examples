@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "oxlint src",
     "test": "vitest run",
+    "test:e2e": "node e2e/order-admin-scenarios.e2e.mjs",
     "dev:standalone": "vite --config vite.standalone.config.ts",
     "build:standalone": "vite build --config vite.standalone.config.ts",
     "preview:standalone": "vite build --config vite.standalone.config.ts && vite preview --config vite.standalone.config.ts"

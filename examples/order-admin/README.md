@@ -9,5 +9,8 @@ typed service（mock-first）+ 三态 + 列表筛选排序分页 + 行选择批�
 * 批量取消：列表行勾选（非终态才可勾）→「批量操作 → 批量取消」→ AlertDialog 二次确认 → 全部流转为 `cancelled`；终态订单不可勾选，执行时状态已变的订单被跳过并回报原因
 * 数据：`src/lib/orders/`（types / mock-data / service），换真实后端只改 service 内部
 * 挂壳：`plugins.registry.yaml` 的 `orders` profile（`bun innate-fe-cli/src/index.ts dev --profile orders`）
+* 场景 e2e：`e2e/order-admin-scenarios.e2e.mjs`（`pnpm test:e2e`）——起壳后驱动浏览器跑
+  dashboard / 列表 / 种类·状态过滤 / 抽屉详情 / 审核批准 / 主题切换，截图落在 %TEMP%；
+  playwright 从框架仓 webshell 解析，不进门禁
 
 改技能后用它做回归：按 fe-starter / fe-feature 重走一遍，门禁应全绿。
