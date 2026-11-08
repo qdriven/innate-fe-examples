@@ -25,7 +25,9 @@ function preview(value: unknown): string {
 
 export function SqliteAdminPage() {
   const [dbPath, setDbPath] = useState("")
-  const [draftPath, setDraftPath] = useState("")
+  const [draftPath, setDraftPath] = useState(
+    () => localStorage.getItem(DB_STORAGE_KEY) ?? ""
+  )
   const [tables, setTables] = useState<SqliteTable[]>([])
   const [columns, setColumns] = useState<SqliteColumn[]>([])
   const [sqlText, setSqlText] = useState("SELECT name FROM sqlite_master WHERE type = 'table'")
@@ -43,14 +45,20 @@ export function SqliteAdminPage() {
 
   useEffect(() => {
     const stored = localStorage.getItem(DB_STORAGE_KEY) ?? ""
-    setDraftPath(stored)
     if (!stored) return
-    loadTables(stored).catch((err: unknown) => {
-      toast.error(err instanceof Error ? err.message : "无法打开数据库")
-    })
-    fetchSavedQueries()
-      .then(({ queries }) => setSaved(queries))
-      .catch(() => setSaved([]))
+    void (async () => {
+      try {
+        await loadTables(stored)
+      } catch (err) {
+        toast.error(err instanceof Error ? err.message : "无法打开数据库")
+      }
+      try {
+        const { queries } = await fetchSavedQueries()
+        setSaved(queries)
+      } catch {
+        setSaved([])
+      }
+    })()
   }, [loadTables])
 
   const connect = async () => {

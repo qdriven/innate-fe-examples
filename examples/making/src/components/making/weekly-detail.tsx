@@ -1,30 +1,27 @@
 import { AppLink as Link } from "../../lib/routing"
 import { useParams } from "../../lib/routing"
 import { useState } from "react"
-import { 
-  ArrowLeft, 
-  Calendar, 
-  CheckSquare, 
-  Sparkles, 
-  TrendingUp, 
+import {
+  ArrowLeft,
+  Calendar,
+  CheckSquare,
+  Sparkles,
+  TrendingUp,
   AlertCircle,
   Lightbulb,
-  User,
   Brain,
   Target,
   ChevronRight,
   Zap,
-  MessageSquare,
-  Globe
+  MessageSquare
 } from "lucide-react"
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
+import {
+  Card,
+  CardHeader,
+  CardTitle,
   CardContent,
   Badge,
   Separator,
-  Button,
   cn
 } from "@innate/ui"
 import { getWeeklyById, getIssuesForWeekly, weeklySummaries, projects } from "../../lib/making/data"
@@ -185,7 +182,7 @@ export function WeeklyDetail() {
             </div>
             <div className="space-y-2">
               {completedIssues.map(issue => (
-                <IssueCard key={issue.id} issue={issue} language={language} />
+                <IssueCard key={issue.id} issue={issue} />
               ))}
               {completedIssues.length === 0 && (
                 <div className="text-center py-8 bg-muted/30 rounded-lg border border-dashed border-border">
@@ -436,7 +433,7 @@ function getFirstTwoParagraphs(content: string): string {
 }
 
 // Extracted IssueCard component
-function IssueCard({ issue, language }: { issue: Issue; language: 'zh' | 'en' }) {
+function IssueCard({ issue }: { issue: Issue }) {
   const project = projects.find(p => p.id === issue.project)
   
   // Get first two paragraphs of description

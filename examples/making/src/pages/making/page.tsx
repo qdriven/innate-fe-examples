@@ -1,37 +1,29 @@
 import { AppLink as Link } from "../../lib/routing"
-import { 
-  ArrowRight, 
-  CheckSquare, 
-  Calendar, 
-  Sparkles, 
+import {
+  CheckSquare,
+  Calendar,
+  Sparkles,
   TrendingUp,
-  AlertCircle,
-  Lightbulb,
   Brain,
-  Zap,
-  MessageSquare,
   ChevronRight,
   FolderGit2,
   Star,
   AlertTriangle
 } from "lucide-react"
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
+import {
+  Card,
+  CardHeader,
+  CardTitle,
   CardContent,
-  CardDescription,
   Badge,
-  Button,
-  Separator,
-  cn
+  Button
 } from "@innate/ui"
-import { getLatestWeeklies, getIssuesForWeekly, projects, isBilingualText, projectAnalyses } from "../../lib/making/data"
+import { getLatestWeeklies, getIssuesForWeekly, projectAnalyses } from "../../lib/making/data"
 
 function plainSummary(text: string) {
   return text
     .replace(/```[\s\S]*?```/g, " ")
-    .replace(/[*_`#>\[\]()]/g, "")
+    .replace(/[*_`#>[\]()]/g, "")
     .replace(/\s+/g, " ")
     .trim()
 }
@@ -243,16 +235,6 @@ function ProjectCard({ project }: { project: typeof projectAnalyses[0] }) {
 
 function WeeklyCard({ weekly }: { weekly: ReturnType<typeof getLatestWeeklies>[0] }) {
   const completedIssues = getIssuesForWeekly(weekly)
-  const mainProject = completedIssues[0]?.project
-  const project = projects.find(p => p.id === mainProject)
-
-  // Get bilingual text helper
-  const getText = (text: string | { zh: string; en: string }): string => {
-    if (isBilingualText(text)) {
-      return text.zh
-    }
-    return text
-  }
 
   return (
     <Link href={`/weekly/${weekly.id}`}>

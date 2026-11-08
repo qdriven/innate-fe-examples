@@ -11,14 +11,13 @@ import {
   FileText,
   CheckCircle2
 } from "lucide-react"
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
+import {
+  Card,
+  CardHeader,
+  CardTitle,
   CardContent,
   Badge,
   Button,
-  Separator,
   cn
 } from "@innate/ui"
 import { getProjectById, projectAnalyses } from "../../../../lib/making/data"

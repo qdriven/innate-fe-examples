@@ -8,19 +8,14 @@ import {
   ExternalLink,
   User
 } from "lucide-react"
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
+import {
+  Card,
   CardContent,
-  CardDescription,
   Badge,
-  Separator,
   Button,
   cn
 } from "@innate/ui"
 import {
-  issues,
   projects,
   weeklySummaries,
   getIssuesByProject,

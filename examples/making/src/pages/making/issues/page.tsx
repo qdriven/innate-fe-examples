@@ -7,20 +7,18 @@ import {
   Filter,
   Circle
 } from "lucide-react"
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
-  CardDescription, 
+import {
+  Card,
+  CardHeader,
+  CardTitle,
   CardContent,
   Badge,
   Input,
   cn
 } from "@innate/ui"
-import { 
-  issues, 
-  projects, 
-  getAllLabels,
+import {
+  issues,
+  projects,
   filterIssues
 } from "../../../lib/making/data"
 import { type Issue, type ViewMode, type IssueFilter } from "../../../lib/making/types"
@@ -34,8 +32,6 @@ export default function IssuesPage() {
     labels: [],
   })
   const [searchQuery, setSearchQuery] = useState('')
-
-  const allLabels = getAllLabels()
 
   const filteredIssues = useMemo(() => {
     let result = filterIssues(filters)
@@ -252,8 +248,6 @@ export default function IssuesPage() {
 }
 
 function IssueCard({ issue }: { issue: Issue }) {
-  const project = projects.find(p => p.id === issue.project)
-  
   return (
     <Link href={`/issues/${issue.project}/${issue.number}`}>
       <Card className="group hover:shadow-md transition-shadow cursor-pointer h-full">

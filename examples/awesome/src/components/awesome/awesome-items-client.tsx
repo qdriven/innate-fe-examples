@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react"
-import { AppLink as Link } from "../../lib/routing"
 import { Copy, Check, Search, Tag, Github, ExternalLink } from "lucide-react"
 import { cn } from "@innate/ui"
 import type { AwesomeItem, AwesomeCategory } from "../../lib/awesome/types"

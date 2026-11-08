@@ -1,27 +1,24 @@
 import { AppLink as Link } from "../../../lib/routing"
-import { 
+import {
   FolderGit2,
   ChevronRight,
   Star,
   AlertTriangle,
-  ExternalLink,
   Github
 } from "lucide-react"
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
+import {
+  Card,
+  CardHeader,
+  CardTitle,
   CardContent,
-  Badge,
-  Button,
-  cn
+  Badge
 } from "@innate/ui"
 import { projectAnalyses } from "../../../lib/making/data"
 
 function plainSummary(text: string) {
   return text
     .replace(/```[\s\S]*?```/g, " ")
-    .replace(/[*_`#>\[\]()]/g, "")
+    .replace(/[*_`#>[\]()]/g, "")
     .replace(/\s+/g, " ")
     .trim()
 }

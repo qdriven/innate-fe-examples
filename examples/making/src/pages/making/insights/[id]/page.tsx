@@ -1,7 +1,7 @@
 import { AppLink as Link, useParams } from "../../../../lib/routing"
 import { ArrowLeft, Lightbulb, Calendar } from "lucide-react"
 import { Badge } from "@innate/ui"
-import { getInsightById, insights } from "../../../../lib/making/data"
+import { getInsightById } from "../../../../lib/making/data"
 import { extractToc } from "../../../../lib/content/parser"
 import { ServerMarkdown } from "../../../../components/server-markdown"
 import { TableOfContents } from "../../../../components/table-of-contents"

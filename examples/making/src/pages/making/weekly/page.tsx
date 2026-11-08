@@ -1,13 +1,11 @@
 import { AppLink as Link } from "../../../lib/routing"
 import { Calendar, ChevronRight, Sparkles, TrendingUp, User } from "lucide-react"
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
-  CardDescription, 
+import {
+  Card,
+  CardHeader,
+  CardTitle,
   CardContent,
-  Badge,
-  cn
+  Badge
 } from "@innate/ui"
 import { weeklySummaries, getIssuesForWeekly } from "../../../lib/making/data"
 
