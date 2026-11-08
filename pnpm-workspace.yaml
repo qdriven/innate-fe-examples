@@ -3,12 +3,15 @@
 # examples/* 是本仓的示例应用（源码为事实源）。
 # @innate/* 包不在本仓：它们由 innate-fe 框架仓提供。为了让 `pnpm install`
 # 在本机把 @innate/* 解析到框架源码（workspace:*），这里用相对 glob 把框架
-# packages/ 拉进 workspace。两条路径对应两种检出布局，不存在的那条会被忽略：
+# packages/ 拉进 workspace。三条路径对应三种检出布局，不存在的那条会被忽略：
 #   innate-workspace/framework/innate-fe  与  apps/innate-fe-examples（CI）
 #   innate/base/innate-fe                 与  innate-apps/innate-fe-examples（本机）
+#   ../packages/*（本仓克隆进框架仓根 innate-fe-examples/ 时，框架即父目录；
+#   由框架仓 scripts/clone-reference.mjs 维护的参考 registry 布局）
 # 在 GitHub 上构建请见 README「构建方式」。
 packages:
   - "examples/*"
+  - "../packages/*"
   - "../../framework/innate-fe/packages/*"
   - "../../base/innate-fe/packages/*"
 

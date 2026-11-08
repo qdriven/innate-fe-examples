@@ -26,7 +26,13 @@ const wantPages = process.argv.includes("pages")
 const pagesBase = "/innate-fe-examples"
 
 function findFramework() {
-  for (const rel of ["../../base/innate-fe", "../../framework/innate-fe"]) {
+  // 嵌套布局：本仓克隆进框架仓根 innate-fe-examples/ 时，框架即父目录
+  // （由框架仓 scripts/clone-reference.mjs 维护的参考 registry 布局）。
+  for (const rel of [
+    "..",
+    "../../base/innate-fe",
+    "../../framework/innate-fe",
+  ]) {
     const dir = resolve(root, rel)
     const cli = join(dir, "innate-fe-cli/src/index.ts")
     const shell = join(dir, "shells/webshell")
@@ -35,7 +41,7 @@ function findFramework() {
     }
   }
   console.error(
-    "找不到框架壳。请把 innate-fe 放在 ../../base/innate-fe 或 ../../framework/innate-fe。"
+    "找不到框架壳。请把 innate-fe 放在本仓上一级（嵌套布局）、../../base/innate-fe 或 ../../framework/innate-fe。"
   )
   process.exit(1)
 }
