@@ -11,6 +11,10 @@
 # 在 GitHub 上构建请见 README「构建方式」。
 packages:
   - "examples/*"
+  # gen 把 domain 复制进打包面 domains/（gitignore 的生成物），
+  # 它们是临时 workspace 成员：没有这条 glob，pnpm 不会给 domains/<id>
+  # 装 node_modules，壳构建时解析不到其依赖。
+  - "domains/*"
   - "../packages/*"
   - "../../framework/innate-fe/packages/*"
   - "../../base/innate-fe/packages/*"

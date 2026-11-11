@@ -28,7 +28,8 @@
     "@innate/web-domain": "workspace:*",
     "@tanstack/react-router": "^1.132.0",
     "lucide-react": "^0.577.0",
-    "recharts": "3.10.1"
+    "recharts": "3.10.1",
+    "sonner": "2.0.7"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

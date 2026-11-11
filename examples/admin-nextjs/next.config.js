@@ -20,9 +20,12 @@ const nextConfig = {
     "@innate/scene-mocks",
   ],
   turbopack: {
-    // 在 innate-fe 框架 workspace 内构建时，examples/<id>/../.. = 框架根，
-    // 覆盖 @innate/* workspace 包的源码转译。
-    root: path.resolve(__dirname, "../.."),
+    // 迁移到 innate-fe-examples 仓后，@innate/* 经仓外软链进来
+    // (../../framework/innate-fe/packages/*)。turbopack 只解析 root 之内的模块，
+    // 故 root 须指到同时覆盖 apps/innate-fe-examples 与 framework/innate-fe 的公共父目录
+    //（与 web-showcase 的 next.config 同一约定；否则报
+    // "webpack loader path ... is outside configured roots"）。
+    root: path.resolve(__dirname, "../../../../"),
   },
 }
 module.exports = nextConfig

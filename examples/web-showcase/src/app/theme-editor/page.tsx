@@ -89,59 +89,9 @@ const THEME_SWATCHES: Array<{
     label: "Webshell",
     chips: [
       "oklch(1 0 0)",
-      "oklch(0.57 0.25 289)",
+      "oklch(0.57 0.25 255)",
       "oklch(0.97 0.01 255)",
       "oklch(0.955 0 0)",
-    ],
-  },
-  {
-    id: "shadcn-zinc",
-    label: "Shadcn Zinc",
-    chips: [
-      "hsl(0 0% 100%)",
-      "hsl(240 5.9% 10%)",
-      "hsl(240 4.8% 95.9%)",
-      "hsl(0 0% 100%)",
-    ],
-  },
-  {
-    id: "shadcn-slate",
-    label: "Shadcn Slate",
-    chips: [
-      "hsl(0 0% 100%)",
-      "hsl(222.2 47.4% 11.2%)",
-      "hsl(210 40% 96.1%)",
-      "hsl(0 0% 100%)",
-    ],
-  },
-  {
-    id: "shadcn-stone",
-    label: "Shadcn Stone",
-    chips: [
-      "hsl(0 0% 100%)",
-      "hsl(24 9.8% 10%)",
-      "hsl(60 4.8% 95.9%)",
-      "hsl(0 0% 100%)",
-    ],
-  },
-  {
-    id: "shadcn-gray",
-    label: "Shadcn Gray",
-    chips: [
-      "hsl(0 0% 100%)",
-      "hsl(220.9 39.3% 11%)",
-      "hsl(220 14.3% 95.9%)",
-      "hsl(0 0% 100%)",
-    ],
-  },
-  {
-    id: "shadcn-neutral",
-    label: "Shadcn Neutral",
-    chips: [
-      "hsl(0 0% 100%)",
-      "hsl(0 0% 9%)",
-      "hsl(0 0% 96.1%)",
-      "hsl(0 0% 100%)",
     ],
   },
   {
@@ -149,8 +99,8 @@ const THEME_SWATCHES: Array<{
     label: "Linear",
     chips: [
       "oklch(0.99 0.003 260)",
-      "oklch(0.55 0.18 270)",
-      "oklch(0.93 0.02 270)",
+      "oklch(0.55 0.18 255)",
+      "oklch(0.93 0.02 255)",
       "oklch(0.97 0.005 260)",
     ],
   },
@@ -162,26 +112,6 @@ const THEME_SWATCHES: Array<{
       "oklch(0.78 0.16 80)",
       "oklch(0.94 0.005 80)",
       "oklch(0.97 0.002 80)",
-    ],
-  },
-  {
-    id: "marshmallow",
-    label: "Marshmallow",
-    chips: [
-      "oklch(0.97 0.01 264.53)",
-      "oklch(0.80 0.14 349.25)",
-      "oklch(0.83 0.09 248.95)",
-      "oklch(1 0 0)",
-    ],
-  },
-  {
-    id: "art-deco",
-    label: "Art Deco",
-    chips: [
-      "oklch(0.96 0.03 106.96)",
-      "oklch(0.77 0.14 91.05)",
-      "oklch(0.89 0.18 95.32)",
-      "oklch(0.96 0.03 106.96)",
     ],
   },
 ]
