@@ -1,0 +1,17 @@
+@import "@innate/ui/globals.css";
+/* ink 装饰层：token / utilities / keyframes 必须经 Tailwind 入口编译
+   （@utility / @theme 只在编译期展开，直接 import 会原样漏进产物）；
+   字体单独加载（woff2 本地资源，不参与 Tailwind 编译）。 */
+@import "@innate/ink/theme.css";
+@import "@innate/ink/ink.css";
+@import "@innate/ink/fonts.css";
+/* ink 组件的 className（bg-sticky-yellow、font-script、ll-paper…）要被扫到 */
+@source "../node_modules/@innate/ink/src";
+
+@custom-variant dark (&:is(.dark *));
+
+html,
+body,
+#root {
+  height: 100%;
+}

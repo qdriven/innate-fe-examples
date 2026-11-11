@@ -81,6 +81,13 @@ profiles:
         from: examples/order-admin
     iframes: []
 
+  # ── UC11 教育场景模板（edu 主题 + ink 装饰层）───────────────
+  edu:
+    domains:
+      - id: edu-notes
+        from: examples/edu-notes
+    iframes: []
+
   examples:
     domains: []
     iframes:
