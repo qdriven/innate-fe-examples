@@ -48,7 +48,7 @@ export default function ProjectDetailPage() {
             Back to projects
           </Link>
           <div className="flex items-center gap-2">
-            <FolderGit2 className="h-4 w-4 text-blue-500" />
+            <FolderGit2 className="h-4 w-4 text-info-foreground" />
             <h1 className="font-semibold text-sm truncate">{project.name}</h1>
           </div>
           {project.hasAgents && (
@@ -109,7 +109,7 @@ export default function ProjectDetailPage() {
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <FolderGit2 className="h-5 w-5 text-blue-500" />
+                  <FolderGit2 className="h-5 w-5 text-info-foreground" />
                   {project.hasAgents ? (
                     <Badge variant="outline" className="text-xs font-bold text-green-600 border-green-200">
                       AGENTS
@@ -146,18 +146,18 @@ export default function ProjectDetailPage() {
           {project.hasAgents && (
             <section className="mb-8">
               <div className="flex items-center gap-2 mb-5">
-                <div className="w-7 h-7 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                  <Zap className="h-3.5 w-3.5 text-blue-500" />
+                <div className="w-7 h-7 rounded-lg bg-info/15 flex items-center justify-center">
+                  <Zap className="h-3.5 w-3.5 text-info-foreground" />
                 </div>
                 <h3 className="text-sm font-bold">AI Project Analysis</h3>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Summary */}
-                <Card className="border-t-4 border-t-blue-500 shadow-sm md:col-span-3">
+                <Card className="border-t shadow-sm md:col-span-3">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-blue-500" />
+                      <FileText className="h-4 w-4 text-info-foreground" />
                       <CardTitle className="text-sm font-bold">Summary</CardTitle>
                     </div>
                   </CardHeader>
@@ -169,10 +169,10 @@ export default function ProjectDetailPage() {
                 </Card>
 
                 {/* Strengths */}
-                <Card className="border-t-4 border-t-green-500 shadow-sm">
+                <Card className="border-t shadow-sm">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2">
-                      <Star className="h-4 w-4 text-green-500" />
+                      <Star className="h-4 w-4 text-success-foreground" />
                       <CardTitle className="text-sm font-bold">Strengths</CardTitle>
                     </div>
                   </CardHeader>
@@ -181,7 +181,7 @@ export default function ProjectDetailPage() {
                       <ul className="space-y-2">
                         {project.strengths.map((item, idx) => (
                           <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-green-500 shrink-0 mt-0.5" />
+                            <CheckCircle2 className="h-3.5 w-3.5 text-success-foreground shrink-0 mt-0.5" />
                             <span className="leading-relaxed">{item}</span>
                           </li>
                         ))}
@@ -195,10 +195,10 @@ export default function ProjectDetailPage() {
                 </Card>
 
                 {/* Weaknesses */}
-                <Card className="border-t-4 border-t-orange-500 shadow-sm">
+                <Card className="border-t shadow-sm">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2">
-                      <AlertTriangle className="h-4 w-4 text-orange-500" />
+                      <AlertTriangle className="h-4 w-4 text-warning-foreground" />
                       <CardTitle className="text-sm font-bold">Areas for Improvement</CardTitle>
                     </div>
                   </CardHeader>
@@ -207,7 +207,7 @@ export default function ProjectDetailPage() {
                       <ul className="space-y-2">
                         {project.weaknesses.map((item, idx) => (
                           <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <AlertTriangle className="h-3.5 w-3.5 text-orange-500 shrink-0 mt-0.5" />
+                            <AlertTriangle className="h-3.5 w-3.5 text-warning-foreground shrink-0 mt-0.5" />
                             <span className="leading-relaxed">{item}</span>
                           </li>
                         ))}
@@ -221,10 +221,10 @@ export default function ProjectDetailPage() {
                 </Card>
 
                 {/* Features */}
-                <Card className="border-t-4 border-t-purple-500 shadow-sm">
+                <Card className="border-t shadow-sm">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2">
-                      <Lightbulb className="h-4 w-4 text-purple-500" />
+                      <Lightbulb className="h-4 w-4 text-primary" />
                       <CardTitle className="text-sm font-bold">Key Features</CardTitle>
                     </div>
                   </CardHeader>
@@ -233,7 +233,7 @@ export default function ProjectDetailPage() {
                       <ul className="space-y-2">
                         {project.features.map((item, idx) => (
                           <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <span className="text-purple-500 shrink-0">•</span>
+                            <span className="text-primary shrink-0">•</span>
                             <span className="leading-relaxed">{item}</span>
                           </li>
                         ))}

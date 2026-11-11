@@ -170,8 +170,8 @@ export function WeeklyDetail() {
           {/* Completed Issues */}
           <section className="mb-8">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-7 h-7 rounded-lg bg-green-500/10 flex items-center justify-center">
-                <CheckSquare className="h-3.5 w-3.5 text-green-500" />
+              <div className="w-7 h-7 rounded-lg bg-success/15 flex items-center justify-center">
+                <CheckSquare className="h-3.5 w-3.5 text-success-foreground" />
               </div>
               <h3 className="text-sm font-bold">
                 {language === 'zh' ? '完成的 Issues' : 'Completed Issues'}
@@ -200,8 +200,8 @@ export function WeeklyDetail() {
           {/* AI Evaluation Section */}
           <section className="mb-8">
             <div className="flex items-center gap-2 mb-5">
-              <div className="w-7 h-7 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                <Sparkles className="h-3.5 w-3.5 text-purple-500" />
+              <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Sparkles className="h-3.5 w-3.5 text-primary" />
               </div>
               <h3 className="text-sm font-bold">
                 {language === 'zh' ? 'AI 评估' : 'AI Evaluation'}
@@ -210,10 +210,10 @@ export function WeeklyDetail() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Strengths */}
-              <Card className="border-t-4 border-t-green-500 shadow-sm">
+              <Card className="border-t shadow-sm">
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-green-500" />
+                    <TrendingUp className="h-4 w-4 text-success-foreground" />
                     <CardTitle className="text-sm font-bold">
                       {language === 'zh' ? '优势' : 'Strengths'}
                     </CardTitle>
@@ -223,7 +223,7 @@ export function WeeklyDetail() {
                   <ul className="space-y-2">
                     {weekly.evaluations.strengths.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-green-500 shrink-0 text-xs mt-1">●</span>
+                        <span className="text-success-foreground shrink-0 text-xs mt-1">●</span>
                         <span className="leading-relaxed">{getText(item)}</span>
                       </li>
                     ))}
@@ -232,10 +232,10 @@ export function WeeklyDetail() {
               </Card>
 
               {/* Weaknesses */}
-              <Card className="border-t-4 border-t-orange-500 shadow-sm">
+              <Card className="border-t shadow-sm">
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2">
-                    <AlertCircle className="h-4 w-4 text-orange-500" />
+                    <AlertCircle className="h-4 w-4 text-warning-foreground" />
                     <CardTitle className="text-sm font-bold">
                       {language === 'zh' ? '改进点' : 'Areas for Improvement'}
                     </CardTitle>
@@ -245,7 +245,7 @@ export function WeeklyDetail() {
                   <ul className="space-y-2">
                     {weekly.evaluations.weaknesses.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-orange-500 shrink-0 text-xs mt-1">●</span>
+                        <span className="text-warning-foreground shrink-0 text-xs mt-1">●</span>
                         <span className="leading-relaxed">{getText(item)}</span>
                       </li>
                     ))}
@@ -254,10 +254,10 @@ export function WeeklyDetail() {
               </Card>
 
               {/* Suggestions */}
-              <Card className="border-t-4 border-t-blue-500 shadow-sm">
+              <Card className="border-t shadow-sm">
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2">
-                    <Lightbulb className="h-4 w-4 text-blue-500" />
+                    <Lightbulb className="h-4 w-4 text-info-foreground" />
                     <CardTitle className="text-sm font-bold">
                       {language === 'zh' ? '建议' : 'Suggestions'}
                     </CardTitle>
@@ -267,7 +267,7 @@ export function WeeklyDetail() {
                   <ul className="space-y-2">
                     {weekly.evaluations.improvements.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-blue-500 shrink-0 text-xs mt-1">→</span>
+                        <span className="text-info-foreground shrink-0 text-xs mt-1">→</span>
                         <span className="leading-relaxed">{getText(item)}</span>
                       </li>
                     ))}
@@ -290,10 +290,10 @@ export function WeeklyDetail() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Mindset Strengths */}
-              <Card className="border-t-4 border-t-green-500 shadow-sm">
+              <Card className="border-t shadow-sm">
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2">
-                    <Zap className="h-4 w-4 text-green-500" />
+                    <Zap className="h-4 w-4 text-success-foreground" />
                     <CardTitle className="text-sm font-bold">
                       {language === 'zh' ? '思维优势' : 'Thinking Strengths'}
                     </CardTitle>
@@ -303,7 +303,7 @@ export function WeeklyDetail() {
                   <ul className="space-y-2">
                     {weekly.mindsetAnalysis.strengths.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-green-500 shrink-0 text-xs mt-1">●</span>
+                        <span className="text-success-foreground shrink-0 text-xs mt-1">●</span>
                         <span className="leading-relaxed">{getText(item)}</span>
                       </li>
                     ))}
@@ -312,10 +312,10 @@ export function WeeklyDetail() {
               </Card>
 
               {/* Mindset Weaknesses */}
-              <Card className="border-t-4 border-t-orange-500 shadow-sm">
+              <Card className="border-t shadow-sm">
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2">
-                    <MessageSquare className="h-4 w-4 text-orange-500" />
+                    <MessageSquare className="h-4 w-4 text-warning-foreground" />
                     <CardTitle className="text-sm font-bold">
                       {language === 'zh' ? '需要注意的模式' : 'Patterns to Watch'}
                     </CardTitle>
@@ -325,7 +325,7 @@ export function WeeklyDetail() {
                   <ul className="space-y-2">
                     {weekly.mindsetAnalysis.weaknesses.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-orange-500 shrink-0 text-xs mt-1">●</span>
+                        <span className="text-warning-foreground shrink-0 text-xs mt-1">●</span>
                         <span className="leading-relaxed">{getText(item)}</span>
                       </li>
                     ))}
@@ -334,10 +334,10 @@ export function WeeklyDetail() {
               </Card>
 
               {/* Mindset Suggestions */}
-              <Card className="border-t-4 border-t-purple-500 shadow-sm">
+              <Card className="border-t shadow-sm">
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2">
-                    <Lightbulb className="h-4 w-4 text-purple-500" />
+                    <Lightbulb className="h-4 w-4 text-primary" />
                     <CardTitle className="text-sm font-bold">
                       {language === 'zh' ? '成长建议' : 'Growth Suggestions'}
                     </CardTitle>
@@ -347,7 +347,7 @@ export function WeeklyDetail() {
                   <ul className="space-y-2">
                     {weekly.mindsetAnalysis.suggestions.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-purple-500 shrink-0 text-xs mt-1">→</span>
+                        <span className="text-primary shrink-0 text-xs mt-1">→</span>
                         <span className="leading-relaxed">{getText(item)}</span>
                       </li>
                     ))}
@@ -441,11 +441,11 @@ function IssueCard({ issue }: { issue: Issue }) {
   
   return (
     <Link href={`/issues/${issue.project}/${issue.number}`}>
-      <Card className="hover:bg-muted/50 transition-colors cursor-pointer group border-l-2 border-l-transparent hover:border-l-green-500">
+      <Card className="hover:bg-muted/50 transition-colors cursor-pointer group border-l-2 border-l-transparent hover:border-l-success-foreground">
         <CardContent className="py-3 px-4">
           <div className="flex items-start gap-3">
-            <div className="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center shrink-0 mt-0.5">
-              <CheckSquare className="h-3 w-3 text-green-500" />
+            <div className="w-5 h-5 rounded-full bg-success/15 flex items-center justify-center shrink-0 mt-0.5">
+              <CheckSquare className="h-3 w-3 text-success-foreground" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">

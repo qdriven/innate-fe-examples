@@ -81,11 +81,11 @@ function WeeklyCard({ weekly }: { weekly: typeof weeklySummaries[0] }) {
           {/* Quick Stats */}
           <div className="flex items-center gap-4 pt-2 border-t border-border">
             <div className="flex items-center gap-1.5">
-              <Sparkles className="h-3.5 w-3.5 text-green-500" />
+              <Sparkles className="h-3.5 w-3.5 text-success-foreground" />
               <span className="text-xs">{weekly.evaluations.strengths.length} strengths</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <User className="h-3.5 w-3.5 text-blue-500" />
+              <User className="h-3.5 w-3.5 text-info-foreground" />
               <span className="text-xs">{weekly.mindsetAnalysis.strengths.length} mindset +</span>
             </div>
           </div>

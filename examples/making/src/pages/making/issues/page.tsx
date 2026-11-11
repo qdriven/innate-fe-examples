@@ -255,8 +255,8 @@ function IssueCard({ issue }: { issue: Issue }) {
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-2">
               {issue.status === 'closed' ? (
-                <div className="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center">
-                  <CheckSquare className="h-3 w-3 text-green-500" />
+                <div className="w-5 h-5 rounded-full bg-success/15 flex items-center justify-center">
+                  <CheckSquare className="h-3 w-3 text-success-foreground" />
                 </div>
               ) : (
                 <div className="w-5 h-5 rounded-full border-2 border-muted-foreground/30 flex items-center justify-center">
@@ -316,7 +316,7 @@ function IssueListItem({ issue, isLast }: { issue: Issue; isLast: boolean }) {
         !isLast && "border-b border-border"
       )}>
         {issue.status === 'closed' ? (
-          <CheckSquare className="h-4 w-4 text-green-500 shrink-0" />
+          <CheckSquare className="h-4 w-4 text-success-foreground shrink-0" />
         ) : (
           <Circle className="h-4 w-4 text-muted-foreground shrink-0" />
         )}

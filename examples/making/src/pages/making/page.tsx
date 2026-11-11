@@ -68,8 +68,8 @@ export default function MakingPage() {
         <section className="mb-10">
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                <FolderGit2 className="h-4 w-4 text-blue-500" />
+              <div className="w-8 h-8 rounded-lg bg-info/15 flex items-center justify-center">
+                <FolderGit2 className="h-4 w-4 text-info-foreground" />
               </div>
               <h2 className="text-lg font-bold">Projects</h2>
               <Badge variant="secondary" className="text-xs">
@@ -124,8 +124,8 @@ export default function MakingPage() {
         {/* Quick Stats */}
         <section>
           <div className="flex items-center gap-2 mb-5">
-            <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
-              <TrendingUp className="h-4 w-4 text-green-500" />
+            <div className="w-8 h-8 rounded-lg bg-success/15 flex items-center justify-center">
+              <TrendingUp className="h-4 w-4 text-success-foreground" />
             </div>
             <h2 className="text-lg font-bold">Quick Nav</h2>
           </div>
@@ -155,8 +155,8 @@ export default function MakingPage() {
               <Card className="hover:bg-muted/50 transition-colors cursor-pointer group h-full">
                 <CardContent className="p-5">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center shrink-0">
-                      <Calendar className="h-5 w-5 text-purple-500" />
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Calendar className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-bold text-base group-hover:text-primary transition-colors">
@@ -185,7 +185,7 @@ function ProjectCard({ project }: { project: typeof projectAnalyses[0] }) {
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1.5">
-                <FolderGit2 className="h-4 w-4 text-blue-500" />
+                <FolderGit2 className="h-4 w-4 text-info-foreground" />
                 {project.hasAgents ? (
                   <Badge variant="outline" className="text-xs font-bold text-green-600 border-green-200">
                     AGENTS
@@ -213,14 +213,14 @@ function ProjectCard({ project }: { project: typeof projectAnalyses[0] }) {
           {/* Quick Stats */}
           <div className="flex items-center gap-4 pt-3 border-t border-border">
             <div className="flex items-center gap-1.5">
-              <Star className="h-3.5 w-3.5 text-yellow-500" />
+              <Star className="h-3.5 w-3.5 text-warning-foreground" />
               <span className="text-xs text-muted-foreground">
                 {project.strengths.length} strengths
               </span>
             </div>
             {project.weaknesses.length > 0 && (
               <div className="flex items-center gap-1.5">
-                <AlertTriangle className="h-3.5 w-3.5 text-orange-500" />
+                <AlertTriangle className="h-3.5 w-3.5 text-warning-foreground" />
                 <span className="text-xs text-muted-foreground">
                   {project.weaknesses.length} improvements
                 </span>
@@ -267,13 +267,13 @@ function WeeklyCard({ weekly }: { weekly: ReturnType<typeof getLatestWeeklies>[0
           {/* Quick Stats */}
           <div className="flex items-center gap-4 pt-3 border-t border-border">
             <div className="flex items-center gap-1.5">
-              <CheckSquare className="h-3.5 w-3.5 text-green-500" />
+              <CheckSquare className="h-3.5 w-3.5 text-success-foreground" />
               <span className="text-xs text-muted-foreground">
                 {completedIssues.length} issues
               </span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Sparkles className="h-3.5 w-3.5 text-purple-500" />
+              <Sparkles className="h-3.5 w-3.5 text-primary" />
               <span className="text-xs text-muted-foreground">
                 {Array.isArray(weekly.evaluations.strengths) ? weekly.evaluations.strengths.length : 0} strengths
               </span>

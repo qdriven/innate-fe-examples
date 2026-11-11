@@ -30,7 +30,7 @@ export default function ProjectsPage() {
       <div className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="px-4 py-3">
           <div className="flex items-center gap-2">
-            <FolderGit2 className="h-5 w-5 text-blue-500" />
+            <FolderGit2 className="h-5 w-5 text-info-foreground" />
             <h1 className="text-lg font-semibold">Projects</h1>
             <Badge variant="secondary" className="text-xs">
               {projectAnalyses.length}
@@ -60,7 +60,7 @@ function ProjectCard({ project }: { project: typeof projectAnalyses[0] }) {
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1.5">
-              <FolderGit2 className="h-4 w-4 text-blue-500" />
+              <FolderGit2 className="h-4 w-4 text-info-foreground" />
               {project.hasAgents ? (
                 <Badge variant="outline" className="text-xs font-bold text-green-600 border-green-200">
                   AGENTS
@@ -123,14 +123,14 @@ function ProjectCard({ project }: { project: typeof projectAnalyses[0] }) {
         {/* Quick Stats */}
         <div className="flex items-center gap-4 pt-3 border-t border-border">
           <div className="flex items-center gap-1.5">
-            <Star className="h-3.5 w-3.5 text-yellow-500" />
+            <Star className="h-3.5 w-3.5 text-warning-foreground" />
             <span className="text-xs text-muted-foreground">
               {project.strengths?.length || 0} strengths
             </span>
           </div>
           {project.weaknesses && project.weaknesses.length > 0 && (
             <div className="flex items-center gap-1.5">
-              <AlertTriangle className="h-3.5 w-3.5 text-orange-500" />
+              <AlertTriangle className="h-3.5 w-3.5 text-warning-foreground" />
               <span className="text-xs text-muted-foreground">
                 {project.weaknesses.length} improvements
               </span>

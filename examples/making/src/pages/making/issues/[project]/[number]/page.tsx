@@ -96,7 +96,7 @@ export default function IssueDetailPage() {
               >
                 <div className="flex items-start gap-2">
                   {relatedIssue.status === 'closed' ? (
-                    <CheckSquare className="h-3.5 w-3.5 text-green-500 shrink-0 mt-0.5" />
+                    <CheckSquare className="h-3.5 w-3.5 text-success-foreground shrink-0 mt-0.5" />
                   ) : (
                     <Circle className="h-3.5 w-3.5 text-muted-foreground shrink-0 mt-0.5" />
                   )}
@@ -118,12 +118,12 @@ export default function IssueDetailPage() {
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-3">
               {issue.status === 'closed' ? (
-                <div className="flex items-center gap-1.5 px-2 py-1 bg-green-500/10 text-green-600 rounded-full text-xs font-medium">
+                <div className="flex items-center gap-1.5 px-2 py-1 bg-success/15 text-green-600 rounded-full text-xs font-medium">
                   <CheckSquare className="h-3.5 w-3.5" />
                   Closed
                 </div>
               ) : (
-                <div className="flex items-center gap-1.5 px-2 py-1 bg-green-500/10 text-green-600 rounded-full text-xs font-medium">
+                <div className="flex items-center gap-1.5 px-2 py-1 bg-success/15 text-green-600 rounded-full text-xs font-medium">
                   <Circle className="h-3.5 w-3.5" />
                   Open
                 </div>
@@ -147,7 +147,7 @@ export default function IssueDetailPage() {
               </div>
               {issue.closedAt && (
                 <div className="flex items-center gap-1.5">
-                  <CheckSquare className="h-4 w-4 text-green-500" />
+                  <CheckSquare className="h-4 w-4 text-success-foreground" />
                   <span>Closed {formatDate(issue.closedAt)}</span>
                 </div>
               )}

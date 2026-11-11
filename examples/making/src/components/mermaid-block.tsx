@@ -77,7 +77,7 @@ export function MermaidBlock({ chart, children }: MermaidBlockProps) {
     return (
       <div className="my-6 p-4 rounded-lg border border-red-200 bg-red-50 dark:bg-red-950/30 dark:border-red-900">
         <p className="text-sm text-red-600 dark:text-red-400 font-medium">Mermaid Error</p>
-        <pre className="mt-2 text-xs text-red-500 dark:text-red-400 overflow-x-auto">{error}</pre>
+        <pre className="mt-2 text-xs text-destructive dark:text-red-400 overflow-x-auto">{error}</pre>
       </div>
     )
   }
