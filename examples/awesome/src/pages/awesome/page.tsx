@@ -23,7 +23,13 @@ export function AwesomePage() {
               href={`/${cat.slug}`}
               className="bg-card hover:bg-accent/40 flex items-center gap-3 rounded-xl border p-4"
             >
-              <div className="bg-primary/10 flex size-10 items-center justify-center rounded-lg">
+              <div
+                className="flex size-10 items-center justify-center rounded-lg"
+                style={{
+                  backgroundColor: `color-mix(in oklab, ${cat.color} 12%, transparent)`,
+                  color: cat.color,
+                }}
+              >
                 <Tag className="size-5" />
               </div>
               <div>

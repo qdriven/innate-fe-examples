@@ -60,7 +60,7 @@ export function AwesomeItemsClient({ items, categories }: AwesomeItemsClientProp
           placeholder="Search tools, skills, tags..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full h-10 pl-9 pr-4 rounded-xl border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-[#8FA68E]/30 focus:border-[#8FA68E]/40 transition-all"
+          className="w-full h-10 pl-9 pr-4 rounded-xl border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-ring/40 transition-all"
         />
         {query && (
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground/50">
@@ -82,7 +82,9 @@ export function AwesomeItemsClient({ items, categories }: AwesomeItemsClientProp
                 <div
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
                   style={{
-                    backgroundColor: category ? `${category.color}15` : undefined,
+                    backgroundColor: category
+                      ? `color-mix(in oklab, ${category.color} 15%, transparent)`
+                      : undefined,
                     color: category?.color,
                   }}
                 >
@@ -90,7 +92,7 @@ export function AwesomeItemsClient({ items, categories }: AwesomeItemsClientProp
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-semibold text-foreground group-hover:text-[#8FA68E] transition-colors truncate">
+                    <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                       {item.name}
                     </h3>
                     {linkUrl && (
@@ -101,9 +103,9 @@ export function AwesomeItemsClient({ items, categories }: AwesomeItemsClientProp
                     <span
                       className="inline-block text-[10px] font-medium px-1.5 py-0.5 rounded-full border mt-1"
                       style={{
-                        backgroundColor: `${category.color}10`,
+                        backgroundColor: `color-mix(in oklab, ${category.color} 10%, transparent)`,
                         color: category.color,
-                        borderColor: `${category.color}20`,
+                        borderColor: `color-mix(in oklab, ${category.color} 20%, transparent)`,
                       }}
                     >
                       {category.name}
@@ -154,7 +156,7 @@ export function AwesomeItemsClient({ items, categories }: AwesomeItemsClientProp
                           {item.installCommand}
                         </span>
                         {copiedSlug === item.slug ? (
-                          <Check className="h-3 w-3 text-green-500 shrink-0" />
+                          <Check className="h-3 w-3 text-success shrink-0" />
                         ) : (
                           <Copy className="h-3 w-3 opacity-0 group-hover/cmd:opacity-100 shrink-0 transition-opacity" />
                         )}
@@ -173,7 +175,7 @@ export function AwesomeItemsClient({ items, categories }: AwesomeItemsClientProp
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "group flex flex-col rounded-xl border border-border bg-card p-4 transition-all duration-200 hover:shadow-md hover:border-[#8FA68E]/30 cursor-pointer"
+                "group flex flex-col rounded-xl border border-border bg-card p-4 transition-all duration-200 hover:shadow-md hover:border-ring/30 cursor-pointer"
               )}
             >
               {cardContent}
