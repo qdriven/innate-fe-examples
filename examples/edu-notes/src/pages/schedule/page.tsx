@@ -1,5 +1,10 @@
 import { Alert, AlertDescription, AlertTitle, Skeleton } from "@innate/ui"
-import { StickyNote, StickyNoteTitle, StickyNoteContent } from "@innate/ink"
+import {
+  StickyNote,
+  StickyNoteContent,
+  StickyNoteTitle,
+  Underline,
+} from "@innate/ink"
 import { PERIODS, SUBJECT_COLORS, WEEKDAYS } from "../../lib/schedule/types"
 import { lessonAt, fetchLessons } from "../../lib/schedule/service"
 import { useAsync } from "../../lib/use-async"
@@ -98,9 +103,13 @@ export function SchedulePage() {
                   <StickyNote
                     color={SUBJECT_COLORS[lesson.subject]}
                     tilt={false}
+                    /* 纯展示也要手绘装饰层：不传 done 时上游默认关闭（tickable 语义） */
+                    decor
                     className="min-h-24 w-full"
                   >
-                    <StickyNoteTitle>{lesson.subject}</StickyNoteTitle>
+                    <StickyNoteTitle>
+                      <Underline tone="pencil">{lesson.subject}</Underline>
+                    </StickyNoteTitle>
                     <StickyNoteContent className="text-xs leading-snug">
                       {lesson.teacher}
                       <br />

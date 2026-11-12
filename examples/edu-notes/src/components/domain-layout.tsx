@@ -1,5 +1,6 @@
 import { Outlet, useRouterState } from "@tanstack/react-router"
 import { ThemeSelector, cn } from "@innate/ui"
+import { InkProvider } from "@innate/ink"
 import { AppLink } from "../lib/routing"
 import { withBasePath } from "../lib/base-path"
 
@@ -25,7 +26,7 @@ export function DomainLayout() {
   })
 
   return (
-    <>
+    <InkProvider tier="hi">
       <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4">
         <nav aria-label="域内导航" className="flex items-center gap-1">
           {NAV_ITEMS.map((item) => {
@@ -54,6 +55,6 @@ export function DomainLayout() {
         </div>
       </header>
       <Outlet />
-    </>
+    </InkProvider>
   )
 }
