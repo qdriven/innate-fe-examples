@@ -18,6 +18,11 @@ packages:
   - "../packages/*"
   - "../../framework/innate-fe/packages/*"
   - "../../base/innate-fe/packages/*"
+  # 框架宿主壳：`cli dev` 的 start-webshell 用
+  # `pnpm --filter @innate/webshell exec vite` 拉起壳，壳包必须进本仓
+  # workspace 才能被 filter 命中（与 @innate/* 包同理由，取最近检出布局）。
+  - "../../framework/innate-fe/shells/*"
+  - "../../base/innate-fe/shells/*"
 
 # 与框架保持一致的依赖钉版（避免同一依赖多版本漂移）
 overrides:

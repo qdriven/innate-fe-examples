@@ -11,14 +11,49 @@
 # - iframe：清单来自 `from` 指定目录下的 plugin.json（innate.plugin.v1）。
 protocol: innate.web-plugin.packaging.v1
 version: 1
-defaultProfile: empty
-shell: shells/webshell
+defaultProfile: examples-all
+# 宿主壳在框架仓（本仓只有 public/plugins 静态产物）。`shell:` 相对 repo
+# root 解析，指到框架壳后，gen 接缝与 dev 的 `pnpm --filter @innate/webshell`
+# （workspace glob 拉进来的框架壳包）落到**同一份壳**——否则 gen 写本仓
+# shells/webshell、vite 跑框架壳，接缝错位出现 "0 plugins"。
+# 框架壳 vite.config 的 linkedRoots 已放行本仓（server.fs.allow）。
+shell: ../../framework/innate-fe/shells/webshell
 
 profiles:
   # ── UC1 空壳 ───────────────────────────────────────────────
   empty:
     domains: []
     iframes: []
+
+  # ── 大满贯（默认）：全部项目一键启动 ────────────────────────
+  # 6 domain（壳内编译）+ 2 静态 iframe + 2 live iframe。
+  # `pnpm dev` 缺省即本 profile：live iframe（skel-lean-ui :4011 /
+  # admin-nextjs :4012）由 dev plan 按 plugin.json 的本机 iframeSrc
+  # 自动拉起 `pnpm --filter <id> dev`；静态 iframe 缺产物时自动
+  # prepare（跑各自 build）。要空壳调试接缝时显式 `pnpm dev empty`。
+  examples-all:
+    domains:
+      - id: admin-tanstack
+        from: examples/admin-tanstack
+      - id: order-admin
+        from: examples/order-admin
+      - id: making
+        from: examples/making
+      - id: awesome
+        from: examples/awesome
+      - id: sqlite-admin
+        from: examples/sqlite-admin
+      - id: edu-notes
+        from: examples/edu-notes
+    iframes:
+      - id: web-showcase
+        from: examples/web-showcase
+      - id: wandesk-ui
+        from: examples/wandesk-ui
+      - id: admin-nextjs
+        from: examples/admin-nextjs
+      - id: skel-lean-ui
+        from: examples/skel-lean-ui
 
   # ── UC2 集成 iframe app（轨道 B）────────────────────────────
   iframe-one:
