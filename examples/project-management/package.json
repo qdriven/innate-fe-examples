@@ -1,0 +1,47 @@
+{
+  "name": "@innate/domain-project-management",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./globals.css": "./src/globals.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint src",
+    "test": "vitest run",
+    "dev:standalone": "vite --config vite.standalone.config.ts",
+    "build:standalone": "vite build --config vite.standalone.config.ts",
+    "preview:standalone": "vite build --config vite.standalone.config.ts && vite preview --config vite.standalone.config.ts"
+  },
+  "dependencies": {
+    "@innate/ui": "workspace:*",
+    "@innate/web-domain": "workspace:*",
+    "@tanstack/react-router": "^1.132.0",
+    "lucide-react": "^0.577.0",
+    "sonner": "^2.0.7"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^5.0.4",
+    "jsdom": "^27.0.0",
+    "tailwindcss": "^4.0.6",
+    "vite": "^7.3.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.6"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "pluginOrder": 38
+}

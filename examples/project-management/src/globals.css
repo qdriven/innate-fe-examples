@@ -1,0 +1,9 @@
+@import "@innate/ui/globals.css";
+
+@custom-variant dark (&:is(.dark *));
+
+html,
+body,
+#root {
+  height: 100%;
+}

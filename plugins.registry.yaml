@@ -26,7 +26,7 @@ profiles:
     iframes: []
 
   # ── 大满贯（默认）：全部项目一键启动 ────────────────────────
-  # 6 domain（壳内编译）+ 2 静态 iframe + 2 live iframe。
+  # 7 domain（壳内编译）+ 2 静态 iframe + 2 live iframe。
   # `pnpm dev` 缺省即本 profile：live iframe（skel-lean-ui :4011 /
   # admin-nextjs :4012）由 dev plan 按 plugin.json 的本机 iframeSrc
   # 自动拉起 `pnpm --filter <id> dev`；静态 iframe 缺产物时自动
@@ -45,6 +45,8 @@ profiles:
         from: examples/sqlite-admin
       - id: edu-notes
         from: examples/edu-notes
+      - id: project-management
+        from: examples/project-management
     iframes:
       - id: web-showcase
         from: examples/web-showcase
@@ -121,6 +123,13 @@ profiles:
     domains:
       - id: edu-notes
         from: examples/edu-notes
+    iframes: []
+
+  # ── UC12 项目管理（project / issue / user 三实体 + 关系）────
+  pm:
+    domains:
+      - id: project-management
+        from: examples/project-management
     iframes: []
 
   examples:
