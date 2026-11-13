@@ -91,7 +91,7 @@ export function IssueDetailPage() {
   const statusBadge: Record<IssueStatus, string> = {
     todo: "bg-muted text-foreground",
     in_progress: "bg-primary/10 text-primary",
-    done: "bg-emerald-500/10 text-emerald-600",
+    done: "bg-success/10 text-success",
   }
 
   return (

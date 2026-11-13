@@ -14,7 +14,7 @@ import { findUserById } from "../../lib/users/mock-data"
 const STATUS_STYLES: Readonly<Record<IssueStatus, string>> = {
   todo: "bg-muted text-foreground",
   in_progress: "bg-primary/10 text-primary",
-  done: "bg-emerald-500/10 text-emerald-600",
+  done: "bg-success/10 text-success",
 }
 
 /** 任务列表：按项目筛选 + 状态徽标 + 三角色负责人摘要。 */
