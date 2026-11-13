@@ -13,7 +13,7 @@ const router = createStandaloneWebDomainRouter(webDomain, {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider>
+    <ThemeProvider defaultVariant="aihot">
       <RouterProvider router={router} />
     </ThemeProvider>
   </StrictMode>
