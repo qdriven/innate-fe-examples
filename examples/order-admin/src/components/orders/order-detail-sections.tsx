@@ -77,6 +77,8 @@ export function OrderDetailSections({ order }: { order: Order }) {
       title={title}
       description={`种类：${ORDER_CATEGORY_LABELS[order.category]}`}
       items={items}
+      collapsible={order.category === "framework"}
+      defaultCollapsed={order.category === "framework"}
     />
   )
 }

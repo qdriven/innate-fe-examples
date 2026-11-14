@@ -3,9 +3,8 @@
 import * as React from "react"
 import Link from "next/link"
 
-import { NavSpecificScenes } from "@/components/nav-specific-scenes"
-import { NavSecondary } from "@/components/nav-secondary"
-import { specificNavSections, secondaryNavItems } from "@/lib/spec-navigation"
+import { AppNavSpecificScenes } from "@/components/nav-specific-scenes"
+import { AppNavSecondary } from "@/components/nav-secondary"
 import { dashboardPath } from "@/lib/dashboard-path"
 import {
   Sidebar,
@@ -36,8 +35,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavSpecificScenes sections={specificNavSections} />
-        <NavSecondary items={secondaryNavItems} className="mt-auto" />
+        <AppNavSpecificScenes />
+        <AppNavSecondary className="mt-auto" />
       </SidebarContent>
     </Sidebar>
   )

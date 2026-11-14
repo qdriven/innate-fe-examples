@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 import { OrderDetailSections } from "../components/orders/order-detail-sections"
 import type { Order } from "../lib/orders/types"
@@ -102,6 +102,9 @@ describe("OrderDetailSections", () => {
     )
     expect(screen.getByText("协议额度")).toBeTruthy()
     expect(screen.getByText("种类：框架协议单")).toBeTruthy()
+    expect(screen.queryByText("协议号")).toBeNull()
+
+    fireEvent.click(screen.getByRole("button", { name: /协议额度/ }))
     expect(rowText("协议号")).toContain("HT-2026-Q4-018")
     expect(rowText("授信额度")).toContain("¥800000")
     expect(rowText("已用额度")).toContain("¥246000")
@@ -125,6 +128,7 @@ describe("OrderDetailSections", () => {
       />
     )
     expect(screen.getByText("协议额度")).toBeTruthy()
+    fireEvent.click(screen.getByRole("button", { name: /协议额度/ }))
     expect(screen.getAllByText("—")).toHaveLength(5)
   })
 

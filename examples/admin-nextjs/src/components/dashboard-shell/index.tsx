@@ -1,22 +1,26 @@
 "use client"
 
+import { Toaster } from "sonner"
+import { SpecPageShell } from "@innate/admin-composites/spec-page-shell"
 import { AppSidebar } from "@/components/app-sidebar"
-import { SiteHeader } from "@/components/site-header"
-import { SidebarProvider, SidebarInset } from "@innate/ui"
+import { AppSiteHeader } from "@/components/site-header"
 
 /**
- * 管理端共享壳：SidebarProvider + AppSidebar + SiteHeader + main。
- * 页面平铺在 src/app/<feature>/page.tsx 后，需要壳的页面在自身 page.tsx
- * 内用 <DashboardShell> 包裹（auth/api 等无壳页面不包裹）。
+ * 管理端共享壳：SpecPageShell（与 admin-tanstack 同一实现）+ 本 app 的
+ * sidebar/header 适配。需要壳的页面在 page.tsx 内用 <DashboardShell> 包裹。
  */
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarProvider>
-      <AppSidebar variant="inset" />
-      <SidebarInset>
-        <SiteHeader />
-        <main className="flex-1 p-4 lg:p-6">{children}</main>
-      </SidebarInset>
-    </SidebarProvider>
+    <>
+      <SpecPageShell
+        className="h-full min-h-0!"
+        contentWidth="wide"
+        sidebar={<AppSidebar variant="inset" />}
+        header={<AppSiteHeader />}
+      >
+        {children}
+      </SpecPageShell>
+      <Toaster position="top-center" />
+    </>
   )
 }

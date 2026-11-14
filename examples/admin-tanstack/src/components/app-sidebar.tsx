@@ -1,10 +1,9 @@
 import * as React from "react"
 import { Link } from "@tanstack/react-router"
 
-import { NavSpecificScenes } from "./nav-specific-scenes"
-import { NavSecondary } from "./nav-secondary"
+import { AppNavSpecificScenes } from "./nav-specific-scenes"
+import { AppNavSecondary } from "./nav-secondary"
 import { BASE_PATH } from "../lib/base-path"
-import { secondaryNavItems, specificNavSections } from "../lib/spec-navigation"
 import {
   Sidebar,
   SidebarContent,
@@ -13,6 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@innate/ui"
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -54,8 +54,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavSpecificScenes sections={specificNavSections} />
-        <NavSecondary items={secondaryNavItems} className="mt-auto" />
+        <AppNavSpecificScenes />
+        <AppNavSecondary className="mt-auto" />
       </SidebarContent>
     </Sidebar>
   )

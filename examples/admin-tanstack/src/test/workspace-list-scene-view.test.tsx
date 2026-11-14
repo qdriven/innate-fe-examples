@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 
-import { WorkspaceListSceneView } from "../components/scenes/workspace-list-scene-view"
+import { WorkspaceListSceneView } from "@innate/scene-catalog/scene-views"
 
 // WorkspaceListSceneView composes @innate/ui primitives and scene-blocks
 // without any router context, so it renders standalone.

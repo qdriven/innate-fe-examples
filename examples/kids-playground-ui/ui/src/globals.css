@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "@innate/ink/theme.css";
+@import "@innate/ink/ink.css";
+@import "@innate/ink/fonts.css";
+
+@source "../../node_modules/@innate/ink/src";
+
+@custom-variant dark (&:is(.dark *));
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.playground-desk {
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      color-mix(in srgb, var(--ll-lemon) 70%, transparent),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 82% 12%,
+      color-mix(in srgb, var(--ll-grass) 62%, transparent),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 72% 78%,
+      color-mix(in srgb, var(--ll-sky) 65%, transparent),
+      transparent 34%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ll-ink) 5%, transparent) 0 1px,
+      transparent 1px 34px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--ll-ink) 5%, transparent) 0 1px,
+      transparent 1px 34px
+    ),
+    var(--ll-desk);
+}
+
+.hand-tile {
+  transition:
+    translate 180ms ease-out,
+    rotate 180ms ease-out;
+}
+
+.hand-tile:hover {
+  translate: 0 -6px;
+  rotate: -1deg;
+}
+
+.hand-tile:active {
+  translate: 0 2px;
+  rotate: 1deg;
+}

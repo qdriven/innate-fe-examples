@@ -7,7 +7,7 @@ export function AwesomePage() {
   const categories = getAwesomeCategories()
   const items = getAllAwesomeItems()
   return (
-    <div className="space-y-8">
+    <div className="flex-1 space-y-8 overflow-auto p-6">
       <header>
         <h1 className="text-2xl font-semibold tracking-tight">Awesome</h1>
         <p className="text-muted-foreground mt-1 text-sm">

@@ -1,6 +1,7 @@
-import { SpecificSceneView } from "../../../components/scenes/specific-scene-view"
 import { Card, CardContent, CardHeader, CardTitle } from "@innate/ui"
 import { getSpecificSceneById } from "../../../lib/scene-catalog"
+import { SpecificScenePageBody } from "../../../components/specific-scene-page-body"
+import { SpecificSceneExample } from "../../../components/specific-scene-example"
 
 export function SpecificScenePage({ sceneId }: { sceneId: string }) {
   const scene = getSpecificSceneById(sceneId)
@@ -18,5 +19,10 @@ export function SpecificScenePage({ sceneId }: { sceneId: string }) {
     )
   }
 
-  return <SpecificSceneView scene={scene} />
+  return (
+    <SpecificScenePageBody
+      scene={scene}
+      example={<SpecificSceneExample scene={scene} />}
+    />
+  )
 }

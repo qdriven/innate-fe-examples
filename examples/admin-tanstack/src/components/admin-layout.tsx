@@ -3,7 +3,7 @@ import { Toaster } from "sonner"
 import { SpecPageShell } from "@innate/admin-composites/spec-page-shell"
 import { AppSidebar } from "./app-sidebar"
 import { FacilityScopeProvider } from "./facility-scope"
-import { SiteHeader } from "./site-header"
+import { AppSiteHeader } from "./site-header"
 
 /**
  * domain 内部壳：二级 sidebar + header。
@@ -22,7 +22,7 @@ export function AdminLayout() {
           className="h-full min-h-0!"
           contentWidth="wide"
           sidebar={<AppSidebar variant="inset" />}
-          header={<SiteHeader />}
+          header={<AppSiteHeader />}
         >
           <Outlet />
         </SpecPageShell>

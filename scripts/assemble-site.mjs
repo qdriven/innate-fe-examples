@@ -49,15 +49,18 @@ function findFramework() {
 const { cli, shell } = findFramework()
 const yamlPath = join(root, "plugins.registry.yaml")
 const onDiskYaml = readFileSync(yamlPath, "utf8")
-const shellKey = "shell: shells/webshell"
-const absoluteShellKey = `shell: ${shell}`
-const originalYaml = onDiskYaml.includes(absoluteShellKey)
-  ? onDiskYaml.replace(absoluteShellKey, shellKey)
-  : onDiskYaml
-if (!originalYaml.includes(shellKey)) {
-  console.error(`plugins.registry.yaml 里没有 \`${shellKey}\``)
+const shellLine = onDiskYaml.match(/^shell:.*$/m)
+if (!shellLine) {
+  console.error("plugins.registry.yaml 里没有 `shell:`")
   process.exit(1)
 }
+/**
+ * 运行期间把 `shell:` 指到框架壳的绝对路径（清单里可能是相对路径，
+ * 取决于本仓与框架仓的相对位置），结束时还原成原始清单。
+ */
+const shellArg = shell.replace(/\\/g, "/")
+const originalYaml = onDiskYaml
+const patchedYaml = onDiskYaml.replace(shellLine[0], `shell: ${shellArg}`)
 
 const genDir = join(shell, "src/gen")
 const genBackup = join(tmpdir(), `innate-fe-gen-${process.pid}`)
@@ -116,10 +119,7 @@ const buildEnv = wantPages
 
 let failed = false
 try {
-  writeFileSync(
-    yamlPath,
-    originalYaml.replace(shellKey, `shell: ${shell}`)
-  )
+  writeFileSync(yamlPath, patchedYaml)
 
   run(["gen", "--profile", "pages", "--refresh"], buildEnv)
   run(

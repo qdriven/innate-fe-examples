@@ -1,9 +1,14 @@
-import { PolicySettingsSceneView } from "../../components/scenes/policy-settings-scene-view"
+import { PatternScenePageBody } from "@innate/admin-composites/pattern-scene-page-body"
+import { PolicySettingsSceneView } from "@innate/scene-catalog/scene-views"
+import { getSceneDocument } from "../../lib/scene-documents"
 
 export function PolicySettingsPage() {
+  const document = getSceneDocument("policy-settings")
+
   return (
-    <>
-      <PolicySettingsSceneView />
-    </>
+    <PatternScenePageBody
+      specContent={document?.content}
+      example={<PolicySettingsSceneView />}
+    />
   )
 }

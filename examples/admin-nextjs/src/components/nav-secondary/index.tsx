@@ -1,53 +1,20 @@
 "use client"
 
-import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { NavSecondary } from "@innate/admin-composites/nav-secondary"
+import { secondaryNavItems } from "@/lib/spec-navigation"
 
-import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@innate/ui"
-import type { LucideIcon } from "lucide-react"
-
-export interface SidebarNavItem {
-  title: string
-  to: string
-  icon: LucideIcon
-  isActive?: boolean
-}
-
-export function NavSecondary({
-  items,
-  ...props
-}: {
-  items: SidebarNavItem[]
-} & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
-  if (items.length === 0) {
-    return null
-  }
+/** nextjs 路由适配：共享 NavSecondary + next/link。 */
+export function AppNavSecondary({ className }: { className?: string }) {
+  const pathname = usePathname()
 
   return (
-    <SidebarGroup {...props}>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                isActive={item.isActive}
-                render={
-                  <Link href={item.to}>
-                    <item.icon data-icon />
-                    <span>{item.title}</span>
-                  </Link>
-                }
-              />
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+    <NavSecondary
+      className={className}
+      items={secondaryNavItems}
+      pathname={pathname}
+      renderLink={(item) => <Link href={item.to} />}
+    />
   )
 }

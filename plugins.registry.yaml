@@ -26,7 +26,7 @@ profiles:
     iframes: []
 
   # ── 大满贯（默认）：全部项目一键启动 ────────────────────────
-  # 7 domain（壳内编译）+ 2 静态 iframe + 2 live iframe。
+  # 7 domain（壳内编译）+ 2 静态 iframe + 2 live iframe + kids playground。
   # `pnpm dev` 缺省即本 profile：live iframe（skel-lean-ui :4011 /
   # admin-nextjs :4012）由 dev plan 按 plugin.json 的本机 iframeSrc
   # 自动拉起 `pnpm --filter <id> dev`；静态 iframe 缺产物时自动
@@ -56,6 +56,8 @@ profiles:
         from: examples/admin-nextjs
       - id: skel-lean-ui
         from: examples/skel-lean-ui
+      - id: kids-playground-ui
+        from: examples/kids-playground-ui
 
   # ── UC2 集成 iframe app（轨道 B）────────────────────────────
   iframe-one:
@@ -71,6 +73,13 @@ profiles:
         from: examples/web-showcase
       - id: wandesk-ui
         from: examples/wandesk-ui
+
+  # ── 手绘儿童学习乐园（Wandesk 桌面交互 × ink 手绘视觉）────
+  kids:
+    domains: []
+    iframes:
+      - id: kids-playground-ui
+        from: examples/kids-playground-ui
 
   # ── UC3 集成 domain（轨道 A）────────────────────────────────
   domain-one:
@@ -158,6 +167,8 @@ profiles:
         from: examples/web-showcase
       - id: wandesk-ui
         from: examples/wandesk-ui
+      - id: kids-playground-ui
+        from: examples/kids-playground-ui
 
   sqlite-admin:
     domains:

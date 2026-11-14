@@ -10,7 +10,7 @@
     "gen": "bun run cli gen",
     "gen:check": "bun run cli gen --check",
     "verify-flags": "bun run cli verify-flags",
-    "dev": "bun run cli dev",
+    "dev": "bun run cli dev --profile examples-all",
     "prepare": "bun run cli prepare",
     "all": "bun scripts/assemble-site.mjs",
     "preview": "bun scripts/assemble-site.mjs preview",

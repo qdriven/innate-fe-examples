@@ -15,7 +15,7 @@ export function AwesomeCategoryPage() {
   const items = getAwesomeItemsByCategory(category)
   const categories = getAwesomeCategories()
   return (
-    <div className="space-y-6">
+    <div className="flex-1 space-y-6 overflow-auto p-6">
       <Link href="/" className="text-muted-foreground text-sm hover:underline">
         Back to Awesome
       </Link>

@@ -1,0 +1,57 @@
+{
+  "$comment": "admin-tanstack（domain 轨道 A）sceneId → 页面与实现 mapping。权威实现统一在 @innate/scene-catalog/scene-views。",
+  "app": "admin-tanstack",
+  "shell": "src/components/admin-layout.tsx",
+  "pageBody": "PatternScenePageBody | SpecificScenePageBody",
+  "patterns": {
+    "dashboard": {
+      "route": "/specific/dashboard",
+      "page": "src/pages/specific/dashboard/page.tsx",
+      "exampleImport": "@innate/scene-catalog/scene-views#DashboardSceneView",
+      "specSource": "packages/scene-specs/dashboard-scene-spec.md"
+    },
+    "workspace-list": {
+      "route": "/workspace-list",
+      "page": "src/pages/workspace-list/page.tsx",
+      "exampleImport": "@innate/scene-catalog/scene-views#WorkspaceListSceneView",
+      "specSource": "packages/scene-specs/workspace-list-scene-spec.md"
+    },
+    "record-detail": {
+      "route": "/record-detail",
+      "page": "src/pages/record-detail/page.tsx",
+      "exampleImport": "@innate/scene-catalog/scene-views#RecordDetailSceneView",
+      "specSource": "packages/scene-specs/record-detail-scene-spec.md"
+    },
+    "reporting-wizard": {
+      "route": "/reporting-wizard",
+      "page": "src/pages/reporting-wizard/page.tsx",
+      "exampleImport": "@innate/scene-catalog/scene-views#ReportingWizardSceneView",
+      "specSource": "packages/scene-specs/reporting-wizard-scene-spec.md"
+    },
+    "approval-review": {
+      "route": "/approval-review",
+      "page": "src/pages/approval-review/page.tsx",
+      "exampleImport": "@innate/scene-catalog/scene-views#ApprovalReviewSceneView",
+      "specSource": "packages/scene-specs/approval-review-scene-spec.md"
+    },
+    "integration-health": {
+      "route": "/integration-health",
+      "page": "src/pages/integration-health/page.tsx",
+      "exampleImport": "@innate/scene-catalog/scene-views#IntegrationHealthSceneView",
+      "specSource": "packages/scene-specs/integration-health-scene-spec.md"
+    },
+    "policy-settings": {
+      "route": "/policy-settings",
+      "page": "src/pages/policy-settings/page.tsx",
+      "exampleImport": "@innate/scene-catalog/scene-views#PolicySettingsSceneView",
+      "specSource": "packages/scene-specs/policy-settings-scene-spec.md"
+    }
+  },
+  "specific": {
+    "routePattern": "/specific/:sceneId",
+    "page": "src/pages/specific/[sceneId]/page.tsx",
+    "pageBody": "src/components/specific-scene-page-body.tsx",
+    "example": "src/components/specific-scene-example.tsx",
+    "exampleDispatch": "primaryPatternId → @innate/scene-catalog/scene-views"
+  }
+}
