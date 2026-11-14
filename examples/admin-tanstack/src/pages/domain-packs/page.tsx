@@ -10,9 +10,9 @@ import {
 const domainPacks = [
   {
     name: "Carbon Management Pack",
-    status: "Active",
+    status: "Planned",
     description:
-      "覆盖产品碳足迹、组织碳盘查、ESG/CBAM、碳资产、减排方案与 SBTi 目标管理。",
+      "覆盖产品碳足迹、组织碳盘查、ESG/CBAM、碳资产、减排方案与 SBTi 目标管理。（场景构思已归档 docs/todo-scene-ideas.md）",
   },
   {
     name: "ERP Operations Pack",

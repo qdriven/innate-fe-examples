@@ -20,7 +20,7 @@ describe("WorkspaceListSceneView", () => {
 
     expect(screen.getByText("记录列表")).toBeTruthy()
     expect(screen.getByText("负责人")).toBeTruthy()
-    expect(screen.getByText("华东工厂能耗台账")).toBeTruthy()
+    expect(screen.getByText("华东工厂设备巡检台账")).toBeTruthy()
     expect(screen.getByText("王晨")).toBeTruthy()
   })
 })

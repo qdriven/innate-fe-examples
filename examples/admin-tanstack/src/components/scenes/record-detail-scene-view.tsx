@@ -16,10 +16,10 @@ export function RecordDetailSceneView() {
           title="记录摘要"
           description="详情页第一屏优先回答“这是什么、当前处于什么状态、是否需要动作”。"
           items={[
-            { label: "记录名称", value: "华东制造中心 2026-02 月能耗记录" },
+            { label: "记录名称", value: "华东制造中心 2026-02 月度运维记录" },
             { label: "当前状态", value: "审计只读期" },
             { label: "归属设施", value: "华东制造中心" },
-            { label: "数据边界", value: "电力 / 天然气 / 蒸汽" },
+            { label: "数据边界", value: "核心系统 / 周边系统 / 手工台账" },
           ]}
         />
         <InfoListCard
