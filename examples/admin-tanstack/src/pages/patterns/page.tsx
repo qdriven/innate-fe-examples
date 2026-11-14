@@ -8,7 +8,7 @@ import {
 } from "@innate/ui"
 
 const patternItems = [
-  "pattern-scope-switcher-facility",
+  "pattern-scope-switcher-org-unit",
   "pattern-scope-refinement",
   "pattern-filterbar",
   "pattern-kpi-cards",

@@ -41,7 +41,7 @@ export function ReportingWizardSceneView() {
           </CardHeader>
           <CardContent className="space-y-3">
             <Input defaultValue="2026 Q1 组织数据填报" />
-            <Input defaultValue="华东运营中心 + 华南运营中心" />
+            <Input defaultValue="组织单元 A + 组织单元 B" />
             <Input defaultValue="采购、物流、仓储、渠道分销" />
             <div className="flex items-center justify-end gap-2">
               <Button variant="outline">保存草稿</Button>

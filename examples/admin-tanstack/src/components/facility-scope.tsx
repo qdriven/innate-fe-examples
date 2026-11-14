@@ -12,10 +12,10 @@ interface FacilityScopeContextValue {
 }
 
 const defaultFacilities: Array<FacilityOption> = [
-  { value: "all-facilities", label: "全部设施" },
-  { value: "east-campus", label: "华东制造中心" },
-  { value: "south-campus", label: "华南制造中心" },
-  { value: "north-campus", label: "华北物流中心" },
+  { value: "all-facilities", label: "全部组织单元" },
+  { value: "unit-a", label: "组织单元 A" },
+  { value: "unit-b", label: "组织单元 B" },
+  { value: "unit-c", label: "组织单元 C" },
 ]
 
 const FacilityScopeContext =

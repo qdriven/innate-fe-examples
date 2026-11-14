@@ -9,8 +9,8 @@ import {
 
 const coreCapabilities = [
   {
-    title: "Global Scope（组织 -> 设施）",
-    description: "全局范围固定到设施，页面内允许局部细化，不改变全局上下文。",
+    title: "Global Scope（组织 -> 组织单元）",
+    description: "全局范围固定到组织单元，页面内允许局部细化，不改变全局上下文。",
     tag: "Scope",
   },
   {
