@@ -4,12 +4,31 @@
 
 框架检出放在 `../../base/innate-fe` 或 `../../framework/innate-fe`。
 
+> **Agent / 开发约定**：任务默认启动 **全部示例**（profile = `examples-all`），见 [AGENTS.md](./AGENTS.md)。
+
 ```bash
 pnpm install
 pnpm all
 ```
 
 产物在 `deploy/`。本地查看：`pnpm preview` → http://127.0.0.1:4173
+
+## 本地启动全部项目（默认）
+
+日常开发与验收用 **examples-all**（也是 `defaultProfile`）：
+
+```bash
+pnpm dev    # = bun run cli dev --profile examples-all
+```
+
+会同时拉起：
+
+- **壳** webshell → http://localhost:4020  
+- **live iframe**：admin-nextjs → :4012 · skel-lean-ui → :4011  
+- **domain ×7**（admin-tanstack / order-admin / making / awesome / sqlite-admin / edu-notes / project-management）编译进壳  
+- **静态 iframe**（web-showcase / wandesk-ui / kids-playground-ui）缺产物时自动 prepare  
+
+不要用 `empty` 或单插件 profile 做常规验收，除非任务明确只要空壳。端口占用、prepare、自检命令见 [AGENTS.md](./AGENTS.md)。
 
 打进这个包的是 `admin-tanstack`、`order-admin`、`making`、`awesome`，以及同源 iframe `web-showcase`、`wandesk-ui`。`admin-nextjs`、`skel-lean-ui`、`sqlite-admin` 需要服务端，不在这个包里。
 

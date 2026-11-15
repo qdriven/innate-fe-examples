@@ -52,6 +52,6 @@
     "page": "src/app/specific/[sceneId]/page.tsx",
     "pageBody": "src/components/specific-scene-page-body.tsx",
     "example": "src/components/specific-scene-example.tsx",
-    "exampleDispatch": "primaryPatternId → @innate/scene-catalog/scene-views"
+    "exampleDispatch": "scene.id 专用 Demo 优先（notification-center → NotificationCenterSceneView），否则 primaryPatternId → @innate/scene-catalog/scene-views"
   }
 }

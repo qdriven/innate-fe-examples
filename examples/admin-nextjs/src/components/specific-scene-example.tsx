@@ -3,6 +3,7 @@ import {
   ApprovalReviewSceneView,
   DashboardSceneView,
   IntegrationHealthSceneView,
+  NotificationCenterSceneView,
   PolicySettingsSceneView,
   RecordDetailSceneView,
   ReportingWizardSceneView,
@@ -12,10 +13,14 @@ import { SceneIntro } from "@/components/scene-blocks"
 import { Card, CardContent } from "@innate/ui"
 
 /**
- * 按 primaryPatternId 复用基准 Pattern 实现（一规范一实现）。
+ * 场景级专用 Demo 按 scene.id 优先派发；
+ * 其余按 primaryPatternId 复用基准 Pattern 实现（一规范一实现）。
  * 无 pattern 的场景给参考态骨架。
  */
 export function SpecificSceneExample({ scene }: { scene: SpecificSceneSample }) {
+  if (scene.id === "notification-center") {
+    return <NotificationCenterSceneView />
+  }
   if (!scene.primaryPatternId) {
     return (
       <Card>
