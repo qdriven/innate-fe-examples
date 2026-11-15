@@ -58,6 +58,8 @@ profiles:
         from: examples/skel-lean-ui
       - id: kids-playground-ui
         from: examples/kids-playground-ui
+        # 缺省 pnpm --filter 以框架仓为 workspace 根，找不到本包——必须在插件目录 build
+        buildCommand: pnpm build
 
   # ── UC2 集成 iframe app（轨道 B）────────────────────────────
   iframe-one:
@@ -80,6 +82,8 @@ profiles:
     iframes:
       - id: kids-playground-ui
         from: examples/kids-playground-ui
+        # 缺省 pnpm --filter 以框架仓为 workspace 根，找不到本包——必须在插件目录 build
+        buildCommand: pnpm build
 
   # ── UC3 集成 domain（轨道 A）────────────────────────────────
   domain-one:
@@ -169,6 +173,8 @@ profiles:
         from: examples/wandesk-ui
       - id: kids-playground-ui
         from: examples/kids-playground-ui
+        # 缺省 pnpm --filter 以框架仓为 workspace 根，找不到本包——必须在插件目录 build
+        buildCommand: pnpm build
 
   sqlite-admin:
     domains:
