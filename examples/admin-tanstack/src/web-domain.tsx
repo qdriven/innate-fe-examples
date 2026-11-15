@@ -13,7 +13,6 @@ import { BASE_PATH, DOMAIN_ID } from "./lib/base-path"
 import { ApprovalReviewPage } from "./pages/approval-review/page"
 import { CorePage } from "./pages/core/page"
 import { SceneDocPage } from "./pages/docs/[sceneId]/page"
-import { DomainPacksPage } from "./pages/domain-packs/page"
 import { GovernancePage } from "./pages/governance/page"
 import { HelpPage } from "./pages/help/page"
 import { IntegrationHealthPage } from "./pages/integration-health/page"
@@ -114,7 +113,8 @@ export const webDomain = createWebDomain(DOMAIN_ID)
       pageRoute(layout, `${BASE_PATH}/core`, CorePage),
       pageRoute(layout, `${BASE_PATH}/patterns`, PatternsPage),
       pageRoute(layout, `${BASE_PATH}/settings`, SettingsPage),
-      pageRoute(layout, `${BASE_PATH}/domain-packs`, DomainPacksPage),
+      // Domain Packs 暂不开放：页面实现保留在 pages/domain-packs/page.tsx，
+      // 需要时恢复本页路由即可（导航入口由 @innate/scene-catalog 统一维护）。
       pageRoute(layout, `${BASE_PATH}/governance`, GovernancePage),
       pageRoute(layout, `${BASE_PATH}/help`, HelpPage),
       pageRoute(layout, `${BASE_PATH}/workspace-list`, WorkspaceListPage),

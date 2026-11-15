@@ -21,4 +21,6 @@ pnpm --filter @innate/domain-admin-tanstack dev:standalone
 
 ## 路由（均带 `/admin-tanstack` 前缀）
 
-`/admin-tanstack` 重定向到 `/scenes`。其余：`/scenes`、`/core`、`/patterns`、`/settings`、`/dashboard`（重定向 `/specific/dashboard`）、`/docs/$sceneId`、`/domain-packs`、`/governance`、`/help`、`/specific/dashboard`、`/specific/$sceneId`、`/workspace-list`、`/record-detail`、`/reporting-wizard`、`/approval-review`、`/integration-health`、`/policy-settings`。
+`/admin-tanstack` 重定向到 `/scenes`。其余：`/scenes`、`/core`、`/patterns`、`/settings`、`/dashboard`（重定向 `/specific/dashboard`）、`/docs/$sceneId`、`/governance`、`/help`、`/specific/dashboard`、`/specific/$sceneId`、`/workspace-list`、`/record-detail`、`/reporting-wizard`、`/approval-review`、`/integration-health`、`/policy-settings`。
+
+> Domain Packs 页暂不开放：实现保留在 `src/pages/domain-packs/page.tsx`，路由与侧栏入口均已摘除，待需要时恢复。
